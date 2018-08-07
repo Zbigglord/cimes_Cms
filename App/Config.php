@@ -9,8 +9,8 @@ namespace App;
 
 
 class Config {
-    const DB_HOST = 'localhost';
-    const DB_NAME = 'cimes_20122017';
-    const DB_USER = 'cimes_cms';
-    const DB_PASSWORD = 'aOb7i53?';
+    const DB_HOST = '';
+    const DB_NAME = '';
+    const DB_USER = '';
+    const DB_PASSWORD = '';
 }
