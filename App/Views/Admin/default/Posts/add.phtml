@@ -1,0 +1,68 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo AMENU_ADD_ARTICLE; ?></div>
+
+<form class="admin-form form-big" id="add_post_form" name="add_post_form" role="form" method="post" action="/admin/posts/add" enctype="multipart/form-data">
+ <div class="row margin-bottom">
+  <div class="col-lg-3">
+   <div class="input-group">
+    <input type="file" id="post_image_add" name="post_image_add" />
+   </div>
+   <div class="thumbnail-placeholder">
+    <div class="thumbnail-placeholder-label"><?php echo ATXT_SELECT_IMAGE; ?></div>
+   </div>
+  </div>
+  <div class="col-lg-9 ">
+    <div class="row  margin-bottom">
+     <div class="col-lg-6">
+      <div class="form-group no-margin">
+       <label for="add_post_name" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>">  * <?php echo POST_POST_TITLE; ?>  </label>
+       <input type="text" class="form-control " id="add_post_name" name="add_post_name"  placeholder=""/>
+      </div>
+     </div>
+     <div class="col-lg-6">
+      <div class="form-group no-margin">
+      <p class="no-margin"> <label for="post_set_cat_type" id="post_set_cat_type" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>"> * <?php echo POST_CATEGORY_SELECT; ?></label></p>
+        <select class="selectpicker" id="post_set_cat_type" name="post_set_cat_type" data-live-search="true" data-live-search-placeholder="<?php echo AMENU_SEARCH; ?>" data-show-tick="true">
+         <option data-subtext="" value="none" data-tokens=""> <?php echo AMENU_PICK_ONE; ?> </option>
+         <?php if(isset($clist)): ?>
+         <?php \App\Models\Admin\Category::recursivePrint($clist); ?>
+          <?php endif; ?>
+        </select>
+      </div>
+     </div>
+    </div>
+   <div class="row">
+    <div class="col-lg-6">
+     <div class="form-group no-margin">
+      <label for="add_post_seo" > <?php echo POST_POST_SEO; ?>  </label>
+      <input type="text" class="form-control " id="add_post_seo" name="add_post_seo"  placeholder=""/>
+     </div>
+    </div>
+    <div class="col-lg-6">
+     <div class="form-group no-margin">
+      <label for="add_post_metakeys" > <?php echo POST_POST_METAKEYS; ?>  </label>
+      <input type="text" class="form-control " id="add_post_metakeys" name="add_post_metakeys"  placeholder=""/>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div class="row margin-bottom">
+  <div class="col-lg-12">
+   <div class="form-group no-margin">
+    <textarea class="form-control textarea-table" placeholder="<?php echo AMENU_ADD_CLASS_METADESCRIPTION; ?>" rows="2" id="add_post_metadescription" name="add_post_metadescription"></textarea>
+   </div>
+  </div>
+ </div>
+ <div class="row margin-bottom">
+  <div class="col-lg-12">
+   <div class="form-group no-margin">
+    <label for="add_post_description" > <?php echo POST_POST_DESCRIPTION; ?>  </label>
+    <textarea class="form-control textarea-table tinymce-container" placeholder="" rows="8" id="add_post_description" name="add_post_description"></textarea>
+   </div>
+  </div>
+ </div>
+ <div class="row">
+  <div class="col-lg-12"><button type="submit" class="btn btn-default full-width" id="add_post" name="add_post"><?php echo POST_POST_SAVE; ?></div>
+ </div>
+</form>

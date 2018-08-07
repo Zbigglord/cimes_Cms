@@ -1,0 +1,19 @@
+<?php
+/**
+ * Creator: BabooJaga
+ * Date: 2016-04-17
+ * Time: 10:01
+ */
+?>
+<div class="content-page-holder">
+    <div class="content-wrapper">
+        <div class="message-frontend"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+        <?php if(isset($list)): ?>
+
+         <pre>
+             <?php print_r($list); ?>
+         </pre>
+
+        <?php endif; ?>
+        </div>
+</div>

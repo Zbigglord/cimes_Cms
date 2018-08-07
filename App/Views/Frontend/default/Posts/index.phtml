@@ -1,0 +1,12 @@
+<div><h1>cimesCMS POSTY</h1></div>
+<?php foreach ($posts as $post) {
+    echo '<div style="margin: 20px 0; border-bottom: 1px solid silver;">';
+    echo 'post nr.'.$post['id'].'<br>';
+    echo 'nr kategorii: '.$post['post_category'].'<br>';
+    echo '<h2>'.$post['post_title'].'</h2>';
+    echo 'treść: '.$post['post_content'].'<br>';
+    echo 'autor: '.$post['post_author'].'<br>';
+    echo 'dodano: '.$post['post_created'].'<br>';
+    echo '</div>';
+}
+?>

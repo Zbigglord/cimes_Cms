@@ -1,0 +1,91 @@
+<?php
+/**
+ * Creator: BabooJaga
+ * Date: 2016-04-17
+ * Time: 10:01
+ */
+$gallery_name = '';
+$gallery_category = '';
+$one_page_items = array();
+if(isset($items) && !empty($items)){
+    $gallery_name = $items[0]['image_gallery_name'];
+    $gallery_category = \App\Models\Category::getCategoryName($items[0]['image_gallery_category_id']);
+    $gallery_metaname = \App\Models\Admin\Menu::getCategorySeoLink($items[0]['image_gallery_category_id']);
+}
+//PAGINATION
+isset($_GET['limit']) ? $limit = $_GET['limit'] : $limit = 8;
+isset($_GET['page']) ? $offset = $_GET['page'] : $offset = 0;
+isset($_GET['layout']) ? $layout = $_GET['layout'] : $layout = 'list';
+$pages = \App\Models\Admin\Pagination::preparePages($items, $limit);
+$next_page = \App\Models\Admin\Pagination::prepareNexPage($offset, $limit);
+$salons_current_page = \App\Models\Admin\Pagination::splitPages($items,$next_page, $limit);
+$clean_url = \App\Models\Admin\Pagination::cleanUrl($_SERVER['REQUEST_URI']);
+$select_url = \App\Models\Admin\Pagination::prepareAddressForSelect($clean_url,$offset);
+?>
+<div class="content-page-holder">
+    <div class="content-wrapper">
+        <div class="message-frontend"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+    </div>
+        <?php if(isset($items) && !empty($items)): ?>
+    <div class="row no-margin">
+        <div class="col-ld-12 pull-right with-padding-top">
+                <label for="paginator_limit">limit na stronę: </label>
+                <select id="paginator_limit" name="paginator_limit">
+                    <option value="<?=$select_url.'4' ?>" <?php if($limit == 4): ?> selected <?php endif; ?>>4</option>
+                    <option value="<?=$select_url.'8' ?>" <?php if($limit == 8): ?> selected <?php endif; ?>>8</option>
+                    <option value="<?=$select_url.'12' ?>" <?php if($limit == 12): ?> selected <?php endif; ?>>12</option>
+                    <option value="<?=$select_url.'16' ?>" <?php if($limit == 16): ?> selected <?php endif; ?>>16</option>
+                    <option value="<?=$select_url.'32' ?>" <?php if($limit == 32): ?> selected <?php endif; ?>>32</option>
+                    <option value="<?=$select_url.'50' ?>" <?php if($limit == 50): ?> selected <?php endif; ?>>50</option>
+                </select>
+        </div>
+    </div>
+            <div class="row no-margin">
+                <div class="col-ld-12">
+                    <div class="gallery-header-holder"><h1 class="gallery-header"><span class="span-green">Galeria: </span><?= $gallery_name; ?><span class="pull-right"><span class="span-green">Kategoria: </span><?= $gallery_category[0]; ?></h1></div>
+                </div>
+            </div>
+            <?php $iterator = 0;?>
+            <div class="row no-margin">
+            <?php foreach($salons_current_page as $item): ?>
+                <?php
+                $img_dir = ROOT_DIR.$item['image_path'];
+                $filename = end(explode('/',$item['image_path']));
+                $new_dir = TEMP_DIR.$filename;
+                if(file_exists($new_dir)){
+
+                }else{
+                    $new = \Core\Filesystem::createNewImage($img_dir);
+                    \Core\Filesystem::cropToThumbnail($new,$filename,'center',400,300);
+                }
+                ?>
+                <div class="col-lg-3">
+                    <a href="<?= $item['image_path'];?>" rel="fancybox" class="subcategory-table-link">
+                        <div class="sub-list-holder">
+                            <h1 class="gallery-item-name"><?= $item['image_title'];?></h1>
+                            <img class="img-responsive gallery-item-image" src="/session/temp/<?= $filename;?>" alt="<?= $item['image_alt'];?>" title="<?= $item['image_title'];?>"/>
+                            <p class="gallery-item-description"><?= $item['image_description'];?></p>
+                        </div>
+                    </a>
+                </div>
+                <?php $iterator++; ?>
+                <?php if($iterator >= 4): ?>
+                    </div>
+                    <?php $iterator = 0; ?>
+                    <div class="row no-margin">
+                <?php endif; ?>
+            <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    <div class="pager">
+        <ul class="paginator">
+            <?php if($pages > 1): ?>
+                <?php for($i = 1; $i <= $pages; $i++ ): ?>
+                    <li><a class="<?php if($offset == $i-1): ?>active-pager<?php endif;?>" href="<?= $clean_url; ?>?page=<?= $i-1; ?>&limit=<?= $limit; ?>"> <?= $i; ?> </a></li>
+                <?php endfor; ?>
+            <?php endif; ?>
+        </ul>
+    </div>
+    <div class="back-linker"><a class="back-linker-a pull-right" href="/singlecategory/<?=$items[0]['image_gallery_category_id'];?>/<?= $gallery_metaname; ?>"><< Wróć do kategorii</a></div>
+    </div>
+</div>

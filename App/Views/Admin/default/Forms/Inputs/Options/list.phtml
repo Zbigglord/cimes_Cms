@@ -1,0 +1,77 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2018-02-08
+ * Time: 11:08
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= ATXT_FORMS_INPUT_SELECT_OPTIONS; ?>: <?php if(isset($select)): ?> <span class="span-green"><?=$select[0]['input_name'] ?> </span> <?php endif; ?></div>
+
+<?php if(isset($select) && !empty($select)): ?>
+
+        <div class="row no-margin">
+            <div class="col-lg-6 no-padding">
+            </div>
+            <div class="col-lg-6 no-padding">
+                <div id="pick-select-option-action" class="pull-right">
+                    <label for="select-option-action">
+                        <select class="selectpicker" id="select-option-action" name="select-option-action" data-live-search="false" data-show-tick="true">
+                            <option data-subtext="" value="0" data-tokens=""><?= AMENU_ACTION; ?></option>
+                            <option data-subtext="opcję" value="delete" data-tokens=""><?= TEXT_DELETE; ?></option>
+                            <option data-subtext="opcję" value="edit" data-tokens=""><?= TEXT_EDIT; ?></option>
+                            <option data-subtext="opcję" value="add" data-tokens=""><?= AMENU_ADD; ?></option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <table class="table table-responsive table-hover table-galleries">
+            <thead style="background-color: #F5F5F5;">
+            <tr>
+                <th width="1%" class="cell-bordered-right"><span class="check-all">#</span></th>
+                <th class="cell-bordered-right"><?= ATXT_FORMS_SELECT_ID; ?></th>
+                <th class="cell-bordered-right"><?= ATXT_FORMS_SELECT_OPTION_VALUE; ?></th>
+                <th class="cell-bordered-right"><?= ATXT_FORMS_SELECT_OPTION_TEXT; ?></th>
+                <th class="cell-bordered-right"><?= ATXT_FORMS_SELECT_OPTION_DATA_SUBTEXT;?></th>
+                <th class=""><?=ATXT_FORMS_SELECT_OPTION_DATA_TOKENS; ?></th>
+            </tr>
+            </thead>
+            <tbody class="gallery-table-body">
+            <form id="form-select-options-action" name="form-select-options-action" action="" method="POST">
+                <input type = "hidden" id="select_id" name="select_id" value="<?= $select[0]['input_id']; ?>" />
+                <?php if($select['has_options'] == 0):?>
+                    <tr>
+                        <td colspan="6">
+                            <div class="has-no-options"><?= ATXT_FORMS_SELECT_NO_OPTIONS; ?></div>
+                        </td>
+                    </tr>
+                <?php else: ?>
+                <?php foreach($select['options'] as $option): ?>
+                    <tr>
+                        <td scope="row" class="cell-bordered-right"><input type="checkbox" class="checkbox-inputs" id="option_<?= $select[0]['input_id']; ?>_<?= $option['option_id']; ?>" name="option_<?= $select[0]['input_id']; ?>_<?= $option['option_id']; ?>" value="<?= $option['option_id']; ?>"/></td>
+                        <td class="cell-bordered-right"><?= $select[0]['input_id']; ?></td>
+                        <td class="cell-bordered-right"><?= $option['option_value']; ?></td>
+                        <td class="cell-bordered-right"><?= $option['option_text'];?></td>
+                        <td class="cell-bordered-right"><?= $option['option_data_subtext'];?></td>
+                        <td class=""><?= $option['option_data_tokens'];?></td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </form>
+            </tbody>
+        </table>
+    <div class="row no-margin">
+        <div class="col-lg-12">
+            <button type="button" id="send-new-form-cancel" class="btn btn-default pull-right" style="margin-left: 10px;" onclick="cancel('/admin/forms/cancelFormInputs?data=<?= $select[0]['input_form_id']; ?>');"><?= BTN_BACK; ?></button>
+        </div>
+    </div>
+    <div id="confirm-delete-options">
+        <input type = "hidden" id="delete-option-confirmation" value="<?= ATXT_FORMS_SELECT_OPTION_DELETE_CONFIRM; ?>" />
+        <input type = "hidden" id="btn-continue" value="<?= ABTN_CONTINUE; ?>" />
+        <input type = "hidden" id="btn-cancel" value="<?= ABTN_CANCEL; ?>" />
+        <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span><?= ATXT_FORMS_SELECT_OPTION_DELETE_CONFIRM_TXT; ?>? </p>
+    </div>
+
+<?php endif; ?>

@@ -1,0 +1,27 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= ATXT_CATEGORIES_VIEW_CONFIG; ?></div>
+
+<?php if(isset($views) && !empty($views)): ?>
+
+<form class="admin-form form-big" id="admin_owner_config" name="admin_owner_config" role="form" method="post" action="/admin/templates/saveview">
+    <div class="row no-margin">
+        <?php foreach($views as $view): ?>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <?php $type_name = \App\Models\Admin\Category::getCategoryTypeName($view['type_id']); ?>
+                <label for="<?= $view['type_name']?>"><?= $type_name; ?>
+                    <select class="selectpicker" id="<?= $view['type_name']?>" name="<?= $view['type_name']?>"  data-live-search="false" data-live-search-placeholder="<?= AMENU_SEARCH; ?>" data-show-tick="true">
+                            <option data-subtext="" value="1" <?php if($view['type_view'] == 'grid'): ?>selected<?php endif; ?>><?= ATXT_GRID; ?></option>
+                            <option data-subtext="" value="2" <?php if($view['type_view'] == 'list'): ?>selected<?php endif; ?>><?= ATXT_LIST; ?></option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <div class="row">
+        <div class="col-lg-12"><button type="submit" class="btn btn-default" id="catviews-admin"><?php echo AMENU_SAVE; ?></div>
+    </div>
+</form>
+
+<?php endif; ?>

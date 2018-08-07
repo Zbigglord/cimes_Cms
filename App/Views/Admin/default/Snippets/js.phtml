@@ -1,0 +1,101 @@
+
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= ATXT_SNIPPETS; ?></div>
+
+<?php if(isset($sniplist) && $sniplist != FALSE): ?>
+<div class="row second-row" style="border-left: 1px solid silver;"><!-- CATEGORY LIST header -->
+ <div class="col-lg-1 table-cell table-header">
+  #
+ </div>
+ <div class="col-lg-1 table-cell table-header">
+  <?= SNIP_TYPE; ?>
+ </div>
+ <div class="col-lg-1 table-cell table-header">
+  <?= SNIP_NAME; ?>
+ </div>
+ <div class="col-lg-2 table-cell table-header">
+  <?= SNIP_FILE; ?>
+ </div>
+ <div class="col-lg-2 table-cell table-header">
+  <?= POST_POST_ADDED; ?>
+ </div>
+ <div class="col-lg-2 table-cell table-header">
+  <?= POST_POST_EDITED; ?>
+ </div>
+ <div class="col-lg-2 table-cell table-header">
+  <?= POST_POST_AUTHOR; ?>
+ </div>
+ <div class="col-lg-1 table-cell table-header">
+  <?= AMENU_ACTION; ?>
+ </div>
+</div><!-- END DANE header -->
+
+
+<?php $i = 1; foreach($sniplist as $snip): ?>
+
+<?php if($i % 2 == 0): ?>
+<div class="row second-row" style="border-left: 1px solid silver;">
+ <?php else: ?>
+ <div class="row" style="border-left: 1px solid silver;">
+<?php endif; ?>
+
+  <div class="col-lg-1 table-cell">
+   <?= $snip['id']; ?>
+  </div>
+  <div class="col-lg-1 table-cell">
+   <?= $snip['snippet_type']; ?>
+  </div>
+  <div class="col-lg-1 table-cell">
+   <strong><?= $snip['snippet_name']; ?></strong>
+  </div>
+  <div class="col-lg-2 table-cell-left">
+   <?= $snip['snippet_link']; ?>
+  </div>
+  <div class="col-lg-2 table-cell">
+   <?= $snip['date_added']; ?>
+  </div>
+  <div class="col-lg-2 table-cell">
+   <?= $snip['date_edited']; ?>
+  </div>
+  <div class="col-lg-2 table-cell">
+   <?= $snip["snippet_author"]; ?>
+  </div>
+
+  <div class="col-lg-1 table-cell">
+   <form name="snip-edit-form" role="form" action="edit" method="post" id="snip-edit-form">
+    <input type="hidden" name="snip_edit_id" value="<?= $snip['id']; ?>" />
+    <div class="button-group"><button type="submit" class="btn-post-edit"><?= AMENU_EDIT; ?></button></div>
+   </form>
+
+   <form name="snip-delete-form" role="form" action="delete" method="post" id="snip-delete-form_<?= $snip['id'];?>">
+    <input type="hidden" name="snip_delete_id" value="<?= $snip['id']; ?>" />
+    <div class="button-group"><button type="submit" class="btn-post-delete" id="btn-delete_<?= $snip['id']; ?>"><?= AMENU_DELETE; ?></button></div>
+   </form>
+
+  </div>
+ </div>
+ <?php $i++; ?>
+ <?php endforeach; ?>
+
+ <?php else: ?>
+
+ <form class="admin-form form-big" id="add_snip_form" name="add_snip_form" role="form" method="post" action="/admin/snippets/add">
+
+  <div class="row margin-bottom">
+   <div class="col-lg-3">
+     <input type="hidden" id="snip_type" name="snip_type" value="js"/>
+   </div>
+   <div class="col-lg-9"><button type="submit" class="btn btn-default btn-right" id="add_snip" name="add_snip"><?= ATXT_SNIPPETS_ADD; ?></div>
+ </div>
+
+ </form>
+
+ <?php endif; ?>
+
+ <div id="confirm-delete-snippet">
+  <input type = "hidden" id="delete-snippet-confirmation" value="<?= POST_DELETE_CONFIRM; ?>" />
+  <input type = "hidden" id="btn-continue" value="<?= ABTN_CONTINUE; ?>" />
+  <input type = "hidden" id="btn-cancel" value="<?= ABTN_CANCEL; ?>" />
+  <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span><?= POST_WILL_BE_DELETED. ATXT_CONTINUE_ASK; ?>? </p>
+ </div>
+

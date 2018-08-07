@@ -1,0 +1,120 @@
+<?php
+/**
+ * Created by Zbigglord
+ * FOR cimesCMS
+ * Date: 2016-07-16
+ * File: edit.phtml
+*/
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo AMENU_EDIT_CATEGORY; ?></div>
+    <?php $type_list = \App\Models\Admin\Category::getType(); ?>
+<?php if(isset($category_data)): ?>
+    <form class="admin-form form-big" id="admin_edit_category" name="admin_edit_category" role="form" method="post" action="" enctype="multipart/form-data">
+        <input type="hidden" name="admin_edit_category_id" id="admin_edit_category_id" value="<?php echo $category_data['id']; ?>" />
+        <div class="category-wrapper">
+            <div class="row second-row">
+                <div class="col-lg-12 table-cell table-header">
+                    <?php echo AMENU_CATEGORY_BASIC; ?>
+                </div>
+            </div>
+            <div class="row second-row margin-top">
+                <div class="col-lg-3 table-header align-left">
+                    <?php $t = \App\Models\Admin\Category::getCategoryTypeName($category_data['type']); ?>
+                    <strong><?php echo AMENU_CATEGORY_TYPE.': <span class="color_brzwy">'.$t.'</span>'; ?></strong>
+                </div>
+                <div class="col-lg-9 table-cell table-header align-left">
+                    <?php $pn = \App\Models\Admin\Category::getCategoryParentName($category_data['parent_id']);?>
+                    <strong><?php echo AMENU_CATEGORY_PARENT.': <span class="color_brzwy">'.$pn[0].'</span>'; ?></strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 table-cell">
+                    <div class="input-group">
+                        <input type="file" id="category_image_edit" name="category_image_edit" />
+                    </div>
+                    <div class="thumbnail-placeholder">
+                        <?php if(isset($category_data['image']) && ($category_data['image'] != '')): ?>
+                         <img class="img-responsive" src="<?php echo $category_data['image']; ?>"/>
+                            <div class="thumbnail-placeholder-label"><?php echo ATXT_CHANGE_IMAGE; ?></div>
+                        <?php else: ?>
+                        <div class="thumbnail-placeholder-label"><?php echo ATXT_SELECT_IMAGE; ?></div>
+                        <?php endif; ?>
+                    </div>
+                    <?php if(isset($category_data['image']) && ($category_data['image'] != '')): ?>
+                        <input type="hidden" id="category_image" name="category_image" value="<?php echo $category_data['image']; ?>" />
+                    <?php else: ?>
+                        <input type="hidden" id="category_image" name="category_image" value="" />
+                    <?php endif; ?>
+                </div>
+
+                <div class="col-lg-10 table-cell">
+                    <div class="row">
+                        <div class="col-lg-2 table-cell">
+                           <p class="edit_cat_label_p"><?php echo AMENU_CATEGORY_NAME; ?></p>
+                        </div>
+                        <div class="col-lg-10 table-cell">
+                            <div class="form-group no-margin">
+                                <input type="text" class="form-control " id="edit_catname" name="edit_catname"  placeholder="<?php echo AMENU_ADD_CATEGORY_NAME; ?>" value="<?php echo $category_data['name']; ?>"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 table-cell">
+                            <p class="edit_cat_label_p"><?php echo AMENU_CATEGORY_DESCRIPTION; ?></p>
+                        </div>
+                        <div class="col-lg-10 table-cell">
+                            <div class="form-group">
+                                <textarea class="form-control textarea-table tinymce-container" placeholder="<?php echo AMENU_CATEGORY_DESCRIPTION; ?>" rows="6" id="edit_catdescription" name="edit_catdescription"><?php echo $category_data['description']; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end second col -->
+            </div><!-- end main row -->
+            <div class="row second-row">
+                <div class="col-lg-12 table-cell table-header">
+                    <?php echo AMENU_CATEGORY_SEO; ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 table-cell">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p class="edit_cat_label_p"><?php echo AMENU_CATEGORY_METANAME; ?></p>  
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="form-group">
+                                <input type="text" class="form-control textarea-table" id="edit_metacatname" name="edit_metacatname"  placeholder="<?php echo AMENU_CATEGORY_ADD_METANAME; ?>" value="<?php echo $category_data['metatitle']; ?>"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p class="edit_cat_label_p"><?php echo AMENU_CATEGORY_METAKEYS; ?></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="form-group">
+                                <input type="text" class="form-control textarea-table" id="edit_metacatkeys" name="edit_metacatkeys"  placeholder="<?php echo AMENU_CATEGORY_ADD_METAKEYS; ?>" value="<?php echo $category_data['metakeys']; ?>"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p class="edit_cat_label_p"><?php echo AMENU_CATEGORY_METADESCRIPTION; ?></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="form-group">
+                                <textarea class="form-control textarea-table" placeholder="<?php echo AMENU_CATEGORY_METADESCRIPTION; ?>" rows="3" id="edit_metacatdescription" name="edit_metacatdescription"><?php echo $category_data['metadescription']; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12"><button type="submit" class="btn btn-default" id="send-editCategory-admin"><?php echo AMENU_CATEGORY_SAVE; ?></div>
+            </div>
+        </div>
+    </form>
+<?php else: ?>
+category data is not set - problem with previous page or something
+<?php endif; ?>

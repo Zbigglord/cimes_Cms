@@ -1,0 +1,311 @@
+<?php
+/**
+ * Creator: BabooJaga
+ * Date: 2016-04-17
+ * Time: 10:01
+ */
+?>
+
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo AMENU_EDIT_USER; ?></div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="form-checkbox-group-header"><?php echo AMENU_PICK_USER; ?>:</div>
+        <p id="addUser-select-error"></p>
+        <?php $users_list = \App\Models\Admin\User::selectUser();?>
+        <form id="names-picker" name="names-picker" role="form" action="" method="post">
+            <div class="input-group">
+                <label for="set_lang"><?php echo AMENU_USERS; ?>&nbsp;&nbsp;
+                    <select class="selectpicker" id="set_uname" name="set_uname"  data-live-search="true" data-live-search-placeholder="<?php echo AMENU_SEARCH_USER; ?>" data-show-tick="true">
+                        <option data-subtext="" value="" data-tokens=""><?php echo AMENU_PICK_ONE; ?></option>
+                        <?php foreach($users_list as $name): ?>
+                            <?php if($name['id'] == 1): //no super will be displayed ?>
+                            <?php else:  ?>
+                                <option data-tokens="<?=$name['user_nick'].' '.$name['user_email']?>" data-subtext="<?=$name['user_email']?>" value="<?=$name['id']?>"><?=$name['user_nick']?></option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </select>
+                </label>
+            </div>
+        </form>
+    </div>
+</div>
+<?php if(isset($_POST['set_uname'])): ?>
+<?php $user_data = \App\Models\Admin\User::listUserByID($_POST['set_uname']); ?>
+<?php foreach ($user_data as $user): ?>
+    <form class="admin-form form-big" id="admin_edit_user" role="form" action="">
+    <input type="hidden" id="us_id" name="us_id" value="<?php echo $user['id']; ?>" />
+    <div class="admin-form-group">
+        <div class="form-group-header"><?php echo AMENU_ADDRESS_DATA; ?></div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="add_name"><?php echo AMENU_NAME; ?></label><span class="input-error" id="vName"></span>
+                    <input type="text" class="form-control input-sm" id="add_name" name="add_name" value="<?php echo $user['user_name'];?>" />
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="add_surname"><?php echo AMENU_SURNAME; ?></label><span class="input-error" id="vSname"></span>
+                    <input type="text" class="form-control input-sm" id="add_surname" name="add_surname" value="<?php echo $user['user_surname'];?>" />
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="add_street"><?php echo AMENU_STREET; ?></label><span class="input-error" id="vStreet"></span>
+                    <input type="text" class="form-control input-sm" id="add_street" name="add_street" value="<?php echo $user['user_street'];?>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label for="add_postcode"><?php echo AMENU_POST_CODE; ?></label><span class="input-error" id="vCode"></span>
+                    <input type="text" class="form-control input-sm" id="add_postcode" name="add_postcode" value="<?php echo $user['user_kod'];?>"/>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="form-group">
+                    <label for="add_city"><?php echo AMENU_TOWN; ?></label><span class="input-error" id="vCity"></span>
+                    <input type="text" class="form-control input-sm" id="add_city" name="add_city" value="<?php echo $user['user_city'];?>"/>
+                </div>
+            </div>
+        </div>
+    </div><!-- END DANE ADRESOWE GROUP -->
+
+    <div class="admin-form-group">
+        <div class="form-group-header"><?php echo AMENU_LOGIN_DATA; ?> *<span style="text-transform: lowercase; font-size: 12px;"><?php echo ATXT_IF_NEW_PASS_EMPTY; ?></span></div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="add_nick"><?php echo AMENU_LOGIN; ?> *</label><span class="input-error" id="vLogin"></span>
+                    <input type="text" class="form-control input-sm" id="add_nick" name="add_nick" required="TRUE" value="<?php echo $user['user_nick'];?>"/>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="add_email"><?php echo AMENU_EMAIL; ?> *</label><span class="input-error" id="vEmail"></span>
+                    <input type="email" class="form-control input-sm" id="add_email" name="add_email" required="TRUE" value="<?php echo $user['user_email'];?>"/>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="add_pass"><?php echo AMENU_PASS; ?> *</label><span class="input-error" id="vPass"></span>
+                    <input type="password" class="form-control input-sm" id="add_pass" name="add_pass" />
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="repeat_pass"><?php echo AMENU_PASS_REPEAT; ?> *</label><span class="input-error" id="vRpass"></span>
+                    <input type="password" class="form-control input-sm" id="repeat_pass" name="repeat_pass"/>
+                </div>
+            </div>
+        </div>
+    </div><!-- END DANE LOGOWANIA GROUP -->
+
+    <div class="admin-form-group">
+        <div class="form-group-header"><?php echo AMENU_ROLES_AND_RIGHTS; ?></div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-checkbox-group-header"><?php echo ATXT_CURRENT_ROLE; ?> <?php \App\Models\Admin\User::getUsergroupName($user['group_name']);?></div>
+                <p id="addUser-select-error"></p>
+                <select class="form-control" id="user_groups" name="user_groups">
+                   <option value="none"><?php echo AMENU_PICK_ONE; ?></option>
+                   <option value="super"><?php echo AMENU_SUPERADMIN; ?></option>
+                   <option value="admin"><?php echo AMENU_ADMIN; ?></option>
+                   <option value="moderator"><?php echo AMENU_MODERATOR; ?></option>
+                   <option value="editor"><?php echo AMENU_EDITOR; ?></option></option>
+                   <option value="regular_user"><?php echo AMENU_REGULAR_USER; ?></option>
+                   <option value="random_role"><?php echo AMENU_RANDOM_ROLE; ?></option>
+                </select>
+            </div>
+        </div>
+<div id="hidden-till-needed">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="form-checkbox-group-header"><?php echo AMENU_USERS; ?>:</div>
+                <div class="form-checkbox-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="us_add" name="us_add"/>
+                                    <?php echo AMENU_ADD; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="us_edit" name="us_edit"/>
+                                    <?php echo AMENU_EDIT; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="us_delete" name="us_delete"/>
+                                    <?php echo AMENU_DELETE; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end first column -->
+            <div class="col-lg-2">
+                <div class="form-checkbox-group-header"><?php echo AMENU_MENU; ?>:</div>
+                <div class="form-checkbox-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="menu_add" name="menu_add"/>
+                                    <?php echo AMENU_ADD; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="menu_edit" name="menu_edit"/>
+                                    <?php echo AMENU_EDIT; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="menu_delete" name="menu_delete"/>
+                                    <?php echo AMENU_DELETE; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end second column -->
+            <div class="col-lg-2">
+                <div class="form-checkbox-group-header"><?php echo AMENU_CATEGORIES; ?>:</div>
+                <div class="form-checkbox-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="category_add" name="category_add"/>
+                                    <?php echo AMENU_ADD; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="category_edit" name="category_edit"/>
+                                    <?php echo AMENU_EDIT; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="category_delete" name="category_delete"/>
+                                    <?php echo AMENU_DELETE; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end third column -->
+            <div class="col-lg-2">
+                <div class="form-checkbox-group-header"><?php echo AMENU_ARTICLES; ?>:</div>
+                <div class="form-checkbox-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="article_add" name="article_add"/>
+                                    <?php echo AMENU_ADD; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="article_edit" name="article_edit"/>
+                                    <?php echo AMENU_EDIT; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="article_delete" name="article_delete"/>
+                                    <?php echo AMENU_DELETE; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end fourth column -->
+            <div class="col-lg-4">
+                <div class="form-checkbox-group-header"><?php echo AMENU_OTHER; ?>:</div>
+                <div class="form-checkbox-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="cc_config" name="cc_config"/>
+                                    <?php echo AMENU_MAY_CHANGE_CONFIG; ?>?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="cs_backend" name="cs_backend"/>
+                                    <?php echo AMENU_MAY_SEE_BACKEND; ?>?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="is_active" name="is_active"/>
+                                    <?php echo AMENU_ACTIVE; ?>?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end fifth column -->
+        </div>
+    </div><!-- END ROLE I UPRAWNIENIA GROUP -->
+</div><!-- END HIDDEN TILL NEEDED -->
+    <div class="row">
+        <div class="col-lg-12"><button type="submit" class="btn btn-default" id="send-editUser-admin"><?php echo AMENU_CHANGE_; ?></div>
+
+    </div>
+    </form>
+
+<?php endforeach;  // ($user_data as $user) ?>
+<?php endif; //END if isset username ?>

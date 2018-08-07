@@ -1,0 +1,59 @@
+<?php
+/**
+ * Creator: BabooJaga
+ * Date: 2016-04-17
+ * Time: 10:01
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= MED_IMAGE_EDIT; ?></div>
+<?php if(isset($image) && $image != FALSE): ?>
+    <?php foreach($image as $img): ?>
+    <form class="admin-form form-big" id="edit_image_form" name="edit_image_form" role="form" method="post" action="/admin/media/editgalleryimage" enctype="multipart/form-data">
+        <input type="hidden" id="gallery-category-id" name="gallery-category-id" value="<?=$img['image_gallery_category_id']; ?>">
+        <input type="hidden" id="gallery-id" name="gallery-id" value="<?=$img['image_gallery_id']; ?>">
+        <input type="hidden" id="image-id" name="image-id" value="<?=$img['image_id']; ?>">
+        <div class="row">
+            <div class="col-lg-2 table-cell">
+                <div class="input-group">
+                    <input type="file" id="gallery_image_edit" name="gallery_image_edit" />
+                </div>
+                <div class="thumbnail-placeholder">
+                    <?php if(isset($img['image_path']) && ($img['image_path'] != '')): ?>
+                        <img class="img-responsive" src="<?=$img['image_path']; ?>"/>
+                        <div class="thumbnail-placeholder-label"><?php echo ATXT_CHANGE_IMAGE; ?></div>
+                    <?php else: ?>
+                        <div class="thumbnail-placeholder-label"><?php echo ATXT_SELECT_IMAGE; ?></div>
+                    <?php endif; ?>
+                </div>
+                <?php if(isset($img['image_path']) && ($img['image_path'] != '')): ?>
+                    <input type="hidden" id="gallery_image" name="gallery_image" value="<?=$img['image_path']; ?>" />
+                <?php else: ?>
+                    <input type="hidden" id="gallery_image" name="gallery_image" value="" />
+                <?php endif; ?>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="image_title"><?=AMENU_IMAGE_TITLE; ?></label>
+                    <input type="text" class="form-control" id="image_title" name="image_title"  value="<?= $img['image_title']; ?>"/>
+                </div>
+                <div class="form-group">
+                    <label for="image_alt"><?=AMENU_IMAGE_ALT; ?> </label>
+                    <input type="text" class="form-control" id="image_alt" name="image_alt"  value="<?= $img['image_alt']; ?>"/>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="image_description" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= AMENU_IMAGE_DESCRIPTION; ?>"><?= AMENU_IMAGE_DESCRIPTION; ?></label>
+                    <textarea class="form-control" placeholder="" rows="4" id="image_description" name="image_description" maxlength="255"><?=$img['image_description'] ?></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row no-margin">
+            <div class="col-lg-12">
+                <button style="margin-left: 10px;" type="button" class="btn btn-default pull-right" id="btn_cancel" onclick="cancel('/admin/media/galleryimages?gallery_id=<?=$img["image_gallery_id"]; ?>')"><?= BTN_CANCEL; ?></button><button type="submit" class="btn btn-default pull-right" id="gallery-image-save-button"><?=AMENU_SAVE; ?></button>
+            </div>
+        </div>
+    </form>
+ <?php endforeach; ?>
+<?php endif; ?>

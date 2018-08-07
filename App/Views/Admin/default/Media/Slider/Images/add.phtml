@@ -1,0 +1,57 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2017-11-29
+ * Time: 13:31
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= MED_ADD_IMAGES_SLIDER; ?></div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-lg-9">
+                <h1 class="panel-h1"><?= MED_ADD_IMAGES; ?><span class="input-error" id="errorSpicture"></h1>
+            </div>
+            <div class="col-lg-3">
+                <div id="pick-salon-holder">
+                    <label for="select_salon_id">
+                        <select class="selectpicker" id="select_slider_id" name="select_slider_id" data-live-search="true" data-live-search-placeholder="<?= AMENU_SEARCH; ?>" data-show-tick="true" aria-required="true">
+                            <option data-subtext="" value="0" data-tokens=""><?= MED_SLIDER_PICK; ?>...</option>
+                            <?php if(!empty($sliders)): ?>
+                                <?php foreach($sliders as $slider): ?>
+                                    <option data-subtext="" value="<?= $slider['slider_id']?>" data-tokens="<?= $slider['slider_name'] ?>"><?= $slider['slider_name'] ?></option>
+                                <?php endforeach;?>
+                            <?php endif;?>
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="form-big" id="add_media_slider_form" name="add_media_slider_form" role="form" method="post" action="slideraddimages" enctype="multipart/form-data">
+        <input type="hidden" id="slider_id" name="slider_id" value=""/>
+        <div class="panel-body" id="panel-body-add-media-slider">
+            <div class="row no-margin"><!-- START 5 ROW -->
+                <div class="col-lg-12">
+
+                        <input type="file" id="slider_media_add" name="slider_media_add[]" accept="image/*" multiple="multiple"/>
+
+                    <div class="input-placeholder">
+                        <div class="input-placeholder-label"><?= FBTN_ADD_MEDIA_FILES; ?></div>
+                    </div>
+                </div>
+            </div><!-- END ROW -->
+            <ul class="thums-list" style="padding-bottom: 5px;"><!-- START 5 ROW -->
+
+
+            </ul>
+        </div><!-- END BODY -->
+        <div class="panel-footer clearfix">
+            <div class="pull-right">
+                <button type="submit" class="btn btn-default" id="add_pictures_slider" disabled="disabled"><?= AMENU_SAVE; ?></button> <button type="button" class="btn btn-default" id="btn_cancel" onclick="cancel('/admin/media/sliderlist')"><?= ABTN_CANCEL; ?></button>
+            </div>
+        </div>
+    </form>
+</div><!-- END PANEL -->

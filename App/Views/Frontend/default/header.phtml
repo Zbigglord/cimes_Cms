@@ -1,0 +1,106 @@
+<?php
+$menu = \App\Models\Main::menuitemGetList(0,2);
+$logo = \App\Models\Admin\Config::getConfigParam('site_logo');
+$logged_user = \Core\Session::fUserLoggedIn();
+$logged_student = \Core\Session::fStudentLoggedIn();
+?>
+<div class="main-container">
+<div class="header-container">
+ <div class="top-menu-holder">
+  <div class="top-menu-holder-inner">
+   <div class="row no-margin"><!-- START MENU ROW -->
+
+    <div class="col-lg-12 no-padding"><!-- LEFT MENU STARTS -->
+     <!-- NAVBAR STARTS -->
+     <div class="navbar-holder">
+      <nav class="navbar navbar-inverse bg-inverse">
+       <div class="container-fluid no-padding">
+        <div class="navbar-header">
+         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main_menu" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="http://<?= $_SERVER['SERVER_NAME']?>"><img class="img-responsive navbar-header-image" src="/images/css/cimes.png"/></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="main_menu">
+         <ul class="nav navbar-nav">
+          <?php \App\Models\Main::printMenuG($menu); ?>
+         </ul>
+         <!-- END Collect the nav links, forms, and other content for toggling -->
+         <div class="nav navbar-nav navbar-right">
+          <?php if($logged_student != TRUE): ?>
+            <li class="dropdown strefa-login"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?=FMENU_STUDENTS_ZONE; ?></a>
+             <div class="dropdown-menu strefa-login-div">
+              <form class="strefa-login-form" action="http://<?=ROOT_ADDRESS; ?>/students/grouplogin" role="form" id="strefa-login-form-login" method="post">
+               <input type="text" id="strefa-login" name="strefa-login" placeholder="login" class="form-login-small"/>
+               <input type="password" id="strefa-password" name="strefa-password" placeholder="hasło" class="form-login-small"/>
+               <button type="submit" class="btn-strefa-login"><?=FTXT_LOG_IN; ?></button>
+              </form>
+             </div>
+            </li>
+          <?php else: ?>
+             <div class="students-acoount-top-menu-holder"><span class="students-acoount-top-menu"><a href="http://<?=ROOT_ADDRESS; ?>/students/groupaccount"><?= FTXT_GROUP_ACCOUNT; ?></a> | <a href="http://<?=ROOT_ADDRESS; ?>/students/logout"><?= FTXT_LOGOUT; ?></a></span></div>
+          <?php endif; ?>
+         </div>
+        </div>
+       </div>
+      </nav>
+     </div>
+     <!-- NAVBAR ENDS -->
+    </div>  <!-- LEFT MENU  ENDS -->
+   </div>
+  </div>
+ </div><!-- END MENU ROW -->
+
+ <div class="row">
+  <div class="col-lg-12">
+   <div class="upper-footer-slider">
+    <?php $slider = \App\Models\Medium::getSlider(1); $iter = 1; $liter = 1;?>
+    <?php if(isset($slider) && !empty($slider)): ?>
+
+     <div id="slider">
+      <div id="cimesSlider" class="carousel slide" data-ride="carousel">
+         <div class="carousel-inner" role="listbox">
+          <?php foreach($slider as $image): ?>
+           <div class="item <?php if($iter == 1): ?>active <?php endif; ?>">
+            <div class="on-slider">
+            <?php if($image['image_alt'] != ''): ?><h1 class="slider-alt"><?=$image['image_alt'];?></h1><?php endif; ?>
+            <?php if($image['image_link'] != ''): ?><a href="<?= $image['image_link']; ?>" target="_blank"><button class="btn btn-success btn-slider">Zobacz więcej</button></a> <?php endif; ?>
+             </div>
+            <img src="<?=$image['image_path'];?>" alt="<?=$image['image_alt'];?>" />
+           </div>
+           <?php $iter++; endforeach; ?>
+          <ol class="carousel-indicators">
+           <?php foreach($slider as $image): ?>
+           <li class=" <?php if($liter == 1): ?>active <?php endif; ?>">
+            <?php $liter++; endforeach; ?>
+          </ol>
+         </div>
+       <!-- NOT NEEDED in THIS CASE
+         <a class="left carousel-control" data-slide="prev" role="button" href="#cimesSlider">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+         </a>
+         <a class="right carousel-control" data-slide="next" role="button" href="#cimesSlider">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+         </a>
+         -->
+      </div>
+     </div>
+
+    <?php endif; ?>
+   </div>
+  </div>
+ </div>
+
+</div><!-- END HEADER CONTAINER -->
+<script>
+ jq('.dropdown').hover(function(){
+  jq(this).toggleClass('active');
+  jq(this).toggleClass('open');
+ });
+</script>

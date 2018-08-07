@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="cimesCMS" uuid="bb74882a-4479-4b0e-87f5-cc1fe1463ad1">
+      <secret-storage>master_key</secret-storage>
+      <user-name>cimes_cms</user-name>
+      <schema-pattern>cimes_20122017.*</schema-pattern>
+      <default-schemas>cimes_20122017.*</default-schemas>
+    </data-source>
+  </component>
+</project>

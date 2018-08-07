@@ -1,0 +1,32 @@
+<?php
+/**
+ * Creator: BabooJaga
+ * Date: 2016-04-17
+ * Time: 10:01
+ */
+
+$options = array(
+    'http' => array(
+
+        'method' => "GET",
+        'header' => array(
+
+            "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 \r\n" .
+            "Accept-Encoding: gzip, deflate \r\n".
+            "Accept-Language: pl,en-US;q=0.7,en;q=0.3 \r\n".
+            "Connection: keep-alive \r\n".
+            "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0 \r\n"
+
+        )
+
+    )
+);
+
+$context = stream_context_create($options);
+$content = file_get_contents('http://lampencity.de/index.php',FALSE,$context);
+?>
+
+
+<pre>
+   <?php print_r($content); ?> 
+</pre>

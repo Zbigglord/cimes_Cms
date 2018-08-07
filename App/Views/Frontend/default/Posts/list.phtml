@@ -1,0 +1,49 @@
+<?php
+/**
+ * Creator: BabooJaga
+ * Date: 2016-04-17
+ * Time: 10:01
+ */
+?>
+<div class="content-page-holder">
+    <div class="content-wrapper">
+        <div class="message-frontend"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+        <?php if(isset($list) && !empty($list)): ?>
+            <?php foreach($list as $key => $value): ?>
+                <?php if($key === 'parent'): ?>
+                    <div class="row no-margin">
+                        <div class="col-lg-12 no-padding">
+                            <div class="parent-list-holder">
+                                <h1 class="standart-list-article-name"><?= $value['name'];?></h1>
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <img class="img-responsive main-category-desc-image" src="<?= $value['image'];?>" />
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <?= $value['description'];?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="row no-margin">
+                        <div class="col-lg-12">
+                            <a href="/posts/<?= $value['post_id'];?>/<?php if($value['post_seo_link'] != ''): ?><?= $value['post_seo_link']; ?><?php else: ?>post<?php endif; ?>" class="subcategory-table-link"><div class="sub-list-holder">
+                                    <h1 class="standart-sub-list-article-name"><?= $value['post_title'];?></h1>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <img class="img-responsive sub-category-desc-image" src="<?= $value['post_image'];?>" />
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <?= substr($value['post_content'],44,850);?> [...]
+                                        </div>
+                                    </div>
+                                </div></a>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?> 
+        <?php endif; ?>
+    </div>
+</div>

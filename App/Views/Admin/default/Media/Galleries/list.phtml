@@ -1,0 +1,71 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2018-01-08
+ * Time: 13:09
+ */
+echo $deleted_counter;
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= AMENU_IMAGE_GALLERIES_LIST; ?></div>
+
+<?php if(isset($galleries)): ?>
+    <div class="row no-margin">
+        <div class="col-lg-6 no-padding">
+
+        </div>
+        <div class="col-lg-6 no-padding">
+            <div id="pick-gallery-action" class="pull-right">
+                <label for="select-gallery-action">
+                    <select class="selectpicker" id="select-gallery-action" name="select-gallery-action" data-live-search="false" data-show-tick="true">
+                        <option data-subtext="" value="0" data-tokens=""><?= AMENU_ACTION; ?></option>
+                            <option data-subtext="galerię/galerie" value="delete" data-tokens=""><?= TEXT_DELETE; ?></option>
+                            <option data-subtext="galerię" value="edit" data-tokens=""><?= TEXT_EDIT; ?></option>
+                            <option data-subtext="dodaj/edytuj" value="images" data-tokens=""><?= MED_IMAGES; ?></option>
+                    </select>
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+<table class="table table-responsive table-hover table-galleries">
+    <thead style="background-color: #F5F5F5;">
+    <tr>
+        <th width="1%" class="cell-bordered-right"><span class="check-all">#</span></th>
+        <th class="cell-bordered-right"><?= POST_POST_TITLE; ?></th>
+        <th class="cell-bordered-right"><?= AMENU_CATEGORY; ?></th>
+        <th class="cell-bordered-right"><?= MED_IMAGES; ?></th>
+        <th class="cell-bordered-right"><?= AMENU_IMAGE_GALLERY_DESCRIPTION;?></th>
+        <th class="cell-bordered-right"><?= AMENU_IMAGE_GALLERY_META; ?></th>
+        <th class="cell-bordered-right"><?=TEXT_DATE_ADDED; ?></th>
+        <th><?=ATXT_TEMPLATE_AUTHOR; ?></th>
+    </tr>
+    </thead>
+    <tbody class="gallery-table-body">
+    <form id="form-gallery-action" name="form-gallery-action" action="" method="POST">
+    <?php foreach($galleries as $gallery): ?>
+        <?php $category_name = \App\Models\Admin\Category::categoryGetName($gallery['gallery_category_id']); ?>
+        <tr>
+            <td scope="row" class="cell-bordered-right"><input type="checkbox" class="checkbox-gallery" id="gallery_<?= $gallery['gallery_id']; ?>" name="gallery_<?= $gallery['gallery_id']; ?>" value="<?= $gallery['gallery_id']; ?>"/></td>
+            <td class="cell-bordered-right"><strong><?= $gallery['gallery_name'];?></strong></td>
+            <td class="cell-bordered-right"> <?= $category_name; ?></td>
+            <td class="cell-bordered-right centered"><?php if(count($gallery['images']) > 0): ?> <?= count($gallery['images']); ?> <?php else: ?> <span class="span-red"><?= TEXT_NONE; ?></span> <?php endif; ?></td>
+            <td class="cell-bordered-right"><?= substr($gallery['gallery_description'],0,70);?>...</td>
+            <td class="cell-bordered-right"><?= substr($gallery['gallery_metadata'],0,70);?>...</td>
+            <td class="cell-bordered-right"><?php if($gallery['gallery_modified'] != ''): ?><?= $gallery['gallery_modified'];?> <?php else: ?> <?= $gallery['gallery_created'];?> <?php endif; ?></td>
+            <td><?= $gallery['gallery_author'];?></td>
+        </tr>
+    <?php endforeach; ?>
+<?php endif; ?>
+        </form>
+            </tbody>
+        </table>
+
+<div id="confirm-delete-galeries">
+    <input type = "hidden" id="delete-galeries-confirmation" value="<?= AMENU_GALLERY_DELETE_CONFIRM; ?>" />
+    <input type = "hidden" id="btn-continue" value="<?= ABTN_CONTINUE; ?>" />
+    <input type = "hidden" id="btn-cancel" value="<?= ABTN_CANCEL; ?>" />
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span><?= ATXT_GALLERY_DELETE_CONFIRM; ?>? </p>
+</div>

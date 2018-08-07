@@ -1,0 +1,80 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo POST_POST_EDIT; ?></div>
+<?php if(isset($post)):?>
+<form class="admin-form form-big" id="edit_post_form" name="edit_post_form" role="form" method="post" action="/admin/posts/editSave" enctype="multipart/form-data">
+ <input type="hidden" name="post_id" value="<?= $post['post_id']; ?>" />
+ <div class="row margin-bottom">
+  <div class="col-lg-3">
+   <div class="input-group">
+    <input type="file" id="category_image_edit" name="category_image_edit" />
+   </div>
+   <div class="thumbnail-placeholder">
+    <?php if(isset($post['post_image']) && ($post['post_image'] != '')): ?>
+     <img class="img-responsive" src="<?php echo $post['post_image']; ?>"/>
+     <div class="thumbnail-placeholder-label"><?php echo ATXT_CHANGE_IMAGE; ?></div>
+    <?php else: ?>
+     <div class="thumbnail-placeholder-label"><?php echo ATXT_SELECT_IMAGE; ?></div>
+    <?php endif; ?>
+   </div>
+   <?php if(isset($post['post_image']) && ($post['post_image'] != '')): ?>
+    <input type="hidden" id="category_image" name="category_image" value="<?php echo $post['post_image']; ?>" />
+   <?php else: ?>
+    <input type="hidden" id="category_image" name="category_image" value="" />
+   <?php endif; ?>
+  </div>
+  <div class="col-lg-9 ">
+   <div class="row  margin-bottom">
+    <div class="col-lg-6">
+     <div class="form-group no-margin">
+      <label for="edit_post_name" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>">  * <?php echo POST_POST_TITLE; ?>  </label>
+      <input type="text" class="form-control " id="edit_post_name" name="edit_post_name"  value="<?= $post['post_title']; ?>" />
+     </div>
+    </div>
+    <div class="col-lg-6">
+     <div class="form-group no-margin">
+      <p class="no-margin"> <label for="post_set_cat_type" id="post_set_cat_type" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo ATXT_IF_NEW_PASS_EMPTY; ?>"> * <?= AMENU_CURRENT_CATEGORY; ?>: <?= $cat_name; ?></label></p>
+      <select class="selectpicker" id="post_set_cat_type" name="post_set_cat_type" data-live-search="true" data-live-search-placeholder="<?php echo AMENU_SEARCH; ?>" data-show-tick="true">
+       <option data-subtext="" value="none" data-tokens=""> <?php echo AMENU_PICK_ONE; ?> </option>
+       <?php $clist = \App\Models\Admin\Category::categoryGetList(0,1); if(isset($clist)): ?>
+        <?php \App\Models\Admin\Category::recursivePrint($clist); ?>
+       <?php endif; ?>
+      </select>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-lg-6">
+     <div class="form-group no-margin">
+      <label for="edit_post_seo" > <?php echo POST_POST_SEO; ?>  </label>
+      <input type="text" class="form-control " id="edit_post_seo" name="edit_post_seo" value="<?= $post['post_seo_link']; ?>"/>
+     </div>
+    </div>
+    <div class="col-lg-6">
+     <div class="form-group no-margin">
+      <label for="edit_post_metakeys" > <?php echo POST_POST_METAKEYS; ?>  </label>
+      <input type="text" class="form-control " id="edit_post_metakeys" name="edit_post_metakeys"  value="<?= $post['post_metakeys']; ?>"/>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div class="row margin-bottom">
+  <div class="col-lg-12">
+   <div class="form-group no-margin">
+    <textarea class="form-control textarea-table" rows="2" id="edit_post_metadescription" name="edit_post_metadescription" placeholder="<?= POST_POST_METADESCRIPTION; ?>"><?= $post['post_metadescription']; ?></textarea>
+   </div>
+  </div>
+ </div>
+ <div class="row margin-bottom">
+  <div class="col-lg-12">
+   <div class="form-group no-margin">
+    <label for="edit_post_description" > <?php echo POST_POST_DESCRIPTION; ?>  </label>
+    <textarea class="form-control textarea-table tinymce-container" rows="8" id="edit_post_description" name="edit_post_description"><?= html_entity_decode($post['post_content']); ?></textarea>
+   </div>
+  </div>
+ </div>
+ <div class="row">
+  <div class="col-lg-12"><button type="submit" class="btn btn-default full-width" id="edit_post" name="edit_post"><?php echo POST_POST_SAVE; ?></div>
+ </div>
+</form>
+<?php endif; ?>

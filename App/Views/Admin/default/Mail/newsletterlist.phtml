@@ -1,0 +1,79 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= MAIL_NEWSLETTER_LIST; ?></div>
+<?php $i = 1; if(isset($nlist)): ?>
+ <div class="row second-row" style="border-left: 1px solid silver;"><!-- NEWSLETTER LIST header -->
+  <div class="col-lg-1 table-cell table-header">
+   #
+  </div>
+  <div class="col-lg-2 table-cell table-header">
+   <?= MAIL_NEWSLETTER_NAME; ?>
+  </div>
+  <div class="col-lg-2 table-cell table-header">
+   <?= MAIL_NEWSLETTER_RECIPIENTS; ?>
+  </div>
+  <div class="col-lg-1 table-cell table-header">
+   <?= MAIL_NEWSLETTER_ACTIVE; ?>
+  </div>
+  <div class="col-lg-2 table-cell table-header">
+   <?= MAIL_NEWSLETTER_POSTED_TIMES; ?>
+  </div>
+  <div class="col-lg-1 table-cell table-header">
+   <?= MAIL_NEWSLETTER_POSTED_DATE; ?>
+  </div>
+  <div class="col-lg-2 table-cell table-header">
+   <?= AMENU_ACTION; ?>
+  </div>
+ </div><!-- END DANE header -->
+<?php foreach($nlist as $newsletter): ?>
+<?php if($i % 2 == 0): ?>
+<div class="row second-row" style="border-left: 1px solid silver;">
+ <?php else: ?>
+ <div class="row" style="border-left: 1px solid silver;">
+  <?php endif; ?>
+   <div class="col-lg-1 table-cell">
+    <?= $i; ?>
+   </div>
+   <div class="col-lg-2 table-cell">
+    <?= $newsletter['newsletter_title']; ?>
+   </div>
+   <div class="col-lg-2 table-cell">
+    <form name="form-show-recipients" id="show-recipients" method="post" action="/admin/mails/recipientList">
+     <input type="hidden" name="show-recipients-id" id="show-recipients-id_<?= $newsletter['newsletter_id']; ?>" value="<?= $newsletter['newsletter_id']; ?>"/>
+     <button type="submit" class="btn btn-small btn-recipients" id="btn-recipients_<?= $newsletter['newsletter_id']; ?>"><?= MAIL_NEWSLETTER_RECIPIENTS_SEE; ?> </button>
+    </form>
+   </div>
+   <div class="col-lg-1 table-cell">
+    <?= $newsletter['newsletter_active']; ?>
+   </div>
+   <div class="col-lg-2 table-cell">
+    <?= $newsletter['newsletter_posted_times']; ?>
+   </div>
+   <div class="col-lg-1 table-cell">
+    <?= $newsletter['newsletter_last_posted']; ?>
+   </div>
+   <div class="col-lg-2 table-cell">
+    <div class="row">
+     <div class="col-sm-4">
+    <form class="hidden-form" id="form-edit-newsletter_<?= $newsletter['newsletter_id']; ?>" name="form-edit-newsletter" role="form" method="post" action="/admin/mails/editNewsletter">
+     <input type="hidden" name="newsletter-edit-id" class="course-edit" id="newsletter-edit_<?= $newsletter['newsletter_id']; ?>" value="<?= $newsletter['newsletter_id']; ?>"/>
+     <button type="submit" class="btn btn-default btn-newsletter-edit" id="newsletter-edit-button_<?= $newsletter['newsletter_id']; ?>"> <?php echo AMENU_EDIT; ?></button>
+    </form>
+     </div>
+     <div class="col-sm-4">
+    <form class="hidden-form" id="form-delete-newsletter_<?= $newsletter['newsletter_id']; ?>" name="form-delete-newsletter" role="form" method="post" action="/admin/mails/deleteNewsletter">
+     <input type="hidden" class="newsletter-delete" id="newsletter-delete_<?= $newsletter['newsletter_id']; ?>" name="newsletter-delete" value="<?= $newsletter['newsletter_id']; ?>"/>
+     <button type="submit" class="btn btn-default btn-newsletter-delete" id="newsletter-delete-button_<?= $newsletter['newsletter_id']; ?>"> <?php echo AMENU_DELETE; ?></button>
+    </form>
+      </div>
+     <div class="col-sm-4">
+      <form class="hidden-form" id="form-send-newsletter_<?= $newsletter['newsletter_id']; ?>" name="form-send-newsletter" role="form" method="post" action="/admin/mails/sendNewsletter">
+       <input type="hidden" class="newsletter-send" id="newsletter-send_<?= $newsletter['newsletter_id']; ?>" name="newsletter-send" value="<?= $newsletter['newsletter_id']; ?>"/>
+       <button type="submit" class="btn btn-default btn-newsletter-delete" id="newsletter-send-button_<?= $newsletter['newsletter_id']; ?>"> <?php echo MAIL_NEWSLETTER_SEND; ?></button>
+      </form>
+     </div>
+   </div>
+   </div>
+  </div><!-- END DANE header -->
+
+<?php $i++; endforeach; ?>
+<?php endif; ?>

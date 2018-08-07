@@ -1,0 +1,50 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2017-11-29
+ * Time: 11:05
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= MED_IMAGE_EDIT; ?></div>
+<?php if(isset($image) && $image != FALSE): ?>
+<form class="admin-form form-big" id="edit_image_form" name="edit_image_form" role="form" method="post" action="/admin/media/editimage" enctype="multipart/form-data">
+    <input type="hidden" id="slider_id" name="slider_id" value="<?=$image['slider_id']; ?>">
+    <input type="hidden" id="image_id" name="image_id" value="<?=$image['image_id']; ?>">
+    <div class="row">
+        <div class="col-lg-2 table-cell">
+            <div class="input-group">
+                <input type="file" id="slider_image_edit" name="slider_image_edit" />
+            </div>
+            <div class="thumbnail-placeholder">
+                <?php if(isset($image['image_path']) && ($image['image_path'] != '')): ?>
+                    <img class="img-responsive" src="<?=$image['image_path']; ?>"/>
+                    <div class="thumbnail-placeholder-label"><?php echo ATXT_CHANGE_IMAGE; ?></div>
+                <?php else: ?>
+                    <div class="thumbnail-placeholder-label"><?php echo ATXT_SELECT_IMAGE; ?></div>
+                <?php endif; ?>
+            </div>
+            <?php if(isset($image['image_path']) && ($image['image_path'] != '')): ?>
+                <input type="hidden" id="slider_image" name="slider_image" value="<?=$image['image_path']; ?>" />
+            <?php else: ?>
+                <input type="hidden" id="slider_image" name="slider_image" value="" />
+            <?php endif; ?>
+        </div>
+        <div class="col-lg-8">
+            <div class="form-group" style="margin-top: 20px;">
+                <label for="image_alt">Alt: </label>
+                <input type="text" class="form-control" id="image_alt" name="image_alt"  value="<?= $image['image_alt']; ?>"/>
+            </div>
+            <div class="form-group">
+                <label for="image_link">Link: </label>
+                <input type="text" class="form-control" id="image_link" name="image_link"  value="<?= $image['image_link']; ?>"/>
+            </div>
+        </div>
+        <div class="col-lg-2 table-cell">
+            <button type="submit" class="btn btn-default" id="slider-image-save-button"><?=AMENU_SAVE; ?>
+        </div>
+    </div>
+</form>
+
+<?php endif; ?>

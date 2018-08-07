@@ -1,0 +1,35 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2017-11-29
+ * Time: 11:05
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= AMENU_SLIDER_NEW; ?></div>
+<form class="admin-form form-big" id="add_slider_form" name="add_slider_form" role="form" method="post" action="/admin/media/saveslider" enctype="multipart/form-data">
+    <div class="row no-margin">
+        <div class="col-lg-7 no-padding-left">
+        <div class="form-group no-margin">
+         <label for="slider_name">* <?=AMENU_SLIDER_NAME;?></label>
+            <input type="text" id="slider_name" name="slider_name" class="form-control"/>
+        </div>
+        </div>
+        <div class="col-lg-3 no-padding">
+            <div class="form-group no-margin">
+                <p class="no-margin"> <label for="slider_active" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?=TEXT_REQUIRED; ?>"> * <?=AMENU_SLIDER_ACTIVE; ?></label></p>
+                <select class="selectpicker" id="slider_active" name="slider_active" data-live-search="false" data-show-tick="true">
+                    <option data-subtext="" value="1" data-tokens=""> <?=TEXT_YES; ?> </option>
+                    <option data-subtext="" value="0" data-tokens=""> <?=TEXT_NO; ?> </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-2 no-padding">
+            <div class="form-group no-margin">
+            <p class="no-margin"><label for="">&nbsp;</label></p>
+            <button type="submit" class="btn btn-default full-width" id="slider_save"><?=AMENU_SAVE; ?></button>
+            </div>
+        </div>
+    </div>
+</form>

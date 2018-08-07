@@ -1,0 +1,89 @@
+<?php
+/**
+ * Creator: BabooJaga
+ * Date: 2016-04-17
+ * Time: 10:01
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= AMENU_TEMPLATE_LIST; ?></div>
+<?php if(isset($templates) && !empty($templates)): ?>
+<div class="row second-row" style="border-left: 1px solid silver;"><!-- CATEGORY LIST header -->
+    <div class="col-lg-2 table-cell table-header">
+        <?= AMENU_CATEGORY_IMAGE; ?>
+    </div>
+    <div class="col-lg-2 table-cell table-header">
+        <?= ATXT_TEMPLATE_NAME; ?>
+    </div>
+    <div class="col-lg-2 table-cell table-header">
+        <?= ATXT_TEMPLATE_FOLDER; ?>
+    </div>
+    <div class="col-lg-2 table-cell table-header">
+        <?= POST_POST_ADDED; ?>
+    </div>
+    <div class="col-lg-1 table-cell table-header">
+        <?= ATXT_TEMPLATE_AUTHOR; ?>
+    </div>
+    <div class="col-lg-1 table-cell table-header">
+        <?= ATXT_TEMPLATE_BACKEND; ?>
+    </div>
+    <div class="col-lg-1 table-cell table-header">
+        <?= ATXT_TEMPLATE_ACTIVE; ?>
+    </div>
+    <div class="col-lg-1 table-cell table-header">
+        <?php echo AMENU_ACTION; ?>
+    </div>
+</div><!-- END DANE header -->
+<?php foreach($templates as $template): ?>
+<?php if($i % 2 == 0): ?>
+<div class="row" style="border-left: 1px solid silver;">
+    <?php else: ?>
+    <div class="row second-row" style="border-left: 1px solid silver;">
+        <?php endif; ?>
+        <div class="col-lg-2 table-cell-left" style="max-height: 100%;">
+            <img class="img-responsive" src="/upload/images/templates/<?php if($template['template_is_admin'] == 1):?>admin/<?php endif; ?><?= $template["template_folder"]; ?>.jpg" />
+        </div>
+        <div class="col-lg-2 table-cell-left">
+            <?= $template["template_name"]; ?>
+        </div>
+        <div class="col-lg-2 table-cell-left">
+            <?= $template["template_folder"]; ?>
+        </div>
+        <div class="col-lg-2 table-cell-left">
+            <?= $template["template_date"]; ?>
+        </div>
+        <div class="col-lg-1 table-cell">
+            <?= $template["template_author"]; ?>
+        </div>
+        <div class="col-lg-1 table-cell">
+            <?php if($template["template_is_admin"] == 1): ?>
+            <span class="orange-span"><?= ATXT_TEMPLATE_ADMIN; ?></span>
+            <?php else: ?>
+            <span class="span-green"> <?= ATXT_TEMPLATE_FRONTEND; ?></span>
+            <?php endif; ?>
+        </div>
+        <div class="col-lg-1 table-cell">
+            <?php if($template["template_active"] == 1): ?>
+                <span class="orange-span"><?= ATXT_TEMPLATE_ACTIVE; ?></span>
+            <?php else: ?>
+                <span class="span-green"> <?= ATXT_TEMPLATE_INACTIVE; ?></span>
+            <?php endif; ?>
+        </div>
+        <div class="col-lg-1 table-cell">
+            <form name="template-edit-form" role="form" action="/admin/templates/edit" method="post" id="post-edit-form">
+                <input type="hidden" name="template_edit_id" value="<?= $template['id']; ?>" />
+                <div class="button-group"><button type="submit" class="btn-post-edit"><?php echo AMENU_EDIT; ?></button></div>
+            </form>
+
+            <form name="template-delete-form" role="form" action="/admin/templates/delete" method="post" id="post-delete-form">
+                <input type="hidden" name="template_delete_id" value="<?= $template['id']; ?>" />
+                <div class="button-group"><button type="submit" class="btn-post-delete"><?php echo AMENU_DELETE; ?></button></div>
+            </form>
+        </div>
+    </div>
+    <?php $i++; ?>
+<?php endforeach; ?>
+
+<?php else: ?>
+
+<?php endif; ?>

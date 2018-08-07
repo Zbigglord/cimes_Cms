@@ -1,0 +1,57 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2018-03-15
+ * Time: 13:20
+ */
+?>
+<div class="content-page-holder">
+    <div class="content-wrapper">
+        <div class="message-frontend"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+        <?php if(isset($form) && !empty($form)): ?>
+
+            <?php $newForm = new \App\Models\Admin\Form('',$form['form_id']); ?>
+        <div class="form-generated">
+            <?= $newForm->startForm(); ?>
+            <!-- generate hidden inputs first to not mess with display later -->
+        <?php foreach($form['inputs'] as $input): ?>
+            <?php $type = \App\Models\Admin\Form::getInputType($input['input_type']); // needed as types are not numerical?>
+            <?php if($type == 'hidden'): ?>
+            <div class="row no-margin">
+                <div class="col-lg-12">
+                    <?= $newForm->addInput($type,$input);?>
+                </div>
+            </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <!-- END generate hidden inputs first to not mess with display later -->
+            <div class="row no-margin">
+            <?php foreach($form['inputs'] as $input): ?>
+                <?php $type = \App\Models\Admin\Form::getInputType($input['input_type']); // needed as types are not numerical?>
+                <?php if($type != 'hidden'): ?>
+                <?php if($input['input_display'] == 1): ?>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+
+                <?php else: ?>
+
+                    <div class="col-lg-12">
+                       <div class="form-group">
+
+                <?php endif; ?>
+
+                <?= $newForm->addInput($type,$input);?>
+
+                    </div> <!-- end single col for input --->
+                   </div> <!--- end row -->
+               <?php endif; ?>
+            <?php endforeach; ?>
+            </div>
+
+            <?= $newForm->endForm(); ?>
+         </div><!-- end class form -generated -->
+        <?php endif; ?>
+    </div>
+</div>

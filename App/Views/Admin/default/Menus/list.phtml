@@ -1,0 +1,95 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo AMENU_MENU_LIST; ?></div>
+<?php if(isset($menu_list)): ?>
+    <div class="row second-row bordered-top-bottom margin-bottom">
+        <div class="col-lg-2 table-header align-left">
+            <strong><?php echo AMENU_MENU_NAME.':'; ?></strong>
+        </div>
+        <div class="col-lg-3 table-header align-left">
+            <strong><?php echo AMENU_MENU_TITLE.':'; ?></strong>
+        </div>
+        <div class="col-lg-2 table-cell table-header">
+            <strong><?php echo AMENU_MENU_SHOW_TITLE.':'; ?></strong>
+        </div>
+        <div class="col-lg-1 table-cell table-header">
+            <strong><?php echo AMENU_MENU_ORIENTATION.':'; ?></strong>
+        </div>
+        <div class="col-lg-1 table-cell table-header">
+            <strong><?php echo AMENU_MENU_ITEMS.':'; ?></strong>
+        </div>
+        <div class="col-lg-3 table-cell table-header">
+            <strong><?php echo AMENU_ACTION.':'; ?></strong>
+        </div>
+
+    </div>
+    <?php $i=1; foreach($menu_list as $menu): ?>
+        <?php if($i % 2 == 0 ): ?>
+    <div class="row second-row bordered-top">
+        <?php else: ?>
+            <div class="row bordered-top">
+        <?php endif; ?>
+        <div class="col-lg-2 table-cell align-left">
+            <?php if($menu['menu_has_items'] != 0): ?>
+            <span class="glyphicon glyphicon-th-list" id="click_<?php echo $menu['id']; ?>"></span>
+            <?php endif; ?>
+            <?php echo $menu['menu_name']; ?>
+        </div>
+        <div class="col-lg-3 table-cell align-left">
+            <?php echo $menu['menu_title']; ?>
+        </div>
+        <div class="col-lg-2 table-cell">
+            <?php if($menu['menu_show_title'] == 1){echo TEXT_YES;}else{echo TEXT_NO;} ?>
+        </div>
+        <div class="col-lg-1 table-cell">
+            <?php if($menu['menu_is_vertical'] == 1){echo AMENU_MENU_VERTICAL;}else{echo AMENU_MENU_HORIZONTAL;} ?>
+        </div>
+        <div class="col-lg-1 table-cell">
+            <?php if($menu['menu_has_items'] != 0){echo TEXT_YES;}else{echo AMENU_MENU_EMPTY;} ?>
+        </div>
+        <div class="col-lg-1 table-cell">
+            <form id="form_add_menu_item_<?php echo $menu['id']; ?>" name="form_add_menu_item_<?php echo $menu['id']; ?>" role="form" method="post" action="../menus/newMenuItem">
+                <input type="hidden" name="add-menu-item_<?php echo $menu['id']; ?>" id="add-menu-item_<?php echo $menu['id']; ?>" value="<?php echo $menu['id']; ?>"/>
+                <button type="submit" class="btn btn-default btn-sm" id="button-add_menu_item_<?php echo $menu['id']; ?>"> <?php echo AMENU_ADD_MENU_ITEM; ?></button>
+            </form>
+        </div>
+        <div class="col-lg-1 table-cell">
+            <form id="form_edit_menu_<?php echo $menu['id']; ?>" name="form_edit_menu_<?php echo $menu['id']; ?>" role="form" method="post" action="../menus/edit">
+                <input type="hidden" name="menu_edit_<?php echo $menu['id']; ?>" id="menu_edit_<?php echo $menu['id']; ?>" value="<?php echo $menu['id']; ?>"/>
+                <button type="submit" class="btn btn-default btn-sm" id="button-edit_<?php echo $menu['id']; ?>"> <?php echo TEXT_EDIT; ?></button>
+            </form>
+        </div>
+        <div class="col-lg-1 table-cell ">
+            <?php if($menu['menu_has_items'] != 0):?>
+             <div data-toggle="tooltip" data-placement="top" title="<?php echo AMENU_TOOLTIP_MENU_HAS_ITEMS;?>"><button type="button" class="btn btn-default btn-sm" id="button-delete_<?php echo $menu['id']; ?>" disabled="disabled"> <?php echo TEXT_DELETE; ?></button></div>
+            <?php else: ?>
+        <form id="form_delete_menu_<?php echo $menu['id']; ?>" name="form_delete_menu_<?php echo $menu['id']; ?>" role="form" method="post" action="../menus/delete">
+          <input type="hidden" name="menu_delete_<?php echo $menu['id']; ?>" id="menu_delete_<?php echo $menu['id']; ?>" value="<?php echo $menu['id']; ?>"/>
+            <button type="submit" class="btn btn-default btn-sm" id="button-delete_<?php echo $menu['id']; ?>"> <?php echo TEXT_DELETE; ?></button>
+        </form>
+        <?php endif; ?>
+        </div>
+         </div>
+        <!-- do not add another close to div due to whole page construction -->
+        <?php if($menu['menu_has_items'] != 0):?>
+
+         <?php $menuitems = \App\Models\Admin\Menu::menuitemGetList(0,$menu['id']); ?>
+         <div class="row flexed margin-bottom not-visible-at-first" id="<?php echo $menu['id']; ?>">
+             <div class="col-lg-2 left-menuitem-list-holder col-flexed no-padding-right"><p class="p-left-menuitem-list-holder"><?php echo ATEXT_MENU_POSITIONS;?> </p></div>
+             <div class="col-lg-10 no-padding-left">
+                 <div class="row menuitem-list-header">
+                     <div class="col-lg-3"><?php echo MENUITEM_TTITLE;?></div>
+                     <div class="col-lg-3"><?php echo MENUITEM_TYPE;?></div>
+                     <div class="col-lg-2"><?php echo AMENU_ACTION;?></div>
+                     <div class="col-lg-4"></div>
+                 </div>
+                 <?php \App\Models\Admin\Menu::printMenuListFlat($menuitems); ?>
+             </div>
+         </div>
+
+        <?php else: ?>
+
+        <?php endif; ?>
+        <?php $i++; endforeach; ?>
+<?php else: ?>
+<?php echo AMENU_NO_MENU_AVAIABLE; ?>
+<?php endif; ?>

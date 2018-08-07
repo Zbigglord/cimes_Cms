@@ -1,0 +1,91 @@
+<div class="content-page-holder">
+ <div class="content-wrapper">
+  <div class="message-frontend"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+  <?php if(isset($course)): ?>
+  <div class="front-page-header">
+   <div class="row">
+     <div class="col-lg-1 no-padding-right">
+    <div class="course-image-thumb">
+     <img class="img-responsive thumbnail course-list-thumbnail" src="<?php echo $course['courses_display_data_image']; ?>" />
+    </div>
+    </div>
+    <div class="col-lg-11">
+     <p class="course-single-title">
+     <?php echo $course['courses_display_data_title'];?>
+     </p>
+     </div>
+   </div>
+  </div>
+
+   <div class="course-category-details">
+    <?php $cat_name = \App\Models\Course::getCourseCategoryName($course['course_category_id']);?>
+     <div class="row">
+      <div class="col-lg-3"><p class="course-category-details-p"><span class="course-category-details-p-span-first">Kategoria: </span> <span class="course-category-details-p-span-second"><?php echo $cat_name; ?></span></p></div>
+      <div class="col-lg-2"><p class="course-category-details-p"><span class="course-category-details-p-span-first">Początek: </span> <span class="course-category-details-p-span-second"><?php echo $course['course_date_start']; ?></span></p></div>
+      <div class="col-lg-2"><p class="course-category-details-p"><span class="course-category-details-p-span-first">Koniec: </span> <span class="course-category-details-p-span-second"><?php echo $course['course_date_end']; ?></span></p></div>
+      <div class="col-lg-5"></div>
+     </div>
+   </div>
+
+   <div class="row">
+
+    <div class="col-lg-8">
+    <div class="course-description">
+     <?php echo html_entity_decode($course['courses_display_data_description']); ?>
+    </div>
+     </div><!-- END col-8 -->
+
+    <div class="col-lg-4 no-padding-left">
+     <div class="course-right-column">
+
+       <div class="row">
+        <div class="col-sm-12">
+         <a class="ask-about-course-a" href="#">
+         <div class="ask-about-course-div">
+          Zapytaj o kurs
+         </div>
+         </a>
+        </div>
+       </div>
+      <div class="row">
+       <div class="col-sm-12">
+        <div class="separator-tiny bordered-bottom"><!-- only separates and displays border --></div>
+       </div>
+      </div>
+      <div class="row">
+       <div class="col-sm-12">
+          <div class="course-something-placeholder">
+           <?php if(isset($_SESSION['fstudent'])): ?>
+            <?php
+             $student_login = \Core\Session::get('fstudent');
+             $student_group_id = \Core\Session::get('fgroup_id');
+             $student_group_name = \Core\Session::get('fgroup_name');
+            ?>
+            <div class="course-student">
+             <p><?= FTXT_GROUP_FOLDER;?> <?= $student_group_name; ?>: </p>
+             <?php
+              $system = \Core\Filesystem::browseDir('public/upload/kursy');
+             echo '<pre>';
+               print_r( $system);
+             echo '</pre>';
+             ?>
+            </div>
+           <?php else: ?>
+
+          <div class="course-no-student">
+            zaloguj się aby uzyskać dostęp do materiałow.
+          </div>
+          <?php endif; ?>
+          </div>
+      </div>
+       </div>
+      </div>
+
+     </div>
+     </div>
+<?php else: ?>
+ no course is set
+
+<?php endif; ?>
+  </div>
+ </div>

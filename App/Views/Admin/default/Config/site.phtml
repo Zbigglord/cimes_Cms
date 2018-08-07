@@ -1,0 +1,126 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo ATXT_SITE_CONFIG; ?></div>
+
+<?php if(isset($param) && $param == 'add'): ?>
+<form class="admin-form form-big" id="admin_site_config" name="admin_site_config" role="form" method="post" action="#" enctype="multipart/form-data">
+<div class="row margin-bottom">
+  <div class="col-lg-3">
+   <div class="input-group">
+    <input type="file" id="logo_add" name="logo_add" />
+    <input type="hidden" name="logo" id="logo" value=""/>
+   </div>
+   <div class="thumbnail-placeholder">
+    <div class="thumbnail-placeholder-label"><?php echo ATXT_SELECT_LOGO; ?></div>
+   </div>
+  </div>
+ <div class="col-lg-3">
+  <div class="form-group no-margin">
+   <label class="tooltip-labels" for="site_email" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>">  * <?php echo ATXT_SITE_CONFIG_ADD_EMAIL; ?>  </label>
+   <input type="email" class="form-control " id="site_email" name="site_email" />
+  </div>
+ </div>
+ <div class="col-lg-3">
+  <div class="form-group no-margin">
+   <label class="tooltip-labels" for="site_web_address" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>">  * <?php echo ATXT_SITE_CONFIG_ADD_ADDRESS; ?>  </label>
+   <input type="text" class="form-control " id="site_web_address" name="site_web_address" />
+  </div>
+ </div>
+ <div class="col-lg-3">
+  <div class="form-group no-margin">
+   <label class="tooltip-labels" for="site_phone" data-toggle="tooltip" data-placement="top" title=""> <?php echo ATXT_SITE_CONFIG_ADD_PHONE; ?>  </label>
+   <input type="text" class="form-control " id="site_phone" name="site_phone" />
+  </div>
+ </div>
+</div>
+ <div class="row">
+  <div class="col-lg-12"><button type="submit" class="btn btn-default" id="send-addCategory-admin"><?php echo AMENU_SAVE; ?></div>
+ </div>
+</form>
+
+<?php elseif(isset($param) && $param == 'list'): ?>
+
+<?php if(isset($site)):?>
+  <div class="row second-row" style="border-left: 1px solid silver;">
+   <div class="col-lg-3 table-cell table-header">
+    <?php echo ATXT_SITE_CONFIG_LOGO; ?>
+   </div>
+   <div class="col-lg-2 table-cell table-header">
+    <?php echo ATXT_SITE_CONFIG_EMAIL; ?>
+   </div>
+   <div class="col-lg-2 table-cell table-header">
+    <?php echo ATXT_SITE_CONFIG_WWW; ?>
+   </div>
+   <div class="col-lg-2 table-cell table-header">
+    <?php echo ATXT_SITE_CONFIG_PHONE; ?>
+   </div>
+   <div class="col-lg-3 table-cell table-header">
+    <?php echo AMENU_ACTION; ?>
+   </div>
+  </div><!-- END DANE header -->
+
+  <div class="row" style="border-left: 1px solid silver;">
+   <div class="col-lg-3 table-cell">
+    <img class="img-responsive thumbnail" src="<?= $site['site_logo']; ?>" />
+   </div>
+   <div class="col-lg-2 table-cell">
+    <p class="vertically-centered"><?= $site['site_email']; ?></p>
+   </div>
+   <div class="col-lg-2 table-cell ">
+    <p class="vertically-centered"><?= $site['site_web_address']; ?></p>
+   </div>
+   <div class="col-lg-2 table-cell">
+    <p class="vertically-centered"><?= $site['site_phone']; ?></p>
+   </div>
+   <div class="col-lg-3 table-cell">
+    <form name="edit_site" id="edit_site" action="editSite" role="form" method="post">
+     <input type="hidden" name="param" id="param" value="edit_site" />
+     <p style="margin-top: 20px;"><button type="submit" class="btn btn-default" id="edit-site-button"><?php echo TEXT_EDIT; ?></button></p>
+   </form>
+  </div>
+   </div>
+
+<?php endif; ?>
+
+ <?php else: ?>
+<?php if(isset($site)):?>
+ <form class="admin-form form-big" id="admin_edit_site_config" name="admin_edit_site_config" role="form" method="post" action="" enctype="multipart/form-data">
+  <div class="row margin-bottom">
+   <div class="col-lg-3">
+    <div class="input-group">
+     <input type="file" id="logo_add" name="logo_add" />
+     <input type="hidden" name="logo" id="logo" value="<?= $site['site_logo']; ?>"/>
+    </div>
+    <div class="thumbnail-placeholder">
+     <?php if(isset($site['site_logo']) && ($site['site_logo'] != '')): ?>
+      <img class="img-responsive" src="<?= $site['site_logo']; ?>"/>
+      <div class="thumbnail-placeholder-label"><?php echo ATXT_CHANGE_LOGO; ?></div>
+     <?php else: ?>
+      <div class="thumbnail-placeholder-label"><?php echo ATXT_SELECT_LOGO; ?></div>
+     <?php endif; ?>
+    </div>
+   </div>
+   <div class="col-lg-3">
+    <div class="form-group no-margin">
+     <label class="tooltip-labels" for="site_email_edit" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>">  * <?php echo ATXT_SITE_CONFIG_ADD_EMAIL; ?>  </label>
+     <input type="email" class="form-control " id="site_email_edit" name="site_email_edit" value="<?= $site['site_email']; ?>" />
+    </div>
+   </div>
+   <div class="col-lg-3">
+    <div class="form-group no-margin">
+     <label class="tooltip-labels" for="site_web_address_edit" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>">  * <?php echo ATXT_SITE_CONFIG_ADD_ADDRESS; ?>  </label>
+     <input type="text" class="form-control " id="site_web_address_edit" name="site_web_address_edit" value="<?= $site['site_web_address']; ?>" />
+    </div>
+   </div>
+   <div class="col-lg-3">
+    <div class="form-group no-margin">
+     <label class="tooltip-labels" for="site_phone_edit" data-toggle="tooltip" data-placement="top" title=""> <?php echo ATXT_SITE_CONFIG_ADD_PHONE; ?>  </label>
+     <input type="text" class="form-control " id="site_phone_edit" name="site_phone_edit" value="<?= $site['site_phone']; ?>" />
+    </div>
+   </div>
+  </div>
+  <div class="row">
+   <div class="col-lg-12"><button type="submit" class="btn btn-default" id="send-addCategory-admin"><?php echo AMENU_SAVE; ?></div>
+  </div>
+ </form>
+ <?php endif; ?>
+<?php endif; ?>

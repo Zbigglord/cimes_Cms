@@ -1,0 +1,68 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= ATXT_GROUPS; ?></div>
+
+<?php if(isset($glist)): ?>
+ <div class="row second-row" style="border-left: 1px solid silver;"><!-- NEWSLETTER LIST header -->
+  <div class="col-lg-4 table-cell table-header" style="text-align: left;">
+   <?= ATXT_GROUPS_NAME; ?>
+  </div>
+  <div class="col-lg-2 table-cell table-header" style="text-align: left;">
+   <?= ATXT_GROUPS_COURSE_NAME; ?>
+  </div>
+  <div class="col-lg-1 table-cell table-header">
+   <?= ATXT_GROUPS_FOLDER; ?>
+  </div>
+  <div class="col-lg-2 table-cell table-header">
+   <?= ATXT_GROUPS_LOGIN; ?>
+  </div>
+  <div class="col-lg-2 table-cell table-header">
+   <?= ATXT_GROUPS_PASS; ?>
+  </div>
+  <div class="col-lg-1 table-cell table-header">
+   <?= AMENU_ACTION; ?>
+  </div>
+ </div><!-- END DANE header -->
+<?php foreach($glist as $group): ?>
+  <div class="row small" style="border-left: 1px solid silver;">
+   <div class="col-lg-4 padded-top">
+    <?= $group['courses_groups_name']; ?>
+   </div>
+   <div class="col-lg-2 padded-top">
+    <?php $name = \App\Models\Admin\Course::getCourseNameById($group['courses_groups_id']);?>
+    <?= $name; ?>
+   </div>
+   <div class="col-lg-1 padded-top table-cell">
+   <a href="<?= $group['courses_groups_folder']; ?>"><img src="/adminfiles/images/css/folder_small.png"></a>
+   </div>
+   <div class="col-lg-2 padded-top">
+    <?= $group['courses_groups_login']; ?>
+   </div>
+   <div class="col-lg-2 padded-top table-cell">
+  <?php if($group['courses_groups_pass'] != ''):?>
+   <div class="pass-hide" id="pass-hide_<?= $group['courses_groups_id']; ?>"> <span style="font-weight: bold; font-size: 22px;">* * * * *</span> </div>
+   <?php else: ?>
+
+   <?php endif; ?>
+   </div>
+   <div class="col-lg-1 table-cell padded-top">
+    <div class="row">
+     <div class="col-sm-6 no-padding">
+      <form class="hidden-form" id="form-edit-group_<?= $group['courses_groups_id']; ?>" name="form-edit-group" role="form" method="post" action="/admin/courses/editGroup">
+       <input type="hidden" name="group-edit-id" class="group-edit" id="group-edit_<?= $group['courses_groups_id']; ?>" value="<?= $group['courses_groups_id']; ?>"/>
+       <button type="submit" class="btn btn-small btn-group-edit" id="group-edit-button_<?= $group['courses_groups_id']; ?>"> <?php echo AMENU_EDIT; ?></button>
+      </form>
+     </div>
+     <div class="col-sm-6 no-padding">
+      <form class="hidden-form" id="form-delete-group_<?= $group['courses_groups_id']; ?>" name="form-delete-group" role="form" method="post" action="/admin/courses/deleteGroup">
+       <input type="hidden" class="group-delete" id="group-delete_<?= $group['courses_groups_id']; ?>" name="group-delete-id" value="<?= $group['courses_groups_id']; ?>"/>
+       <button type="submit" class="btn btn-small btn-group-delete" id="group-delete-button_<?= $group['courses_groups_id']; ?>"> <?php echo AMENU_DELETE; ?></button>
+      </form>
+     </div>
+    </div>
+   </div>
+  </div>
+<?php endforeach; ?>
+<?php endif;?>
+<pre>
+<?php print_r($data);?>
+  </pre>

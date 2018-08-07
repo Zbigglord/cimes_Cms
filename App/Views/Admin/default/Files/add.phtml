@@ -1,0 +1,96 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= ATXT_FILES_ADD; ?></div>
+<?php $clist = \App\Models\Admin\File::getFCategories(); ?>
+
+<?php if($clist != FALSE): ?>
+
+<form class="admin-form form-big" id="admin_add_file" name="admin_add_file" role="form" method="post" action="/admin/files/addNewFile" enctype="multipart/form-data">
+    <div class="category-wrapper">
+        <div class="row second-row">
+            <div class="col-lg-12 table-cell table-header">
+                <?= AMENU_CATEGORY_BASIC; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 table-cell">
+                <div class="input-group">
+                    <input type="file" id="file_add" name="file_add" />
+                </div>
+                <div class="thumbnail-placeholder larger-than-that">
+                    <span class="input-error" id="vFile"></span>
+                    <div class="thumbnail-placeholder-label"><?= ATXT_SELECT_FILE; ?></div>
+                </div>
+            </div>
+            <div class="col-lg-4 table-cell">
+                <div class="row">
+                    <div class="col-lg-12 table-cell">
+                        <div class="input-group">
+                            <label for="pick-category" id="label-pick-category"><span class="input-error" id="vCat"></span>
+                                <select class="selectpicker" id="pick-category" name="pick-category"  data-live-search="true" data-live-search-placeholder="<?= AMENU_SEARCH; ?>" data-show-tick="true">
+                                    <option data-subtext="" value="0" data-tokens=""><?= AMENU_SELECT_CATEGORY; ?></option>
+                                     <?php foreach($clist as $cat): ?>
+                                         <option data-subtext="<?= ATXT_FILES; ?>" value="<?= $cat['id']; ?>" data-tokens="<?= $cat['name']; ?>"><?= $cat['name']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 table-cell">
+                            <div class="form-group no-margin">
+                                <span class="input-error" id="vTitle"></span>
+                                <input type="text" class="form-control " id="add-file-title" name="add-file-title"  placeholder="<?= ATXT_ADD_FILE_TITLE; ?>" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end second col -->
+            <div class="col-lg-5 table-cell">
+                <div class="form-group">
+                    <textarea class="form-control textarea-table tinymce-container" placeholder="<?= AMENU_CATEGORY_DESCRIPTION; ?>" rows="6" id="add-file-description" name="add-file-description"></textarea>
+                </div>
+            </div>
+        </div><!-- end main row -->
+        <div class="row second-row">
+            <div class="col-lg-12 table-cell table-header">
+                <?= AMENU_CATEGORY_SEO; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 table-cell">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control textarea-table" id="add-file-metaname" name="add-file-metaname"  placeholder="<?= AMENU_CATEGORY_ADD_METANAME; ?>"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control textarea-table" id="add-file-metakeys" name="add-file-metakeys"  placeholder="<?= AMENU_CATEGORY_ADD_METAKEYS; ?>"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 table-cell">
+                <div class="form-group">
+                    <textarea class="form-control textarea-table" placeholder="<?= AMENU_CATEGORY_METADESCRIPTION; ?>" rows="3" id="add_file-metadescription" name="add_file-metadescription"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12"><button type="submit" class="btn btn-default" id="save-file-admin"><?= ATXT_FILE_SAVE; ?></div>
+        </div>
+    </div>
+</form>
+
+<?php else: ?>
+
+    <div class="row no-margin">
+        <div class="col-lg-12">
+            <div class="message-warning"><?= ATXT_NO_CATEGORY_TYPE_FILE; ?></div>
+        </div>
+    </div>
+
+<?php endif; ?>

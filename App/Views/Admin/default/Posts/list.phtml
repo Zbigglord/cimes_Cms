@@ -1,0 +1,84 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= AMENU_POSTS; ?></div>
+
+<?php if(isset($alist) && !empty($alist)): ?>
+ <div class="row second-row" style="border-left: 1px solid silver;"><!-- CATEGORY LIST header -->
+  <div class="col-lg-1 table-cell table-header">
+   <?= AMENU_CATEGORY_IMAGE; ?>
+  </div>
+  <div class="col-lg-2 table-cell table-header">
+   <?= POST_POST_TITLE; ?>
+  </div>
+  <div class="col-lg-4 table-cell table-header">
+   <?= POST_POST_DESCRIPTION; ?>
+  </div>
+  <div class="col-lg-1 table-cell table-header">
+   <?= POST_POST_ADDED; ?>
+  </div>
+  <div class="col-lg-1 table-cell table-header">
+   <?= POST_POST_EDITED; ?>
+  </div>
+  <div class="col-lg-1 table-cell table-header">
+   <?= POST_POST_AUTHOR; ?>
+  </div>
+  <div class="col-lg-1 table-cell table-header">
+   <?= AMENU_ACTION; ?>
+  </div>
+ </div><!-- END DANE header -->
+<?php $i = 1; foreach($alist as $post): ?>
+ <?php if($i % 2 == 0): ?>
+  <div class="row second-row" style="border-left: 1px solid silver;">
+ <?php else: ?>
+   <div class="row" style="border-left: 1px solid silver;">
+<?php endif; ?>
+    <div class="col-lg-1 table-cell-left">
+     <img class="img-responsive thumbnail no-margin" src="<?= $post["post_image"]; ?>" />
+    </div>
+    <div class="col-lg-2 table-cell-left">
+     <p class="post-title-p"><?= $post["post_title"]; ?></p>
+    </div>
+    <div class="col-lg-4 table-cell-left">
+     <?php if(strlen($post["post_content"]) > 140): ?>
+     <div class="description-in-list"><i>[...]</i><?= substr($post["post_content"],20,140); ?> <i>[...]</i></div>
+     <?php else: ?>
+     <div class="description-in-list"><?= $post["post_content"]; ?></div>
+     <?php endif; ?>
+    </div>
+    <div class="col-lg-1 table-cell-left">
+     <?= $post["post_date_added"]; ?>
+    </div>
+    <div class="col-lg-1 table-cell-left">
+     <?= $post["post_date_edited"]; ?>
+    </div>
+    <div class="col-lg-1 table-cell">
+     <?= $post["post_author"]; ?>
+     </div>
+
+    <div class="col-lg-2 table-cell">
+     <form name="post-edit-form" role="form" action="edit" method="post" id="post-edit-form">
+      <input type="hidden" name="post_edit_id" value="<?= $post['post_id']; ?>" />
+      <div class="button-group"><button type="submit" class="btn-post-edit"><?= AMENU_EDIT; ?></button></div>
+      </form>
+
+    <form name="post-delete-form" role="form" action="delete" method="post" id="post-delete-form_<?= $post['post_id'];?>">
+      <input type="hidden" name="post_delete_id" value="<?= $post['post_id']; ?>" />
+      <div class="button-group"><button type="submit" class="btn-post-delete" id="btn-delete_<?= $post['post_id']; ?>"><?= AMENU_DELETE; ?></button></div>
+      </form>
+
+        <form name="post-archive-form" role="form" action="archive" method="post" id="post-archive-form">
+            <input type="hidden" name="post_archive_id" value="<?= $post['post_id']; ?>" />
+            <div class="button-group"><button type="submit" class="btn-post-archive"><?= BTN_ARCHIVE; ?></button></div>
+        </form>
+
+     </div>
+</div>
+   <?php $i++; ?>
+<?php endforeach; ?>
+<?php endif; ?>
+
+      <div id="confirm-delete-post">
+          <input type = "hidden" id="delete-post-confirmation" value="<?= POST_DELETE_CONFIRM; ?>" />
+          <input type = "hidden" id="btn-continue" value="<?= ABTN_CONTINUE; ?>" />
+          <input type = "hidden" id="btn-cancel" value="<?= ABTN_CANCEL; ?>" />
+          <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span><?= POST_WILL_BE_DELETED. ATXT_CONTINUE_ASK; ?>? </p>
+      </div>

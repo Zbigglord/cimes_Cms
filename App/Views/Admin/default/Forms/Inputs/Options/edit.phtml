@@ -1,0 +1,49 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2018-02-13
+ * Time: 09:19
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<?php if(isset($select) && !empty($select) && isset($option) && !empty($option)): ?>
+    <div class="page-header"><?= ATXT_FORMS_SELECT_OPTION_EDIT; ?><span class="span-green"><?= $select[0]['input_name']; ?></span></div>
+    <form id="form-edit-option-select" class="new-form-created"  method="POST" action="/admin/forms/editSelectOption">
+        <input type="hidden" id="edit-option-select-id" name="edit-option-select-id" value="<?= $select[0]['input_id']; ?>" />
+        <input type="hidden" id="edit-option-id" name="edit-option-id" value="<?= $option[0]['option_id']; ?>" />
+        <div class="row no-margin">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="edit-option-title" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>"> <?= ATXT_FORMS_SELECT_OPTION_TEXT; ?>  *  </label>
+                    <input type="text" class="form-control" id="edit-option-title" name="edit-option-title" value="<?= $option[0]['option_text']; ?>" required />
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="edit-option-value" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>"> <?= ATXT_FORMS_SELECT_OPTION_VALUE; ?>  *  </label>
+                    <input type="text" class="form-control" id="edit-option-value" name="edit-option-value" value="<?= $option[0]['option_value']; ?>" required />
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="edit-option-subtext" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title=""> <?= ATXT_FORMS_SELECT_OPTION_DATA_SUBTEXT; ?></label>
+                    <input type="text" class="form-control" id="edit-option-subtext" name="edit-option-subtext" value="<?= $option[0]['option_data_subtext']; ?>" />
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="edit-option-tokens" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title=""> <?= ATXT_FORMS_SELECT_OPTION_DATA_TOKENS; ?></label>
+                    <input type="text" class="form-control" id="edit-option-tokens" name="edit-option-tokens" value="<?= $option[0]['option_data_tokens']; ?>" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" id="send-new-form-cancel" class="btn btn-default pull-right" style="margin-left: 10px;" onclick="cancel('/admin/forms/optionsList?data=<?= $select[0]['input_id']; ?>');"><?= BTN_BACK; ?></button>
+                <button type="submit" class="btn btn-default pull-right" id="edit-option-add-button"><?= AMENU_SAVE; ?></button>
+            </div>
+        </div>
+    </form>
+<?php endif; ?>
+

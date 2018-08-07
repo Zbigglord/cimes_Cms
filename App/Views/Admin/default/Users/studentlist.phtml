@@ -1,0 +1,68 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo AMENU_STUDENT_LIST; ?></div>
+
+<div class="row second-row" style="border-left: 1px solid silver;"><!-- CATEGORY LIST header -->
+ <div class="col-lg-1 table-cell table-header">
+  #
+ </div>
+ <div class="col-lg-3 table-cell-left table-header">
+  <?= AMENU_CLASS_STUDENTS_GROUP_NAME; ?>
+ </div>
+ <div class="col-lg-2 table-cell-left table-header">
+  <?= FORM_NAME; ?>
+ </div>
+ <div class="col-lg-2 table-cell-left table-header">
+  <?= FORM_SURNAME; ?>
+ </div>
+ <div class="col-lg-3 table-cell-left table-header">
+  <?= FORM_EMAIL; ?>
+ </div>
+ <div class="col-lg-1 table-cell table-header">
+  <?= AMENU_ACTION; ?>
+ </div>
+</div><!-- END DANE header -->
+
+<?php if(isset($slist)): ?>
+<?php $i = 1; $counter = 0; foreach($slist as $student): ?>
+  <?php if($counter % 2 == 0): ?>
+<div class="row" style="border-left: 1px solid silver;">
+ <?php $counter++; ?>
+ <?php else: ?>
+   <div class="row second-row" style="border-left: 1px solid silver;">
+    <?php $counter++; ?>
+ <?php endif; ?>
+ <div class="col-lg-1 table-cell">
+  <?= $i; $i++;?>
+ </div>
+ <div class="col-lg-3 table-cell-left">
+  <?= $student['student_group_name']; ?>
+ </div>
+ <div class="col-lg-2 table-cell-left">
+  <?= $student['student_name']; ?>
+ </div>
+ <div class="col-lg-2 table-cell-left">
+  <?= $student['student_surname']; ?>
+ </div>
+ <div class="col-lg-3 table-cell-left">
+  <?= $student['student_email']; ?>
+ </div>
+ <div class="col-lg-1 table-cell">
+  <form name="student-edit-form" role="form" action="/admin/users/editStudent" method="post" id="student-edit-form">
+   <input type="hidden" name="student_edit_id" value="<?= $student['id']; ?>" />
+   <button type="submit" class="btn-student-edit"><?= AMENU_EDIT; ?></button>
+  </form>
+
+  <form name="student-delete-form" role="form" action="/admin/users/deleteStudent" method="post" id="student-delete-form_<?= $student['id']; ?>">
+   <input type="hidden" name="student_delete_id" value="<?= $student['id']; ?>" />
+   <button type="submit" id="btn-student-delete-id_<?= $student['id']; ?>" class="btn-student-delete"><?= AMENU_DELETE; ?></button>
+  </form>
+ </div>
+</div>
+ <?php endforeach; ?>
+<?php endif; ?>
+ <div id="confirm-delete-student">
+  <input type = "hidden" id="delete-student-confirmation" value="<?= ATXT_STUDENT_DELETE_CONFIRM; ?>" />
+  <input type = "hidden" id="btn-continue" value="<?= ABTN_CONTINUE; ?>" />
+  <input type = "hidden" id="btn-cancel" value="<?= ABTN_CANCEL; ?>" />
+  <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span><?= ATXT_STUDENT_AND_DATA_WILL_BE_DELETED. ATXT_CONTINUE_ASK; ?>? </p>
+ </div>

@@ -1,0 +1,114 @@
+<div class="content-page-holder">
+ <div class="content-wrapper">
+  <div class="message-frontend"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+  <?php if(isset($post)): ?>
+   <?php foreach($post as $article): ?>
+   <div class="front-page-header">
+    <div class="row">
+     <div class="col-lg-1 no-padding-right">
+      <div class="course-image-thumb">
+       <img class="img-responsive thumbnail course-list-thumbnail" src="<?php echo $article['post_image']; ?>" />
+      </div>
+     </div>
+     <div class="col-lg-11">
+      <p class="course-single-title">
+       <?php echo $article['post_title'];?>
+      </p>
+     </div>
+    </div>
+   </div>
+
+   <div class="course-category-details">
+    <?php $cat_name = \App\Models\Post::getCategoryName($article['post_category_id']);?>
+    <div class="row">
+     <div class="col-lg-3"><p class="course-category-details-p"><span class="course-category-details-p-span-first">Kategoria: </span> <span class="course-category-details-p-span-second"><?php echo $cat_name; ?></span></p></div>
+     <div class="col-lg-4"><p class="course-category-details-p"><span class="course-category-details-p-span-first">Ostatnio edytowany: </span> <span class="course-category-details-p-span-second"><?php echo $article['post_date_edited']; ?></span></p></div>
+     <div class="col-lg-2"><p class="course-category-details-p"><span class="course-category-details-p-span-first">Autor: </span> <span class="course-category-details-p-span-second"><?php echo $article['post_author']; ?></span></p></div>
+     <div class="col-lg-3"></div>
+    </div>
+   </div>
+
+   <div class="row">
+
+    <div class="col-lg-12">
+     <div class="course-description">
+      <?php
+
+
+      $all = \App\Models\Post::findSnippetOccur($article['post_content'],'{{');
+
+      if($all){
+
+       $results = \App\Models\Post::getSnippets($article['post_content'],$all);
+
+      }
+
+      ?>
+      <?php if($all): ?>
+
+       <pre><?php print_r($results); ?></pre>
+       <!-- here we gonna add string replace for post content -->
+       <?php
+
+        $article_temp = $article['post_content'];
+
+        for($i=0;$i<sizeof($results);$i++){
+
+         $start = strpos($article_temp, "{{");//start of snippet tag
+         $end = strpos($article_temp, "}}", $start+2);//end of snippet tag
+         $how_long = ($end) - ($start+2);//exact length of string between tags needed in substr function
+         $sub = substr($article_temp,$start+2, $how_long);//substring
+         $sub_sub = explode(':',$sub);//array of what code and name of snippet
+
+         if($sub_sub[0] == 'javascript'){
+
+          $content = substr_replace($article_temp,"<script type='text/javascript'>",$start,2);
+          $article_temp = $content;
+
+          //in between need to get code
+
+          $code = file_get_contents(APP_DIR.'/App/Files/js/'.$sub_sub[1].'.snp');
+
+          $content = substr_replace($article_temp,$code,$start+31,$how_long);
+          $article_temp = $content;
+
+          $end = strpos($article_temp, "}}");//end of snippet tag after change
+          $content = substr_replace($article_temp,"</script>",$end,2);
+          $article_temp = $content;
+
+         }else{
+
+          $content = substr_replace($article_temp,"<?php ",$start,5);
+          $article_temp = $content;
+
+          //in between need to get code
+
+          $code = file_get_contents(APP_DIR.'/App/Files/php/'.$sub_sub[1].'.snp');
+
+          $content = substr_replace($article_temp,$code,$start+5,$how_long);
+          $article_temp = $content;
+
+          $end = strpos($article_temp, "}}");//end of snippet tag after change
+          $content = substr_replace($article_temp," ?>",$end,2);
+          $article_temp = $content;
+
+         }
+
+        }
+
+       ?>
+       <?php echo html_entity_decode($article_temp); ?>
+      <?php else: ?>
+          <div> nothing </div>
+      <?php endif; ?>
+
+     </div>
+    </div><!-- END col-8 -->
+   </div>
+  <?php endforeach; ?>
+  <?php else: ?>
+
+dupe
+  <?php endif; ?>
+ </div>
+</div>

@@ -1,0 +1,278 @@
+<?php
+/**
+ * Creator: BabooJaga
+ * Date: 2016-03-21
+ * Time: 19:16
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= AMENU_ADD_USER; ?></div>
+
+<form class="admin-form form-big" id="admin_add_user" role="form" action="">
+  <div class="admin-form-group">
+      <div class="form-group-header"><?= AMENU_ADDRESS_DATA; ?></div>
+    <div class="row">
+       <div class="col-lg-4">
+           <div class="form-group">
+               <label for="add_name"><?= AMENU_NAME; ?></label><span class="input-error" id="vName"></span>
+               <input type="text" class="form-control input-sm" id="add_name" name="add_name"  />
+           </div>
+       </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label for="add_surname"><?= AMENU_SURNAME; ?></label><span class="input-error" id="vSname"></span>
+                <input type="text" class="form-control input-sm" id="add_surname" name="add_surname"  />
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label for="add_street"><?= AMENU_STREET; ?></label><span class="input-error" id="vStreet"></span>
+                <input type="text" class="form-control input-sm" id="add_street" name="add_street" />
+            </div>
+        </div>
+    </div>
+      <div class="row">
+          <div class="col-lg-2">
+              <div class="form-group">
+                  <label for="add_postcode"><?= AMENU_POST_CODE; ?></label><span class="input-error" id="vCode"></span>
+                  <input type="text" class="form-control input-sm" id="add_postcode" name="add_postcode" />
+              </div>
+          </div>
+          <div class="col-lg-10">
+              <div class="form-group">
+                  <label for="add_city"><?= AMENU_TOWN; ?></label><span class="input-error" id="vCity"></span>
+                  <input type="text" class="form-control input-sm" id="add_city" name="add_city" />
+              </div>
+          </div>
+      </div>
+  </div><!-- END DANE ADRESOWE GROUP -->
+
+    <div class="admin-form-group">
+        <div class="form-group-header"><?= AMENU_LOGIN_DATA; ?></div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="add_nick"><?= AMENU_LOGIN; ?> *</label><span class="input-error" id="vLogin"></span>
+                    <input type="text" class="form-control input-sm" id="add_nick" name="add_nick" required="required" />
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="add_email"><?= AMENU_EMAIL; ?> *</label><span class="input-error" id="vEmail"></span>
+                    <input type="email" class="form-control input-sm" id="add_email" name="add_email" required="required" />
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="add_pass"><?= AMENU_PASS; ?> *</label><span class="input-error" id="vPass"></span>
+                    <input type="password" class="form-control input-sm" id="add_pass" name="add_pass" required="required" />
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="repeat_pass"><?= AMENU_PASS_REPEAT; ?> *</label><span class="input-error" id="vRpass"></span>
+                    <input type="password" class="form-control input-sm" id="repeat_pass" name="repeat_pass" required="required" />
+                </div>
+            </div>
+        </div>
+    </div><!-- END DANE LOGOWANIA GROUP -->
+
+    <div class="admin-form-group">
+        <div class="form-group-header"><?= AMENU_ROLES_AND_RIGHTS; ?></div>
+        <div class="row">
+          <div class="col-lg-12">
+              <div class="form-checkbox-group-header"><?php echo AMENU_USERS_GROUPS; ?>:</div>
+              <p id="addUser-select-error"></p>
+              <select class="form-control" id="user_groups" name="user_groups">
+                  <option value="none"> <?= AMENU_PICK_ONE; ?> </option>
+                  <option value="super"><?= AMENU_SUPERADMIN; ?></option>
+                  <option value="admin"><?= AMENU_ADMIN; ?></option>
+                  <option value="moderator"><?= AMENU_MODERATOR; ?></option>
+                  <option value="editor"><?= AMENU_EDITOR; ?></option>
+                  <option value="regular_user"><?= AMENU_REGULAR_USER; ?></option>
+                  <option value="random_role"><?= AMENU_RANDOM_ROLE; ?></option>
+              </select>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="form-checkbox-group-header"><?= AMENU_USERS; ?>:</div>
+                <div class="form-checkbox-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="us_add" name="us_add"/>
+                                    <?= AMENU_ADD; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="us_edit" name="us_edit"/>
+                                    <?= AMENU_EDIT; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="us_delete" name="us_delete"/>
+                                    <?= AMENU_DELETE; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end first column -->
+            <div class="col-lg-2">
+                <div class="form-checkbox-group-header"><?= AMENU_MENU; ?>:</div>
+                <div class="form-checkbox-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="menu_add" name="menu_add"/>
+                                    <?= AMENU_ADD; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="menu_edit" name="menu_edit"/>
+                                    <?= AMENU_EDIT; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="menu_delete" name="menu_delete"/>
+                                    <?= AMENU_DELETE; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end second column -->
+            <div class="col-lg-2">
+                <div class="form-checkbox-group-header"><?php echo AMENU_CATEGORIES; ?>:</div>
+                <div class="form-checkbox-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="category_add" name="category_add"/>
+                                    <?= AMENU_ADD; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="category_edit" name="category_edit"/>
+                                    <?= AMENU_EDIT; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="category_delete" name="category_delete"/>
+                                    <?= AMENU_DELETE; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end third column -->
+            <div class="col-lg-2">
+                <div class="form-checkbox-group-header"><?= AMENU_ARTICLES; ?>:</div>
+                <div class="form-checkbox-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="article_add" name="article_add"/>
+                                    <?= AMENU_ADD; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="article_edit" name="article_edit"/>
+                                    <?= AMENU_EDIT; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="article_delete" name="article_delete"/>
+                                    <?= AMENU_DELETE; ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end fourth column -->
+            <div class="col-lg-4">
+                <div class="form-checkbox-group-header"><?= AMENU_OTHER; ?>:</div>
+                <div class="form-checkbox-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="cc_config" name="cc_config"/>
+                                    <?= AMENU_MAY_CHANGE_CONFIG; ?>?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="cs_backend" name="cs_backend"/>
+                                    <?= AMENU_MAY_SEE_BACKEND; ?>?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="is_active" name="is_active"/>
+                                    <?= AMENU_ACTIVE; ?>?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end fifth column -->
+        </div>
+    </div><!-- END ROLE I UPRAWNIENIA GROUP -->
+<div class="row">
+    <div class="col-lg-12"><button type="submit" class="btn btn-default" id="send-addUser-admin"><?= AMENU_ADD; ?></div>
+</div>
+</form>

@@ -1,0 +1,24 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo AMENU_CLASS_FOLDER_CONTENT; ?></div>
+<div style="margin-bottom: 10px;"><img src="/adminfiles/images/css/folder_small.png"> <?php echo $_GET['data']; ?></div>
+<div class="row">
+<?php foreach($folder as $f): ?>
+ <?php
+ $filename = end(explode('/',$f));
+ $ext = substr($filename, strrpos($filename, '.')+1);
+ $folder = $_GET['data'];
+ ?>
+    <div class="col-lg-2">
+     <div class="file-icon-holder">
+      <a class="down" href="../../upload/kursy/<?php echo $folder.'/'.$filename;?>" target="_blank">
+       <?php echo $filename; ?>
+      </a>
+      </div>
+    </div>
+<?php endforeach; ?>
+</div>
+<div class="row">
+ <div class="col-lg-12">
+<a href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/admin/courses/list"> <<< powrót </a>
+  </div>
+ </div>

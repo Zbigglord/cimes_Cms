@@ -1,0 +1,35 @@
+<div class="row">
+ <div class="col-lg-12">
+  <?php if(isset($message)){ echo $message; unset($message);} ?>
+ </div>
+</div>
+<?php if(isset($emails)): ?>
+<div class="row">
+ <div class="col-lg-12">
+  <div class="page-header">LISTA KONT EMAIL<span class="badge-header"><?= sizeof($emails);?></span><span class="delete-buttons"><a href="/emails/delete"><button class="btn btn-danger">USUWANIE</button></a></span></div>
+ </div>
+</div>
+ <?php $iter = 2; ?>
+ <div class="customer-form-group">
+  <div class="row header-row no-margin form-group-header">
+   <div class="col-lg-3 center-aligned">Adres</div>
+   <div class="col-lg-3 center-aligned">Login</div>
+   <div class="col-lg-3 center-aligned">Hasło</div>
+   <div class="col-lg-2 center-aligned">Hosting</div>
+   <div class="col-lg-1 center-aligned"></div>
+  </div>
+  <?php foreach($emails as $email): ?>
+   <div class="row no-margin <?php if($iter % 2 == 0): ?> second-row <?php endif; ?> table-row">
+    <div class="col-lg-3 center-aligned table-cell-bordered-right"><?php echo $email['hostings_email_address']; ?></div>
+    <div class="col-lg-3 center-aligned table-cell-bordered-right"><?php echo $email['hostings_email_login']; ?></div>
+    <div class="col-lg-3 center-aligned table-cell-bordered-right"><?php echo $email['hostings_email_pass']; ?></div>
+    <?php $hosting = \App\Models\Hosting::getHostingBy('hosting_id',$email['hostings_email_hosting_id']);?>
+    <?php foreach($hosting as $hst): ?>
+     <div class="col-lg-2 center-aligned table-cell-bordered-right"><?php echo $hst['hosting_name']; ?></div>
+    <?php endforeach; ?>
+    <div class="col-lg-1 center-aligned"><a href="/emails/edit?id=<?php echo $email['hostings_email_id'];?>">edytuj</a></div>
+   </div>
+   <?php $iter++; ?>
+  <?php endforeach; ?>
+ </div>
+<?php endif;?>

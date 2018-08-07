@@ -1,0 +1,108 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2018-01-12
+ * Time: 13:51
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= FORM_EDIT; ?></div>
+
+<?php if(isset($edit_form) && !empty($edit_form)): ?>
+<?php var_dump($edit_form);?>
+<div class="row no-margin"><!-- START MAIN ROW -->
+    <div class="col-lg-12 no-padding"> <!-- START MAIN COL -->
+        <form id="edit-new-formular-form" name="edit-new-formular-form" method="POST" action="/admin/forms/saveEditedForm">
+            <input type="hidden" id="form-id" name="form-id" value="<?= $edit_form['form_id']; ?>"/>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="edit-form-title" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>"> <?= ATXT_FORMS_NEW_TITLE; ?>  *  </label>
+                        <input type="text" class="form-control" id="edit-form-title" name="edit-form-title" value="<?= $edit_form['form_title']; ?>" required />
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="edit-form-name" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title=""> <?= ATXT_FORMS_NEW_NAME; ?>  </label>
+                        <input type="text" class="form-control" id="edit-form-name" name="edit-form-name" value="<?= $edit_form['form_name']; ?>"/>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="edit-form-id" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>"> <?= ATXT_FORMS_NEW_ID; ?>  *  </label>
+                        <input type="text" class="form-control" id="edit-form-id" name="edit-form-id" value="<?= $edit_form['form_id_char']; ?>" readonly required/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="edit-form-class" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title=""> <?= ATXT_FORMS_NEW_CLASS; ?></label>
+                        <input type="text" class="form-control" id="edit-form-class" name="edit-form-class" value="<?= $edit_form['form_class']; ?>" />
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="edit-form-method" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>"> <?= ATXT_FORMS_NEW_METHOD; ?>  * </label>
+                        <select class="standart-select" id="edit-form-method" name="edit-form-method" data-live-search="false" data-show-tick="true">
+                            <option data-subtext="" value="1" <?php if($edit_form['form_method'] == 'POST'):?> selected<?php endif; ?>>POST</option>
+                            <option data-subtext="" value="2" <?php if($edit_form['form_method'] == 'GET'):?> selected<?php endif; ?>>GET</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="edit-form-action" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title=""> <?= ATXT_FORMS_NEW_ACTION; ?>  </label>
+                        <input type="text" class="form-control" id="edit-form-action" name="edit-form-action" value="<?= $edit_form['form_action']; ?>" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="edit-form-text-before" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>"> <?= FORM_TXT_BEFORE; ?>  * </label>
+                        <select class="selectpicker" id="edit-form-text-before" name="edit-form-text-before" data-live-search="true" data-live-search-placeholder="<?php echo AMENU_SEARCH; ?>" data-show-tick="true">
+                            <?php $posts = \App\Models\Admin\Post::listAllArticles();?>
+                            <option data-subtext="" value="0" data-tokens=""><?php echo AMENU_PICK_ONE; ?></option>
+                            <?php foreach($posts as $post): ?>
+                                <option data-subtext="<?= $post['post_author']?>" value="<?= $post['post_id']?>" data-tokens="<?= $post['post_title']?>" <?php if($edit_form['form_text_before'] == $post['post_id']):?> selected<?php endif; ?>><?= $post['post_title']?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="edit-form-text-after" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>"> <?= FORM_TXT_AFTER; ?>  * </label>
+                        <select class="selectpicker" id="edit-form-text-after" name="edit-form-text-after" data-live-search="true" data-live-search-placeholder="<?php echo AMENU_SEARCH; ?>" data-show-tick="true">
+                            <?php $posts = \App\Models\Admin\Post::listAllArticles();?>
+                            <option data-subtext="" value="0" data-tokens=""><?php echo AMENU_PICK_ONE; ?></option>
+                            <?php foreach($posts as $post): ?>
+                                <option data-subtext="<?= $post['post_author']?>" value="<?= $post['post_id']?>" data-tokens="<?= $post['post_title']?>" <?php if($edit_form['form_text_after'] == $post['post_id']):?> selected<?php endif; ?>><?= $post['post_title']?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="edit-form-category" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>"> <?= FORM_CATEGORY; ?>  * </label>
+                        <select class="selectpicker" id="edit-form-category" name="edit-form-category" data-live-search="true" aria-required="true" data-live-search-placeholder="<?php echo AMENU_SEARCH; ?>" data-show-tick="true">
+                            <?php $categories = \App\Models\Admin\Category::categoryGetList(0,3);?>
+                            <option data-subtext="" value="0" data-tokens=""><?php echo AMENU_PICK_ONE; ?></option>
+                            <?php foreach($categories as $category): ?>
+                                <option data-subtext="" value="<?= $category['id']?>" data-tokens="<?= $category['name']?>" <?php if($edit_form['form_category'] == $category['id']): ?> selected <?php endif; ?>><?= $category['name']?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="submit" class="btn btn-default pull-right" id="new-form-add-button"><?= ATXT_FORMS_CREATE ?></button>
+                </div>
+            </div>
+        </form>
+    </div> <!-- END PAGE CONTENT -->
+</div> <!-- END MAIN COL -->
+
+<?php endif; ?>

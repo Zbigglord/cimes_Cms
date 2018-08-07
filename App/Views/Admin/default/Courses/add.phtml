@@ -1,0 +1,122 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo AMENU_ADD_CLASS; ?></div>
+<script type="text/javascript">
+    jq( function() {
+        jq( "#class_start" ).datepicker({dateFormat: "yy-mm-dd"});
+        jq( "#class_end" ).datepicker({dateFormat: "yy-mm-dd"});
+    } );
+</script>
+
+<?php if(isset($c_cats) || !empty($c_cats)): ?>
+<form class="admin-form form-big" id="admin_add_class" name="admin_add_class" role="form" method="post" action="" enctype="multipart/form-data">
+ <div class="category-wrapper">
+    <div class="row second-row margin-bottom">
+     <div class="col-lg-12 table-cell table-header">
+         <?php echo AMENU_CLASS_BASIC; ?>
+     </div>
+    </div>
+<!-- first data set -->
+     <div class="row margin-bottom">
+         <div class="col-lg-3">
+             <div class="form-group no-margin">
+                 <label class="tooltip-labels" for="class_end" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>">  * <?php echo AMENU_ADD_CLASS_NAME; ?>  </label>
+                 <input type="text" class="form-control " id="add_classname" name="add_classname"  placeholder="" required/>
+             </div>
+         </div>
+         <div class="col-lg-3">
+             <div class="form-group no-margin">
+                 <label for="class_end" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>">  * <?php echo AMENU_ADD_CLASS_CATEGORY; ?>  </label>
+             <select class="selectpicker" id="class_cat" name="class_cat"  data-live-search="true" data-live-search-placeholder="<?php echo AMENU_SEARCH_CATEGORY; ?>" data-show-tick="true">
+                 <option data-subtext="" value="none" data-tokens=""> <?= AMENU_SELECT; ?> </option>
+               <?php foreach($c_cats as $cat): ?>
+                 <option data-subtext="" data-tokens="<?php echo $cat['name'];?>" value="<?php echo $cat['id'];?>"><?php echo $cat['name'];?></option>
+               <?php endforeach; ?>
+             </select>
+             </div>
+         </div>
+         <div class="col-lg-3">
+         <div class="form-group no-margin">
+          <label for="class_start" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>"> * <?php echo AMENU_ADD_CLASS_DATE_START; ?>  </label>
+          <input type="text" id="class_start" name="class_start" class="form-control" required/>
+         </div>
+          </div>
+         <div class="col-lg-3">
+             <div class="form-group no-margin">
+             <label for="class_end" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>">  * <?php echo AMENU_ADD_CLASS_DATE_END; ?>  </label>
+              <input type="text" id="class_end" name="class_end" class="form-control" required/>
+              </div>
+         </div>
+     </div>
+     <!-- second data set -->
+     <div class="row second-row margin-bottom " style="padding: 5px;">
+         <div class="col-xs-1 no-padding" style="max-width: 20px;">
+          <div class="form-group no-margin" style="text-align: right; padding-right: 5px;">
+          <input type="checkbox" name="make_class_group" id="make_class_group" value="yes" />
+         </div>
+         </div>
+         <div class="col-xs-11 no-padding align-left">
+         <div class="form-group no-margin">
+          <label class="tooltip-labels" for="make_class_group" data-toggle="tooltip" data-placement="top" title="<?php echo TOOLTIP_CLASS_IF_CHECKED_MAKE_GROUP; ?>"><?php echo AMENU_MAKE_CLASS_GROUP_FOLDER; ?></label>
+         </div>
+         </div>
+     </div>
+
+     <!-- third data set -->
+     <div class="row second-row margin-bottom">
+         <div class="col-lg-12 table-cell table-header">
+             <?php echo AMENU_CLASS_DISPLAY_DATA; ?> (<?php echo AMENU_CLASS_VISIBLE_FRONTEND; ?>)
+         </div>
+     </div>
+     <div class="row margin-bottom">
+         <div class="col-lg-3">
+              <div class="input-group">
+                  <input type="file" id="class_image_add" name="class_image_add" />
+              </div>
+              <div class="thumbnail-placeholder">
+                  <div class="thumbnail-placeholder-label"><?php echo ATXT_SELECT_IMAGE; ?></div>
+              </div>
+         </div>
+         <div class="col-lg-9">
+             <div class="row" style="margin-bottom: 15px;">
+             <div class="col-lg-4">
+                 <div class="form-group no-margin">
+                     <label class="tooltip-labels" for="class_title" data-toggle="tooltip" data-placement="top" title="<?php echo AMENU_CLASS_IF_NOT_CHANGED_SAME_AS_NAME; ?>"> <?php echo AMENU_ADD_CLASS_TITLE; ?></label><input type="text" id="class_title" name="class_title" class="form-control"/>
+                 </div>
+              </div>
+              <div class="col-lg-4">
+                  <div class="form-group no-margin">
+                      <label for="class_seo">  <?php echo AMENU_INSERT; ?> <?php echo AMENU_CATEGORY_SEOLINK; ?>  </label><input type="text" id="class_seo" name="class_seo" class="form-control"/>
+                  </div>
+              </div>
+             <div class="col-lg-4">
+                 <div class="form-group no-margin">
+                     <label for="class_metakeys">  <?php echo AMENU_CATEGORY_METAKEYS; ?>  </label><input type="text" id="class_metakeys" name="class_metakeys" class="form-control"/>
+                 </div>
+             </div>
+             </div>
+             <div class="row">
+                 <div class="col-lg-12">
+                 <div class="form-group">
+                     <textarea class="form-control textarea-table" placeholder="<?php echo AMENU_ADD_CLASS_METADESCRIPTION; ?>" rows="2" id="class_metadescription" name="class_metadescription"></textarea>
+                 </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     <div class="row margin-bottom">
+         <div class="col-lg-12">
+                 <div class="form-group">
+                     <label for="class_description">  <?php echo AMENU_ADD_CLASS_DESCRIPTION; ?>  </label>
+                     <textarea class="form-control textarea-table tinymce-container" rows="12" id="class_description" name="class_description"></textarea>
+                 </div>
+         </div>
+     </div>
+     <div class="row">
+         <div class="col-lg-12"><button type="submit" class="btn btn-default" id="add_class" name="add_class"><?php echo AMENU_CLASS_SAVE; ?></div>
+     </div>
+</div><!-- end category wrapper -->
+
+</form>
+<?php else: ?>
+
+<?php endif; ?>

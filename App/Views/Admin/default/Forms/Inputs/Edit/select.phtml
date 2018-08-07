@@ -1,0 +1,148 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2018-02-13
+ * Time: 11:03
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<?php
+$form_name = '';
+if(isset($input) && !empty($input)){
+    $form_name = \App\Models\Admin\Form::getInputFormTitle($input[0]['input_id']);
+}
+?>
+<div class="page-header"><?= ATXT_FORMS_INPUT_EDIT; ?>: <span class="span-green"><?= $form_name; ?> </span> </div>
+
+<?php if(isset($input) && !empty($input)): ?>
+    <form id="form-edit-input" name="form-edit-input" action="/admin/forms/editFormInput" method="POST">
+        <input type="hidden" id="form-input-id" name="form-input-id" value="<?= $input[0]['input_form_id']; ?>">
+        <input type="hidden" id="edit-input-id" name="edit-input-id" value="<?= $input[0]['input_id']; ?>">
+        <div class="new-input-row">
+            <div class="row">
+                <div class="col-lg-2 no-padding-left">
+                    <label for="input-label" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?=ATXT_FORMS_INPUT_LABEL; ?>" data-original-title="<?=ATXT_FORMS_INPUT_LABEL; ?>">
+                        <?=ATXT_FORMS_INPUT_LABEL; ?>
+                    </label>
+                    <input type="text" class="form-control" id="input-label" name="input-label" value="<?= $input[0]['input_label']; ?>" />
+                </div>
+
+                <div class="col-lg-2 no-padding-left">
+                    <label for="input-label-class" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?=ATXT_FORMS_INPUT_LABEL_CLASS; ?>" data-original-title="<?=ATXT_FORMS_INPUT_LABEL_CLASS;?>">
+                        <?= ATXT_FORMS_INPUT_LABEL_CLASS; ?>
+                    </label>
+                    <input type="text" class="form-control" id="input-label-class" name="input-label-class" value="<?= $input[0]['input_label_class']; ?>" />
+                </div>
+
+                <div class="col-lg-2 no-padding-left">
+                    <label for="input-label-data-placement" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?=ATXT_FORMS_INPUT_LABEL_PLACEMENT;?>" data-original-title="<?=ATXT_FORMS_INPUT_LABEL_PLACEMENT; ?>">
+                        <?= ATXT_FORMS_INPUT_LABEL_PLACEMENT; ?>
+                    </label>
+                    <input type="text" class="form-control" id="input-label-data-placement" name="input-label-data-placement" value="<?= $input[0]['input_label_data_placement']; ?>" />
+                </div>
+
+                <div class="col-lg-2 no-padding-left">
+                    <label for="input-label-data-toggle" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?=ATXT_FORMS_INPUT_LABEL_TOGGLE; ?>" data-original-title="<?=ATXT_FORMS_INPUT_LABEL_TOGGLE;?>">
+                        <?= ATXT_FORMS_INPUT_LABEL_TOGGLE; ?>
+                    </label>
+                    <input type="text" class="form-control" id="input-label-data-toggle" name="input-label-data-toggle" value="<?= $input[0]['input_label_data_toggle']; ?>" />
+                </div>
+
+                <div class="col-lg-2 no-padding-left">
+                    <label for="input-label-data-original-title" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?=ATXT_FORMS_INPUT_LABEL_ORIGINAL_TITLE;?>" data-original-title="<?= ATXT_FORMS_INPUT_LABEL_ORIGINAL_TITLE; ?>">
+                        <?= ATXT_FORMS_INPUT_LABEL_ORIGINAL_TITLE; ?>
+                    </label>
+                    <input type="text" class="form-control" id="input-label-data-original-title" name="input-label-data-original-title" value="<?= $input[0]['input_label_data_oryginal_title']; ?>" />
+                </div>
+
+                <div class="col-lg-2 no-padding-left">
+                    <label for="input-label-title" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?=ATXT_FORMS_INPUT_LABEL_TITLE;?>" data-original-title="<?=ATXT_FORMS_INPUT_LABEL_TITLE;?>">
+                        <?= ATXT_FORMS_INPUT_LABEL_TITLE; ?>
+                    </label>
+                    <input type="text" class="form-control" id="input-label-title" name="input-label-title" value="<?= $input[0]['input_label_title']; ?>" />
+                </div>
+            </div>
+<!------------------------------------------------------------------------------- END LABELS ------------------------------------------------------------------------------------------------->
+
+            <div class="row margin-top">
+                <div class="col-lg-4 no-padding-left">
+                    <label for="input-name" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?=ATXT_FORMS_INPUT_NAME;?>" data-original-title="<?=ATXT_FORMS_INPUT_NAME;?>">
+                        <?= ATXT_FORMS_INPUT_NAME; ?> *
+                    </label>
+                    <input type="text" class="form-control" id="input-name" name="input-name" value="<?= $input[0]['input_name']; ?>" required/>
+                </div>
+
+                <div class="col-lg-4 no-padding-left">
+                    <label for="input-id" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?=ATXT_FORMS_INPUT_ID;?>" data-original-title="<?=ATXT_FORMS_INPUT_ID;?>">
+                        <?= ATXT_FORMS_INPUT_ID; ?>
+                    </label>
+                    <input type="text" class="form-control" id="input-id" name="input-id" value="<?= $input[0]['input_id_char']; ?>" />
+                </div>
+
+                <div class="col-lg-4 no-padding-left">
+                    <label for="input-class" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?=ATXT_FORMS_INPUT_CLASS;?>" data-original-title="<?=ATXT_FORMS_INPUT_CLASS;?>">
+                        <?= ATXT_FORMS_INPUT_CLASS; ?>
+                    </label>
+                    <input type="text" class="form-control" id="input-class" name="input-class" value="<?= $input[0]['input_class']; ?>" />
+                </div>
+            </div>
+
+           <div class="row margin-top">
+                <div class="col-lg-4 no-padding-left">
+                    <label for="input-data-show-tick" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?= ATXT_FORMS_INPUT_TICK; ?>" data-original-title="<?= ATXT_FORMS_INPUT_TICK; ?>">
+                        <?= ATXT_FORMS_INPUT_TICK;?>
+                    </label>
+                        <select class="input-100-padded" id="input-data-show-tick" name="input-data-show-tick">
+                            <option value="0"><?= AMENU_SELECT;?></option>
+                            <option value="1" selected><?= TEXT_YES; ?></option>
+                            <option value="2"><?= TEXT_NO; ?></option>
+                         </select>
+                </div>
+                <div class="col-lg-4 no-padding-left">
+                    <label for="input-data-live-search" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?= ATXT_FORMS_INPUT_LIVE_SEARCH; ?>" data-original-title="<?= ATXT_FORMS_INPUT_LIVE_SEARCH; ?>">
+                        <?= ATXT_FORMS_INPUT_LIVE_SEARCH;?>
+                    </label>
+                        <select class="input-100-padded" id="input-data-live-search" name="input-data-live-search">
+                            <option value="0"><?= AMENU_SELECT; ?></option>
+                            <option value="1" selected><?= TEXT_YES; ?></option>
+                            <option value="2"><?= TEXT_NO; ?></option>
+                        </select>
+                </div>
+                <div class="col-lg-4 no-padding-left">
+                    <label for="input-data-live-search-placeholder" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?= ATXT_FORMS_INPUT_LIVE_SEARCH_PLACEHOLDER; ?>" data-original-title="<?= ATXT_FORMS_INPUT_LIVE_SEARCH_PLACEHOLDER; ?>">
+                       <?= ATXT_FORMS_INPUT_LIVE_SEARCH_PLACEHOLDER; ?>
+                    </label>
+                    <input type="text" class="form-control" id="input-data-live-search-placeholder" name="input-data-live-search-placeholder" value="search..." />
+                </div>
+           </div>
+
+            <div class="row margin-top">
+
+            </div>
+<!-------------------------------------------------------------------------------------------------- END SELECT SPECIFIC --------------------------------------------------------------------------------------->
+            <div class="row margin-top">
+                <div class="col-lg-4 no-padding-left">
+                    <label for="input-display-type" style="display: block;"><?= ATXT_FORMS_INPUT_DISPLAY_PICK; ?></label>
+                    <select class="select-picker input-100-padded" id="input-display-type" name="input-display-type" data-live-search="false" data-show-tick="true">
+                        <option data-subtext="inline" value="1" data-tokens="" <?php if($input[0]['input_display'] == 1): ?> selected <?php endif; ?>><?=ATXT_FORMS_INPUT_DISPLAY_INLINE;?></option>
+                        <option data-subtext="block" value="2" data-tokens="" <?php if($input[0]['input_display'] == 2): ?> selected <?php endif; ?>><?=ATXT_FORMS_INPUT_DISPLAY_BLOCK;?></option>
+                    </select>
+                </div>
+                <div class="col-lg-2 no-padding-left padded-top-printed-checkbox">
+                    <input type="checkbox" class="" id="input-required" name="input-required" style="float: left; margin-right: 5px;" <?php if($input[0]['input_required'] == 1): ?> checked <?php endif; ?>/>
+                    <label for="input-required"><?=ATXT_FORMS_INPUT_IS_REQUIRED; ?></label>
+                </div>
+                <div class="col-lg-2 no-padding-left padded-top-printed-checkbox">
+                    <input type="checkbox" class="" id="input-disabled" name="input-disabled" style="float: left; margin-right: 5px;" <?php if($input[0]['input_disabled'] == 1): ?> checked <?php endif; ?>/>
+                    <label for="input-disabled"><?=ATXT_FORMS_INPUT_DISABLED; ?></label>
+                </div>
+            </div>
+            <div class="row margin-top">
+                <div class="col-lg-12">
+                    <button type="button" id="send-new-form-cancel" class="btn btn-default pull-right" style="margin-left: 10px; margin-top: 20px;" onclick="cancel('/admin/forms/cancelFormInputs?data=<?= $input[0]['input_form_id']; ?>');"><?= BTN_BACK; ?></button>
+                    <button type="submit" id="edit-input-button" class="btn btn-default pull-right" style="margin: 20px 0;"><?= ATXT_FORMS_INPUT_SAVE; ?></button>
+                </div>
+            </div>
+    </form>
+<?php endif;?>

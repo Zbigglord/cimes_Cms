@@ -1,0 +1,22 @@
+<div class="message-login">
+<?php
+    if(isset($message)){
+        echo '<div style="margin: 30px auto; max-width: 520px; ">'.$message.'</div>';
+        \Core\Session::unsetFlash();
+        unset($message);
+    }
+?>
+</div>
+<form class="login-form" role="form" method="POST" action="" id="login-form" name="login-form">
+    <fieldset class="form-group">
+        <label for="nick"><?php echo AMENU_LOGIN; ?></label>
+        <input type="text" class="form-control" id="nick" name="nick">
+    </fieldset>
+    <fieldset class="form-group">
+        <label for="pass"><?php echo AMENU_PASS; ?></label>
+        <input type="password" class="form-control" id="pass" name="pass">
+    </fieldset>
+    <fieldset class="form-group">
+        <button type="submit" class="btn btn-default btn-right"><?php echo AMENU_LOG_IN; ?></button>
+    </fieldset>
+</form>

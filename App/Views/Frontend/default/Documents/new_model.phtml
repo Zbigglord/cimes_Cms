@@ -1,0 +1,71 @@
+<div class="row">
+ <div class="col-lg-12">
+  <?php if(isset($message)){ echo $message; unset($message);} ?>
+ </div>
+</div>
+<script type="text/javascript">
+  tinymce.init({
+  selector: '#add_document_model_html',  // change this value according to your HTML
+  auto_focus: '#add_document_model_html',
+  language : 'pl',
+  plugins: [
+   'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+   'searchreplace wordcount visualblocks visualchars code fullscreen',
+   'insertdatetime media nonbreaking save table contextmenu directionality',
+   'template paste textcolor colorpicker textpattern imagetools'
+  ],
+  toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  toolbar2: 'print | forecolor backcolor | code',
+  image_advtab: true
+ });
+</script>
+<?php
+ $models = \App\Models\Document::getDocumentsList('documents_model','documents_model_name','ASC');
+?>
+<div class="row">
+ <div class="col-lg-12">
+  <div class="page-header">NOWY WZÓR DOKUMENTU<span class="delete-buttons"><a href="/documents/mlist"><button class="btn btn-danger">LISTA</button></a></span></div>
+ </div>
+</div>
+<form class="admin-form form-big" id="admin_add_document_model" method="post" role="form" action="http://<?php echo $_SERVER['SERVER_NAME']?>/documents/mnew">
+ <div class="customer-form-group">
+  <div class="form-group-header form-group-header-bigger">Wzór
+   <?php if(isset($models)): ?>
+   <span class="f-right">
+    <div class="form-group">
+     <select class="selectpicker" id="get_model_content" name="get_model_content" data-live-search="false" data-live-search-placeholder="<?php echo AMENU_SEARCH; ?>" data-show-tick="true">
+      <option data-subtext="" value="none" data-tokens=""> wybierz </option>
+      <?php foreach($models as $model): ?>
+      <option data-subtext="<?= $model['documents_model_category']; ?>" value="<?= $model['documents_model_id']; ?>" data-tokens=""> <?= $model['documents_model_name']; ?> </option>
+      <?php endforeach; ?>
+     </select>
+    </div>
+   </span>
+   <?php endif; ?>
+  </div>
+  <div class="row no-margin table-row">
+   <div class="col-lg-6">
+    <div class="form-group">
+     <label for="add_document_model_name" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="np.: Wzór list klientów">* Nazwa wzoru </label><span class="input-error f-right" id="vWhereRegistered"></span>
+     <input type="text" class="form-control" id="add_document_model_name" name="add_document_model_name"  required/>
+    </div>
+   </div>
+   <div class="col-lg-6">
+    <div class="form-group">
+     <label for="add_document_model_category" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="np.: Faktury, listy itp">* Kategoria wzoru </label><span class="input-error f-right" id="vWhereRegistered"></span>
+     <input type="text" class="form-control" id="add_document_model_category" name="add_document_model_category"  required/>
+    </div>
+   </div>
+</div>
+  <div class="row no-margin table-row">
+   <div class="col-lg-12">
+    <div class="form-group">
+     <textarea class="form-control input-sm" id="add_document_model_html" name="add_document_model_html" ></textarea>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div class="row">
+  <div class="col-lg-12"><button type="submit" class="btn btn-default btn-send" id="send-addDmodel"><?php echo AMENU_ADD; ?></div>
+ </div>
+</form>

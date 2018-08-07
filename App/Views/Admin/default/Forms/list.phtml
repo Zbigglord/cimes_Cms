@@ -1,0 +1,72 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2018-01-15
+ * Time: 09:59
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= ATXT_FORMS_LIST; ?></div>
+<?php if(isset($forms)): ?>
+<!-- <pre>
+    <?php //print_r($forms); ?>
+</pre> -->
+    <div class="row no-margin">
+        <div class="col-lg-6 no-padding">
+
+        </div>
+        <div class="col-lg-6 no-padding">
+            <div id="pick-form-action" class="pull-right">
+                <label for="select-form-action">
+                    <select class="selectpicker" id="select-form-action" name="select-form-action" data-live-search="false" data-show-tick="true">
+                        <option data-subtext="" value="0" data-tokens=""><?= AMENU_ACTION; ?></option>
+                        <option data-subtext="formularz/formularze" value="delete" data-tokens=""><?= TEXT_DELETE; ?></option>
+                        <option data-subtext="formularz" value="edit" data-tokens=""><?= TEXT_EDIT; ?></option>
+                        <option data-subtext="dodaj/edytuj" value="inputs" data-tokens=""><?= ATXT_FORMS_INPUTS; ?></option>
+                    </select>
+                </label>
+            </div>
+        </div>
+    </div>
+<table class="table table-responsive table-hover table-galleries">
+    <thead style="background-color: #F5F5F5;">
+    <tr>
+        <th width="1%" class="cell-bordered-right"><span class="check-all">#</span></th>
+        <th class="cell-bordered-right"><?= POST_POST_TITLE; ?></th>
+        <th class="cell-bordered-right"><?= ATXT_FORMS_NEW_ID; ?></th>
+        <th class="cell-bordered-right"><?= ATXT_FORMS_NEW_NAME; ?></th>
+        <th class="cell-bordered-right"><?= ATXT_FORMS_NEW_CLASS;?></th>
+        <th class="cell-bordered-right"><?= ATXT_FORMS_NEW_METHOD; ?></th>
+        <th class="cell-bordered-right"><?=ATXT_FORMS_NEW_ACTION; ?></th>
+        <th class="cell-bordered-right"><?=TEXT_DATE_ADDED; ?></th>
+        <th class="cell-bordered-right"><?=ATXT_TEMPLATE_AUTHOR; ?></th>
+        <th><?= ATXT_FORMS_HAS_INPUTS; ?></th>
+    </tr>
+    </thead>
+    <tbody class="gallery-table-body">
+    <form id="form-forms-action" name="form-forms-action" action="" method="POST">
+ <?php foreach($forms as $form): ?>
+     <tr>
+         <td scope="row" class="cell-bordered-right"><input type="checkbox" class="checkbox-forms" id="form_<?= $form['form_id']; ?>" name="form_<?= $form['form_id']; ?>" value="<?= $form['form_id']; ?>"/></td>
+         <td class="cell-bordered-right"><strong><?= $form['form_title'];?></strong></td>
+         <td class="cell-bordered-right"> <?= $form['form_id_char'];?></td>
+         <td class="cell-bordered-right centered"><?= $form['form_name'];?></td>
+         <td class="cell-bordered-right"><?= $form['form_class'];?></td>
+         <td class="cell-bordered-right"><?= $form['form_method'];?></td>
+         <td class="cell-bordered-right"><?= $form['form_action'];?></td>
+         <td class="cell-bordered-right"><?= $form['form_created'];?></td>
+         <td class="cell-bordered-right"><?= $form['form_author'];?></td>
+         <td><?php if($form['form_has_inputs'] != 0): ?><span class="span-green"> <?= TEXT_YES; ?> </span><?php else: ?> <span class="span-red"> <?= TEXT_NONE; ?> </span><?php endif; ?></td>
+     </tr>
+ <?php endforeach; ?>
+    </form>
+    </tbody>
+</table>
+<?php endif; ?>
+<div id="confirm-delete-forms">
+    <input type = "hidden" id="delete-forms-confirmation" value="<?= AMENU_FORMS_DELETE_CONFIRM; ?>" />
+    <input type = "hidden" id="btn-continue" value="<?= ABTN_CONTINUE; ?>" />
+    <input type = "hidden" id="btn-cancel" value="<?= ABTN_CANCEL; ?>" />
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span><?= ATXT_FORMS_DELETE_CONFIRM; ?>? </p>
+</div>

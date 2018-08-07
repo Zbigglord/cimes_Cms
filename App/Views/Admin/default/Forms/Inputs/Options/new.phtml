@@ -1,0 +1,47 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2018-01-14
+ * Time: 11:59
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<?php if(isset($select) && !empty($select)): ?>
+<div class="page-header"><?= ATXT_FORMS_INPUT_ADD_OPTION_TO; ?><span class="span-green"><?= $select[0]['input_name']; ?></span></div>
+    <form id="form-new-option-select" class="new-form-created"  method="POST" action="/admin/forms/addSelectOption">
+        <input type="hidden" id="new-option-select-id" name="new-option-select-id" value="<?= $select[0]['input_id']; ?>" />
+        <div class="row no-margin">
+          <div class="col-lg-3">
+              <div class="form-group">
+                  <label for="new-option-title" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>"> <?= ATXT_FORMS_SELECT_OPTION_TEXT; ?>  *  </label>
+                  <input type="text" class="form-control" id="new-option-title" name="new-option-title" value="" required />
+              </div>
+          </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="new-option-value" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>"> <?= ATXT_FORMS_SELECT_OPTION_VALUE; ?>  *  </label>
+                    <input type="text" class="form-control" id="new-option-value" name="new-option-value" value="" required />
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="new-option-subtext" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title=""> <?= ATXT_FORMS_SELECT_OPTION_DATA_SUBTEXT; ?></label>
+                    <input type="text" class="form-control" id="new-option-subtext" name="new-option-subtext" value="" />
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="new-option-tokens" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title=""> <?= ATXT_FORMS_SELECT_OPTION_DATA_TOKENS; ?></label>
+                    <input type="text" class="form-control" id="new-option-tokens" name="new-option-tokens" value="" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" id="send-new-form-cancel" class="btn btn-default pull-right" style="margin-left: 10px;" onclick="cancel('/admin/forms/optionsList?data=<?= $select[0]['input_id']; ?>');"><?= BTN_BACK; ?></button>
+                <button type="submit" class="btn btn-default pull-right" id="new-option-add-button"><?= ATXT_FORMS_CREATE ?></button>
+            </div>
+        </div>
+    </form>
+<?php endif; ?>

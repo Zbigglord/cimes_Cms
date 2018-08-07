@@ -1,0 +1,59 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2018-02-13
+ * Time: 11:03
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<?php
+$form_name = '';
+if(isset($input) && !empty($input)){
+    $form_name = \App\Models\Admin\Form::getInputFormTitle($input[0]['input_id']);
+}
+?>
+<div class="page-header"><?= ATXT_FORMS_INPUT_EDIT; ?>: <span class="span-green"><?= $form_name; ?> </span> </div>
+
+<?php if(isset($input) && !empty($input)): ?>
+    <form id="form-edit-input" name="form-edit-input" action="/admin/forms/editFormInput" method="POST">
+        <input type="hidden" id="form-input-id" name="form-input-id" value="<?= $input[0]['input_form_id']; ?>">
+        <input type="hidden" id="edit-input-id" name="edit-input-id" value="<?= $input[0]['input_id']; ?>">
+        <div class="new-input-row">
+            <div class="row margin-top">
+                <div class="col-lg-3 no-padding-left">
+                    <label for="input-name" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?=ATXT_FORMS_INPUT_NAME;?>" data-original-title="<?=ATXT_FORMS_INPUT_NAME;?>">
+                        <?= ATXT_FORMS_INPUT_NAME; ?> *
+                    </label>
+                    <input type="text" class="form-control" id="input-name" name="input-name" value="<?= $input[0]['input_name']; ?>" required/>
+                </div>
+
+                <div class="col-lg-3 no-padding-left">
+                    <label for="input-id" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?=ATXT_FORMS_INPUT_ID;?>" data-original-title="<?=ATXT_FORMS_INPUT_ID;?>">
+                        <?= ATXT_FORMS_INPUT_ID; ?>
+                    </label>
+                    <input type="text" class="form-control" id="input-id" name="input-id" value="<?= $input[0]['input_id_char']; ?>" />
+                </div>
+
+                <div class="col-lg-3 no-padding-left">
+                    <label for="input-class" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?=ATXT_FORMS_INPUT_CLASS;?>" data-original-title="<?=ATXT_FORMS_INPUT_CLASS;?>">
+                        <?= ATXT_FORMS_INPUT_CLASS; ?>
+                    </label>
+                    <input type="text" class="form-control" id="input-class" name="input-class" value="<?= $input[0]['input_class']; ?>" />
+                </div>
+                <div class="col-lg-3 no-padding-left">
+                    <label for="input-value" class="tooltip-labels" data-placement="top" data-toggle="tooltip" title="<?=ATXT_FORMS_INPUT_VALUE;?>" data-original-title="<?=ATXT_FORMS_INPUT_VALUE;?>">
+                        <?= ATXT_FORMS_INPUT_VALUE; ?>
+                    </label>
+                    <input type="text" class="form-control" id="input-value" name="input-value" value="<?= $input[0]['input_value']; ?>" />
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top">
+            <div class="col-lg-12">
+                <button type="button" id="send-new-form-cancel" class="btn btn-default pull-right" style="margin-left: 10px; margin-top: 20px;" onclick="cancel('/admin/forms/cancelFormInputs?data=<?= $input[0]['input_form_id']; ?>');"><?= BTN_BACK; ?></button>
+                <button type="submit" id="edit-input-button" class="btn btn-default pull-right" style="margin: 20px 0;"><?= ATXT_FORMS_INPUT_SAVE; ?></button>
+            </div>
+        </div>
+    </form>
+<?php endif;?>

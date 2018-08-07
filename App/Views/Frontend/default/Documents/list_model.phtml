@@ -1,0 +1,45 @@
+<div class="row">
+ <div class="col-lg-12">
+  <?php if(isset($message)){ echo $message; unset($message);} ?>
+ </div>
+</div>
+<?php if(isset($models)): ?>
+ <div class="row">
+  <div class="col-lg-12">
+   <div class="page-header">LISTA WZORÓW DOKUMENTÓW<span class="badge-header"><?= sizeof($models);?></span></div>
+  </div>
+ </div>
+ <?php $iter = 2; $lp = 1; ?>
+ <div class="customer-form-group">
+  <div class="row header-row no-margin form-group-header">
+   <div class="col-lg-1 center-aligned">LP</div>
+   <div class="col-lg-4 center-aligned">Kategoria</div>
+   <div class="col-lg-4 center-aligned">Nazwa</div>
+   <div class="col-lg-1 center-aligned"></div>
+   <div class="col-lg-1 center-aligned"></div>
+   <div class="col-lg-1 center-aligned"></div>
+  </div>
+  <?php foreach($models as $model): ?>
+   <div class="row no-margin <?php if($iter % 2 == 0): ?> second-row <?php endif; ?> table-row">
+    <div class="col-lg-1 center-aligned table-cell-bordered-right"><?= $lp; ?></div>
+    <div class="col-lg-4 center-aligned table-cell-bordered-right"><?= $model['documents_model_category']; ?></div>
+    <div class="col-lg-4 center-aligned table-cell-bordered-right"><?= $model['documents_model_name']; ?></div>
+    <div class="col-lg-1 center-aligned"><div class="a-preview" id="preview_<?= $model['documents_model_id'] ?>">podgląd</div></div>
+    <div class="col-lg-1 center-aligned"><a href="/documents/medit?id=<?php echo $model['documents_model_id'];?>">edytuj</a></div>
+    <div class="col-lg-1 center-aligned"><a href="/documents/mdelete?id=<?php echo $model['documents_model_id'];?>">usuń</a></div>
+   </div>
+
+   <div class="print_page" id="prev_<?= $model['documents_model_id'] ?>">
+    <div class="print-header">
+     <button class="btn-primary print-area" id="<?= $model['documents_model_id'] ?>">drukuj</button>
+    </div>
+    <div class="print-only" id="print-only_<?= $model['documents_model_id'] ?>">
+    <?php echo html_entity_decode($model['documents_model_html']); ?>
+     </div>
+   </div>
+
+   <?php $iter++; $lp++; ?>
+  <?php endforeach; ?>
+ </div>
+<div class="przescieradlo"></div>
+<?php endif;?>

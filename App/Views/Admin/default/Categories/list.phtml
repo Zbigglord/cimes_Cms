@@ -1,0 +1,74 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo AMENU_CATEGORIES; ?></div>
+<?php $type_list = \App\Models\Admin\Category::getType(); ?>
+<form class="admin-form form-big" id="admin_list_category" name="admin_list_category" role="form" method="post" action="../categories/list">
+<div class="row margin-bottom">
+    <div class="col-lg-4 table-cell">
+        <div class="input-group">
+            <label for="list_set_cat_type" id="label_set_cat_type">
+                <select class="selectpicker" id="list_set_cat_type" name="list_set_cat_type" data-live-search="true" data-live-search-placeholder="<?php echo AMENU_SEARCH; ?>" data-show-tick="true">
+                    <option data-subtext="" value="none" data-tokens=""><?php echo AMENU_SELECT_CATEGORY_TYPE; ?></option>
+                    <?php foreach($type_list as $type): ?>
+                        <?php $t = \App\Models\Admin\Category::getCategoryTypeName($type['type_id']); ?>
+                        <?php $count = \App\Models\Admin\Category::checkAvaiability($type['type_id']); ?>
+                        <option data-subtext="(<?php echo $count; ?>)" value="<?php echo $type['type_id']; ?>" data-tokens="<?php echo $t; ?>"><?php echo $t; ?></option>
+                    <?php endforeach; ?>
+            </select>
+            </label>
+        </div>
+    </div>
+    <div class="col-lg-8 align-left">
+        <button class="btn btn-default" type="submit" id="load_categories" name="load_categories"> <?php echo AMENU_CATEGORY_LOAD_BTN; ?> </button>
+    </div>
+</div>
+</form>
+<?php if(isset($ctype)): ?>
+    <div class="row second-row margin-bottom">
+        <div class="col-lg-6 table-header align-left">
+            <?php $t = \App\Models\Admin\Category::getCategoryTypeName($ctype); ?>
+            <strong><?php echo AMENU_CATEGORY_TYPE.': <span class="color_brzwy">'.$t.'</span>'; ?></strong>
+        </div>
+        <div class="col-lg-6 table-cell table-header">
+
+        </div>
+    </div>
+<?php else:?>
+    <div class="row second-row margin-bottom">
+        <div class="col-lg-6 table-header align-left">
+            <strong><?php echo AMENU_CATEGORY_TYPE.':'; ?></strong>
+        </div>
+        <div class="col-lg-6 table-cell table-header">
+
+        </div>
+    </div>
+<?php endif; ?>
+<div class="row second-row" style="border-left: 1px solid silver;"><!-- CATEGORY LIST header -->
+    <div class="col-lg-1 table-cell table-header">
+        <?php echo AMENU_CATEGORY_IMAGE; ?>
+    </div>
+    <div class="col-lg-2 table-cell table-header">
+        <?php echo AMENU_CATEGORY_NAME; ?>
+    </div>
+    <div class="col-lg-4 table-cell table-header">
+        <?php echo AMENU_CATEGORY_DESCRIPTION; ?>
+    </div>
+    <div class="col-lg-1 table-cell table-header">
+        <?php echo AMENU_CATEGORY_SEOLINK; ?>
+    </div>
+    <div class="col-lg-2 table-cell table-header">
+        <?php echo AMENU_CATEGORY_METADESCRIPTION; ?>
+    </div>
+    <div class="col-lg-1 table-cell table-header">
+        <?php echo AMENU_CATEGORY_METAKEYS; ?>
+    </div>
+    <div class="col-lg-1 table-cell table-header">
+        <?php echo AMENU_ACTION; ?>
+    </div>
+</div><!-- END DANE header -->
+
+<?php if(isset($cat_list) && !empty($cat_list)): ?>
+<?php \App\Models\Admin\Category::recursivePrintList($cat_list, 1); ?>
+<?php endif; ?>
+<div id="confirm-delete-category" title="<?php echo ATXT_CATEGORY_DELETE_CONFIRM; ?>">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><?php echo ATXT_CATEGORY_AND_DATA_WILL_BE_DELETED. ATXT_CONTINUE_ASK; ?>? </p>
+</div>

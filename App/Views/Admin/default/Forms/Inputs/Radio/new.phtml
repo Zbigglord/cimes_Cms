@@ -1,0 +1,15 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2018-02-15
+ * Time: 11:45
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<?php  if(isset($form) && !empty($form)): ?>
+<div class="page-header"><?= ATXT_FORMS_ADD_RADIO_SET; ?>: <span class="span-green"><?= $form['form_title']; ?> </span> </div>
+<form id="form-add-radio" name="form-add-radio" action="/admin/forms/addFormRadio" method="POST">
+    <input type="hidden" id="radio-form-id" name="radio-form-id" value="<?= $form['form_id']; ?>"/>
+</form>
+<?php endif; ?>

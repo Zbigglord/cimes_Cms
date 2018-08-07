@@ -1,0 +1,74 @@
+<?php
+/**
+ * Creator: BabooJaga
+ * Date: 2016-04-17
+ * Time: 10:01
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= AMENU_IMAGE_GALLERIES_ADD; ?></div>
+
+<div class="row no-margin"><!-- START MAIN ROW -->
+    <div class="col-lg-12 no-padding"> <!-- START MAIN COL -->
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="panel-title"><?= AMENU_IMAGE_GALLERY; ?><span class="input-error" id="errorSpicture"></h1>
+                    </div>
+                </div>
+            </div>
+            <form class="form-big" id="add_media_form" name="add_media_form" role="form" method="post" action="/admin/media/savegallery" enctype="multipart/form-data">
+                <input type="hidden" id="gallery-category-id" name="gallery-category-id" value="" />
+                <div class="panel-body" id="panel-body-add-media-salon">
+                    <div class="row no-margin">
+                        <div class="col-lg-6 no-padding-right">
+                            <div class="row no-margin">
+                                <div class="col-lg-12 no-padding">
+                                    <div class="form-group">
+                                        <label for="gallery-name" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>">* <?= AMENU_IMAGE_GALLERY_NAME; ?></label>
+                                        <input type="text" class="form-control input-sm" id="gallery-name" name="gallery-name" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gallery-metawords" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= AMENU_IMAGE_GALLERY_META; ?>"><?= AMENU_IMAGE_GALLERY_META; ?></label>
+                                        <input type="text" class="form-control input-sm" id="gallery-metawords" name="gallery-metawords" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row no-margin">
+                                <div class="col-lg-12 no-padding">
+                                    <div class="form-group">
+                                        <label for="gallery-description" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= AMENU_IMAGE_GALLERY_DESCRIPTION; ?>"><?= AMENU_IMAGE_GALLERY_DESCRIPTION; ?></label>
+                                        <textarea class="form-control" placeholder="" rows="4" id="gallery-description" name="gallery-description" maxlength="255"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row no-margin">
+                        <div class="col-lg-12">
+
+                            <input type="file" id="gallery_media_add" name="gallery_media_add[]" accept="image/*" multiple="multiple"/>
+
+                            <div class="input-placeholder">
+                                <div class="input-placeholder-label"><?= FBTN_ADD_MEDIA_FILES; ?></div>
+                            </div>
+                        </div>
+                    </div><!-- END ROW -->
+                    <ul class="thums-list" style="padding-bottom: 5px;"><!-- START 5 ROW -->
+
+
+                    </ul>
+                </div><!-- END BODY -->
+                <div class="panel-footer clearfix">
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-default" id="add_pictures_gallery" disabled="disabled"><?= AMENU_SAVE; ?></button> <button type="button" class="btn btn-default" id="btn_cancel" onclick="cancel('/admin/users/index')"><?= BTN_CANCEL; ?></button>
+                    </div>
+                </div>
+            </form>
+        </div><!-- END PANEL -->
+    </div> <!-- END PAGE CONTENT -->
+</div> <!-- END MAIN COL -->

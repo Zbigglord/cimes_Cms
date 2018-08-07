@@ -1,0 +1,33 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= MAIL_NEWSLETTER_ADD; ?></div>
+
+<form class="admin-form form-big" id="admin_add_newsletter" name="admin_add_newsletter" role="form" method="post" action="">
+ <div class="row margin-bottom">
+  <div class="col-lg-6">
+   <div class="form-group no-margin">
+    <label class="tooltip-labels" for="newsletter_name" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>">  * <?= MAIL_NEWSLETTER_NAME; ?>  </label>
+    <input type="text" class="form-control " id="newsletter_name" name="newsletter_name"  placeholder=""/>
+   </div>
+  </div>
+  <div class="col-lg-6">
+   <div class="form-group no-margin" style="padding-top: 25px;">
+    <label for="newsletter_active" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>">  * <?= MAIL_NEWSLETTER_ACTIVE; ?>  </label>
+    <select class="selectpicker" id="newsletter_active" name="newsletter_active"  data-live-search="false"  data-show-tick="true">
+     <option data-subtext="" data-tokens="" value="yes"><?= TEXT_YES;?></option>
+     <option data-subtext="" data-tokens="" value="no"><?= TEXT_NO;?></option>
+    </select>
+   </div>
+  </div>
+</div>
+ <div class="row margin-bottom">
+  <div class="col-lg-12">
+   <div class="form-group no-margin">
+    <label class="tooltip-labels" for="newsletter_content" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>">  * <?= MAIL_NEWSLETTER_CONTENT; ?>  </label>
+    <textarea class="form-control tinymce-container" id="newsletter_content" name="newsletter_content" rows="20"></textarea>
+   </div>
+  </div>
+ </div>
+ <div class="row">
+  <div class="col-lg-12"><button type="submit" class="btn btn-default" id="add_class" name="add_class"><?php echo AMENU_SAVE; ?></div>
+ </div>
+</form>

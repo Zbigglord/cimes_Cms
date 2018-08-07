@@ -1,0 +1,275 @@
+<div class="header">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#backend_navbar"
+                        aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img alt="cimesCMS" src="...">
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="backend_navbar">
+             <ul class="nav navbar-nav">
+              <li class="dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false"><?= AMENU_CONFIG; ?><span class="caret"></span></a>
+               <ul class="dropdown-menu">
+
+                <li class="dropdown-header"><?= ATXT_SITE_CONFIG; ?></li>
+                <?php if($_SESSION['change_config'] == '1'):?>
+                <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/configs/configureSite"><?= AMENU_SITE_CONFIG; ?></a></li>
+                 <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/configs/editSite"><?= AMENU_SITE_CHANGE_CONFIG; ?></a></li>
+                <?php else: ?>
+                 <li><a class="have-no-rights" href="#"><?= AMENU_SITE_CONFIG; ?></a></li>
+                <?php endif;?>
+                <li role="separator" class="divider"></li>
+
+                <li class="dropdown-header"><?= ATXT_OWNER_CONFIG; ?></li>
+                <?php if($_SESSION['change_config'] == '1'):?>
+                 <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/configs/configureOwner"><?= AMENU_SITE_CONFIG; ?></a></li>
+                 <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/configs/editOwner"><?= AMENU_SITE_CHANGE_CONFIG; ?></a></li>
+                <?php else: ?>
+                 <li><a class="have-no-rights" href="#"><?= AMENU_SITE_CONFIG; ?></a></li>
+                <?php endif;?>
+                <li role="separator" class="divider"></li>
+
+                <li class="dropdown-header"><?= ATXT_MAIL_CONFIG; ?></li>
+                <?php if($_SESSION['change_config'] == '1'):?>
+                 <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/configs/configureMail"><?= AMENU_SITE_CONFIG; ?></a></li>
+                 <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/configs/configureMail"><?= AMENU_SITE_CHANGE_CONFIG; ?></a></li>
+                <?php else: ?>
+                 <li><a class="have-no-rights" href="#"><?= AMENU_SITE_CONFIG; ?></a></li>
+                <?php endif;?>
+                <li role="separator" class="divider"></li>
+                   <li class="dropdown-header"><?= AMENU_TEMPLATE_VIEWS; ?></li>
+                   <?php if($_SESSION['change_config'] == '1'):?>
+                       <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/templates/list"><?= AMENU_TEMPLATE_LIST; ?></a></li>
+                       <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/templates/new"><?= AMENU_TEMPLATE_ADD; ?></a></li>
+                       <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/templates/view"><?= AMENU_CATEGORIES_VIEW_CONFIG; ?></a></li>
+                   <?php else: ?>
+                       <li><a class="have-no-rights" href="#"><?= AMENU_TEMPLATE_VIEWS; ?></a></li>
+                   <?php endif;?>
+                   <li role="separator" class="divider"></li>
+               </ul>
+              </li>
+             </ul>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"><?= AMENU_USERS; ?><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header"><?= AMENU_BACKEND; ?></li>
+                            <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/users/usersList"><?= AMENU_USERS_LIST; ?></a></li>
+                             <?php if($_SESSION['add_user'] == '1'):?>
+                              <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/users/usersAdd"><?= AMENU_ADD_USER; ?></a></li>
+                            <?php else: ?>
+                              <li><a class="have-no-rights" href="#"><?= AMENU_ADD_USER; ?></a></li>
+                            <?php endif;?>
+                            <?php if($_SESSION['delete_user'] == '1'):?>
+                                <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/users/userDelete"><?= AMENU_DELETE_USER; ?></a></li>
+                            <?php else: ?>
+                                <li><a class="have-no-rights" href="#"><?= AMENU_DELETE_USER; ?></a></li>
+                            <?php endif;?>
+                            <?php if($_SESSION['edit_user'] == '1'):?>
+                                <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/users/userEdit"><?= AMENU_EDIT_USER; ?></a></li>
+                            <?php else: ?>
+                                <li><a class="have-no-rights" href="#"><?= AMENU_EDIT_USER; ?></a></li>
+                            <?php endif;?>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header"><?= AMENU_FRONTEND; ?></li>
+                            <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/users/studentsList"><?= AMENU_STUDENT_LIST; ?></a></li>
+                            <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/users/addStudent"><?= AMENU_ADD_STUDENT; ?></a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"><?= AMENU_ARTICLES; ?><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header"><?= AMENU_MENU; ?></li>
+                            <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/menus/list"><?= AMENU_MENU_LIST; ?></a></li>
+                            <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/menus/add"><?= AMENU_ADD_MENU; ?></a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header"><?= AMENU_CATEGORIES; ?></li>
+                            <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/categories/list"><?= AMENU_CATEGORIES_LIST; ?></a></li>
+                            <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/categories/add"><?= AMENU_ADD_CATEGORY; ?></a></li>
+                            <li role="separator" class="divider"></li>
+                         <li class="dropdown-header"><?= AMENU_POSTS; ?></li>
+                         <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/posts/list"><?= POST_POST_LIST; ?></a></li>
+                         <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/posts/add"><?= POST_POST_ADD; ?></a></li>
+                         <li role="separator" class="divider"></li>
+                            <li class="dropdown-header"><?= AMENU_CLASSES; ?></li>
+                            <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/courses/list"><?= AMENU_CLASS_LIST; ?></a></li>
+                            <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/courses/add"><?= AMENU_ADD_CLASS; ?></a></li>
+                            <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/courses/listGroup"><?= ATXT_GROUPS; ?></a></li>
+                        </ul>
+                    </li>
+                </ul>
+             <ul class="nav navbar-nav">
+              <li class="dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false"><?= MAIL_MAIL; ?><span class="caret"></span></a>
+               <ul class="dropdown-menu">
+                <li class="dropdown-header"><?= MAIL_NEWSLETTER; ?></li>
+                <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/mails/addNewsletter"><?= MAIL_NEWSLETTER_ADD; ?></a></li>
+                <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/mails/listNewsletter"><?= MAIL_NEWSLETTER_LIST; ?></a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header"><?= MAIL_MAILING_LIST; ?></li>
+                <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/mails/recipientListAll"><?= MAIL_MAILING_LIST; ?></a></li>
+                <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/mails/addRecipient"><?= MAIL_ADD_MAILING_LIST; ?></a></li>
+                <li role="separator" class="divider"></li>
+               </ul>
+              </li>
+             </ul>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"><?php echo AMENU_MEDIA; ?><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header"><?= AMENU_SLIDER; ?></li>
+                            <li><a href="/admin/media/newslider"><?=AMENU_SLIDER_NEW; ?></a></li>
+                            <li><a href="/admin/media/sliderlist"><?=AMENU_SLIDER_LIST; ?></a></li>
+                            <li><a href="/admin/media/slideraddimages"><?=AMENU_SLIDER_IMAGES; ?></a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header"><?= AMENU_IMAGE_GALLERIES; ?></li>
+                            <li><a href="/admin/media/imgalerieslist"><?=AMENU_IMAGE_GALLERIES_LIST; ?></a></li>
+                            <li><a href="/admin/media/imgaleriesnew"><?=AMENU_IMAGE_GALLERIES_ADD; ?></a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header"><?= ATXT_FORMS; ?></li>
+                            <li><a href="/admin/forms/formsList"><?=ATXT_FORMS_LIST; ?></a></li>
+                            <li><a href="/admin/forms/addnewform"><?=ATXT_FORMS_NEW; ?></a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header"><?= ATXT_FILES; ?></li>
+                            <li><a href="/admin/files/list"><?=ATXT_FILES_LIST; ?></a></li>
+                            <li><a href="/admin/files/addNewFile"><?=ATXT_FILES_ADD; ?></a></li>
+                            <li role="separator" class="divider"></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"><?= AMENU_OTHER; ?><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://<?= $_SERVER['HTTP_HOST'];?>/adminfiles/help/" target="_blank"><?= AMENU_HELP; ?></a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header"><?= AMENU_SNIPPETS; ?></li>
+                            <li><a href="/admin/snippets/snjs">JAVASCRIPT</a></li>
+                            <li><a href="/admin/snippets/snphp">PHP</a></li>
+                            <li role="separator" class="divider"></li>
+                        </ul>
+                    </li>
+                </ul>
+                <?php $lang = \Core\Lang::getLang(); ?>
+                <form class="navbar-form navbar-right" id="lang-picker" role="form" action="" method="post">
+                    <div class="input-group">
+                        <label for="set_lang"><?= AMENU_LANG; ?>
+                            <select class="selectpicker" id="set_lang" name="set_lang" data-size="5" data-width="fit">
+                                <option data-subtext="" value=""><?= AMENU_PICK_ONE; ?></option>
+                                <option data-subtext="PL" value="pl"><?= AMENU_LANG_PL; ?></option>
+                                <option data-subtext="EN" value="en"><?= AMENU_LANG_EN; ?></option>
+                            </select>
+                        </label>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <?php if(isset($_SESSION['user_nick'])): ?>
+                                    <span class="glyphicon glyphicon-user"></span> <?= $_SESSION['user_nick']; ?>
+                            <?php endif; ?>
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <!-- TEMPORARELY SWITCHED OFF <li><a href="#"><?= AMENU_MY_ACCOUNT; ?></a></li>
+                            <li><a href="#"><?= AMENU_MY_ARTICLES; ?></a></li>
+                            <li role="separator" class="divider"></li> -->
+                            <li><a href="http://<?= $_SERVER['SERVER_NAME']?>/admin/users/logout"><?= AMENU_LOG_OUT; ?></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+</div>
+
+<script type="text/javascript">
+     jq('#set_lang').change(function(){
+          jq('#lang-picker').submit();
+     });
+</script>
+<!--------------------------------------- TINY MCE ------------------------------------->
+<script type="text/javascript">
+    tinymce.init({
+        selector: '.tinymce-container',  // change this value according to your HTML
+        theme: "modern",
+        auto_focus: '.tinymce-container',
+        language : 'pl',
+        plugins: [
+            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'template paste textcolor colorpicker textpattern image imagetools'
+        ],
+        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        toolbar2: 'print | forecolor backcolor | code ',
+        image_advtab: true,
+        image_title: true,
+        // enable automatic uploads of images represented by blob or data URIs
+        automatic_uploads: true,
+        // URL of our upload handler (for more details check: https://www.tinymce.com/docs/configure/file-image-upload/#images_upload_url)
+        images_upload_url: 'postAcceptor.php',
+        // here we add custom filepicker only to Image dialog
+        //file_picker_types: 'image',
+        // and here's our custom image picker
+        file_picker_callback: function(cb, value, meta) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
+            input.onchange = function() {
+                var file = this.files[0];
+
+                var reader = new FileReader();
+                reader.onload = function () {
+                    // Note: Now we need to register the blob in TinyMCEs image blob
+                    // registry. In the next release this part hopefully won't be
+                    // necessary, as we are looking to handle it internally.
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(',')[1];
+                    var blobInfo = blobCache.create(id, file, base64);
+                    blobCache.add(blobInfo);
+
+                    var url = '../adminAjax/ajaxUploadFileTinyMCE';
+                    var formdata = new FormData();
+                    formdata.append("images",file);
+                    jq.ajax({
+                        url: url,
+                        method: 'POST',
+                        data: formdata,
+                        dataType: 'text',
+                        processData: false,
+                        contentType: false,
+                        success: function(data){
+                            cb(blobInfo.blobUri(), { title: file.name, src: data });
+                            jq( "#loading" ).hide();
+                        }
+                    });
+
+                    // call the callback and populate the Title field with the file name and source field with new uploaded file
+                };
+                reader.readAsDataURL(file);
+            };
+
+            input.click();
+        }
+    });
+</script>

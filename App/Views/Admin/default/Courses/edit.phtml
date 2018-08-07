@@ -1,0 +1,146 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo AMENU_CLASS_EDIT; ?></div>
+<script type="text/javascript">
+    jq( function() {
+        jq( "#class_start_edit" ).datepicker({dateFormat: "yy-mm-dd"});
+        jq( "#class_end_edit" ).datepicker({dateFormat: "yy-mm-dd"});
+    } );
+</script>
+
+<?php if(isset($course_data) || !empty($course_data)): ?>
+    <?php $cat_name = \App\Models\Admin\Course::getCategoryName($course_data['course_category_id']); ?>
+    <form class="admin-form form-big" id="edit_class" name="edit_class" role="form" method="post" action="/admin/courses/save" enctype="multipart/form-data">
+        <div class="category-wrapper">
+            <div class="row second-row margin-bottom">
+                <div class="col-lg-12 table-cell table-header">
+                    <?php echo AMENU_CLASS_BASIC; ?>
+                </div>
+            </div>
+            <!-- first data set -->
+            <input type="hidden" name="edit_class_id" value="<?php echo $course_data['courses_display_data_id']; ?>" />
+            <div class="row margin-bottom">
+                <div class="col-lg-3">
+                    <div class="form-group no-margin">
+                        <label class="tooltip-labels" for="class_name_edit" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>">  * <?php echo AMENU_ADD_CLASS_NAME; ?>  </label>
+                        <input type="text" class="form-control" id="class_name_edit" name="class_name_edit"  value="<?php echo $course_data['course_name']; ?>"/>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group no-margin">
+                        <label for="class_cat_edit">  <?php echo AMENU_CLASS_CATEGORY; ?>  </label>
+                        <input type="text" class="form-control" id="class_cat_edit" name="class_cat_edit" value="<?php if($cat_name != false){echo $cat_name;}else{echo FALSE;} ?>" disabled="disabled"/>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group no-margin">
+                        <label for="class_start_edit" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>"> * <?php echo AMENU_ADD_CLASS_DATE_START; ?>  </label>
+                        <input type="text" id="class_start_edit" name="class_start_edit" class="form-control" value="<?php echo $course_data['course_date_start']; ?>"/>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group no-margin">
+                        <label for="class_end_edit" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>">  * <?php echo AMENU_ADD_CLASS_DATE_END; ?>  </label>
+                        <input type="text" id="class_end_edit" name="class_end_edit" class="form-control" value="<?php echo $course_data['course_date_end']; ?>"/>
+                    </div>
+                </div>
+            </div>
+            <!-- second data set -->
+            <div class="row <?php if($course_data['course_student_group_id'] != 0 ): ?> <?php else: ?>second-row<?php endif; ?> margin-bottom " style="padding: 5px;">
+                <div class="col-xs-1 no-padding" style="max-width: 20px;">
+                    <div class="form-group no-margin" style="text-align: right; padding-right: 5px;">
+                        <?php if($course_data['course_student_group_id'] != 0 ): ?>
+
+                        <?php else: ?>
+                         <input type="checkbox" name="make_class_group" id="make_class_group" value="yes"/>
+                       <?php endif; ?>
+                    </div>
+                </div>
+                <div class="col-xs-11 no-padding align-left">
+                    <?php if($course_data['course_student_group_id'] != 0 ): ?>
+                    <label class="tooltip-labels" for="make_class_group"><?php echo AMENU_CLASS_STUDENTS_GROUP_NAME; ?></label>
+                     <input type="text" class="form-control" id="make_class_group" value="<?php echo $course_data['courses_groups_name']; ?>" disabled="disabled"/>
+                    <?php else: ?>
+                        <div class="form-group no-margin">
+                            <label class="tooltip-labels" for="make_class_group" data-toggle="tooltip" data-placement="top" title="<?php echo TOOLTIP_CLASS_IF_CHECKED_MAKE_GROUP; ?>"><?php echo AMENU_MAKE_CLASS_GROUP_FOLDER; ?></label>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- third data set -->
+            <div class="row second-row margin-bottom">
+                <div class="col-lg-12 table-cell table-header">
+                    <?php echo AMENU_CLASS_DISPLAY_DATA; ?> (<?php echo AMENU_CLASS_VISIBLE_FRONTEND; ?>)
+                </div>
+            </div>
+            <div class="row margin-bottom">
+                <div class="col-lg-3">
+                    <div class="input-group">
+                        <input type="file" id="class_image_edit" name="class_image_edit" />
+                    </div>
+                    <div class="thumbnail-placeholder">
+                        <?php if(isset($course_data['courses_display_data_image']) && ($course_data['courses_display_data_image'] != '')): ?>
+                        <img class="img-responsive" src="<?php echo $course_data['courses_display_data_image']; ?>"/>
+                        <input type="file" id="class_image_add" name="class_image_add" />
+                            <div class="thumbnail-placeholder-label"><?php echo ATXT_CHANGE_IMAGE; ?></div>
+                        <?php else: ?>
+                            <div class="thumbnail-placeholder-label"><?php echo ATXT_SELECT_IMAGE; ?></div>
+                        <?php endif; ?>
+                    </div>
+                    <?php if(isset($course_data['courses_display_data_image']) && ($course_data['courses_display_data_image'] != '')): ?>
+                        <input type="hidden" id="class_image" name="class_image" value="<?php echo $course_data['courses_display_data_image']; ?>" />
+                    <?php else: ?>
+                        <input type="hidden" id="class_image" name="class_image" value="" />
+                    <?php endif; ?>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-lg-4">
+                            <div class="form-group no-margin">
+                                <label for="class_title_edit"> <?php echo AMENU_ADD_CLASS_TITLE; ?></label>
+                                <input type="text" id="class_title_edit" name="class_title_edit" class="form-control" value="<?php echo $course_data['courses_display_data_title']; ?>"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group no-margin">
+                                <label for="class_seo_edit">  <?php echo AMENU_INSERT; ?> <?php echo AMENU_CATEGORY_SEOLINK; ?>  </label>
+                                <input type="text" id="class_seo_edit" name="class_seo_edit" class="form-control" value="<?php echo $course_data['courses_display_data_seo']; ?>"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group no-margin">
+                                <label for="class_metakeys_edit">  <?php echo AMENU_CATEGORY_METAKEYS; ?>  </label>
+                                <input type="text" id="class_metakeys_edit" name="class_metakeys_edit" class="form-control" value="<?php echo $course_data['courses_display_data_metakey']; ?>"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <textarea class="form-control textarea-table" placeholder="<?php echo AMENU_ADD_CLASS_METADESCRIPTION; ?>" rows="4" id="class_metadescription_edit" name="class_metadescription_edit"><?php echo $course_data['courses_display_data_metadata']; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label for="class_description_edit">  <?php echo AMENU_ADD_CLASS_DESCRIPTION; ?>  </label>
+                        <textarea class="form-control textarea-table tinymce-container" rows="12" id="class_description_edit" name="class_description_edit"><?php echo $course_data['courses_display_data_description']; ?></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12"><button type="submit" class="btn btn-default" id="edit_class" name="edit_class"><?php echo AMENU_CLASS_SAVE; ?></div>
+            </div>
+        </div><!-- end category wrapper -->
+
+    </form>
+<?php else: ?>
+<?php
+    echo '<pre>';
+    print_r($post);
+    echo '<pre>';
+    ?>
+<?php endif; ?>

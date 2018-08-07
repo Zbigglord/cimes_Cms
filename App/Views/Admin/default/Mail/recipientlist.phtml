@@ -1,0 +1,77 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= ARC_LIST; ?></div>
+<div class="row">
+  <div class="col-lg-12"><a class="back-a" href="http://<?php echo $_SERVER['SERVER_NAME']?>/admin/mails/listNewsletter"><div class="div-back-right"><?= TEXT_BACK; ?></div></a></div>
+</div>
+<?php $i = 1; if(isset($rlist)): ?>
+ <div class="row second-row" style="border-left: 1px solid silver;"><!-- NEWSLETTER LIST header -->
+  <div class="col-lg-1 table-cell table-header">
+   #
+  </div>
+  <div class="col-lg-3 table-cell table-header">
+   <?= MAIL_NEWSLETTER; ?>
+  </div>
+  <div class="col-lg-3 table-cell table-header">
+   <?= FORM_EMAIL; ?>
+  </div>
+  <div class="col-lg-3 table-cell table-header">
+   <?= FORM_ADDRESS; ?>
+  </div>
+  <div class="col-lg-2 table-cell table-header">
+   <?= AMENU_ACTION; ?>
+  </div>
+ </div>
+<?php foreach($rlist as $newsletter): ?>
+
+<?php if($i % 2 == 0): ?>
+<div class="row second-row" style="border-left: 1px solid silver;">
+ <?php else: ?>
+ <div class="row" style="border-left: 1px solid silver;">
+  <?php endif; ?>
+  <div class="col-lg-1 table-cell">
+   <?= $i; ?>
+  </div>
+  <div class="col-lg-3 table-cell">
+   <?php $newsletter_name = \App\Models\Admin\Mail::getNewsletterName($newsletter['nrec_nesletter_id']);?>
+   <?= $newsletter_name; ?>
+  </div>
+  <div class="col-lg-3 table-cell">
+   <?= $newsletter['nrec_email']; ?>
+  </div>
+  <div class="col-lg-3">
+   <p class="p-adress-list"><?= $newsletter['nrec_title'].' '.$newsletter['nrec_name'].' '.$newsletter['nrec_surname']; ?></p>
+   <p class="p-adress-list"><?= $newsletter['nrec_street']; ?></p>
+   <p class="p-adress-list"><?= $newsletter['nrec_postcode'].' '.$newsletter['nrec_city']; ?></p>
+   <p class="p-adress-list"><?= $newsletter['nrec_region']; ?></p>
+   <p class="p-adress-list"><?= $newsletter['nrec_country']; ?></p>
+  </div>
+  <div class="col-lg-2 table-cell">
+   <div class="row">
+    <div class="col-sm-6">
+     <form class="hidden-form" id="form-edit-recipient_<?= $newsletter['nrec_id']; ?>" name="form-edit-recipient" role="form" method="post" action="/admin/mails/editRecipient">
+      <input type="hidden" name="recipient-edit-id" class="course-edit" id="recipient-edit_<?= $newsletter['nrec_id']; ?>" value="<?= $newsletter['nrec_id']; ?>"/>
+      <button type="submit" class="btn btn-default" id="recipient-edit-button_<?= $newsletter['nrec_id']; ?>"> <?php echo AMENU_EDIT; ?></button>
+     </form>
+    </div>
+    <div class="col-sm-6">
+     <form class="hidden-form" id="form-delete-recipient_<?= $newsletter['nrec_id']; ?>" name="form-delete-recipient" role="form" method="post" action="/admin/mails/recipientDelete">
+      <input type="hidden" class="recipient-delete" id="recipient-delete_<?= $newsletter['nrec_id']; ?>" name="recipient-delete" value="<?= $newsletter['nrec_id']; ?>"/>
+      <input type="hidden" name="newsletter-id" class="course-edit" id="newsletter-id_<?= $newsletter['nrec_nesletter_id']; ?>" value="<?= $newsletter['nrec_nesletter_id']; ?>"/>
+      <button type="submit" class="btn btn-default recipient-delete-button" id="recipient-delete-button_<?= $newsletter['nrec_id']; ?>"> <?php echo AMENU_DELETE; ?></button>
+     </form>
+    </div>
+   </div>
+  </div>
+</div>
+<?php $i++;?>
+ <?php endforeach; ?>
+<?php else: ?>
+
+
+<?php endif; ?>
+ <div id="confirm-delete-recipient">
+  <input type = "hidden" id="delete-recipient-confirmation" value="<?= ARC_RECIPIENT_DELETE_CONFIRM; ?>" />
+  <input type = "hidden" id="btn-continue" value="<?= ABTN_CONTINUE; ?>" />
+  <input type = "hidden" id="btn-cancel" value="<?= ABTN_CANCEL; ?>" />
+  <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span><?= ATXT_RECIPIENT_AND_DATA_WILL_BE_DELETED. ATXT_CONTINUE_ASK; ?>? </p>
+ </div>

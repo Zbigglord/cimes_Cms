@@ -1,0 +1,81 @@
+<?php
+/**
+ * Creator: BabooJaga
+ * Date: 2016-03-21
+ * Time: 19:16
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo AMENU_DELETE_USER; ?></div>
+
+<?php if(!empty($ulist)): ?>
+
+<form class="delete-form" role="form" method="POST" action="../users/userDelete" id="user_delete_form" name="user_delete_form">
+    <input type="hidden" id="delete_user_by_id" name="delete_user_by_id" value="" />
+    <input type="hidden" id="deactivate_user_by_id" name="deactivate_user_by_id" value="" />
+    <input type="hidden" id="activate_user_by_id" name="activate_user_by_id" value="" />
+</form>
+<div class="row second-row"><!-- DANE header -->
+    <div class="col-lg-1 table-cell table-header">
+        <?php echo AMENU_LOGIN; ?>
+    </div>
+    <div class="col-lg-3 table-cell table-header">
+        <?php echo AMENU_EMAIL; ?>
+    </div>
+    <div class="col-lg-2 table-cell table-header">
+        <?php echo AMENU_USER_GROUP; ?>
+    </div>
+    <div class="col-lg-3 table-cell table-header">
+        <?php echo AMENU_LAST_LOGGED; ?>
+    </div>
+    <div class="col-lg-3 table-cell table-header">
+        <?php echo AMENU_ACTION; ?>
+    </div>
+</div><!-- END DANE header -->
+<?php $i=1; foreach($ulist as $position => $user_data): ?> <!-- loop for Users list -->
+<?php if($i % 2 == 0): ?><!-- just to determine every second row for css -->
+<div class="row second-row">
+    <?php else: ?>
+    <div class="row">
+        <?php endif; ?>
+        <div class="col-lg-1 table-cell">
+            <?php echo $user_data['user_nick'];?>
+        </div>
+        <div class="col-lg-3 table-cell">
+            <?php echo $user_data['user_email'];?>
+        </div>
+        <div class="col-lg-2 table-cell">
+
+            <?php  \App\Models\Admin\User::getUsergroupName($user_data['group_name']); ?>
+
+        </div>
+        <div class="col-lg-3 table-cell">
+            <?php echo $user_data['user_lastactive'];?>
+        </div>
+        <div class="col-lg-3 table-cell">
+         <?php if($user_data['group_id'] !=1): ?>
+          <div class="button-holders">
+               <span class="button-span"><button class="btn btn-default btn-sm button-delete-user" id="delete_<?php echo $user_data['user_id'];?>"><?php echo AMENU_DELETE; ?></button></span>
+              <?php if($user_data['user_active'] == 1): ?>
+               <span class="button-span"><button class="btn btn-default btn-sm button-deactivate-user" id="desactivate_<?php echo $user_data['user_id'];?>"><?php echo AMENU_DEACTIVATE; ?></button></span>
+              <?php else: ?>
+               <span class="button-span"><button class="btn btn-default btn-sm button-activate-user" id="activate_<?php echo $user_data['user_id'];?>"><?php echo AMENU_ACTIVATE; ?></button></span>
+              <?php endif; ?>
+          </div>
+          <?php elseif($_SESSION['id'] == $user_data['id'] && $user_data['group_id'] !=1):?>
+
+          <?php else: ?>
+             <div style="color: #F9F9F9;">Can't kill God, can you?</div>
+          <?php endif; ?>
+
+        </div>
+    </div>
+
+    <?php $i++;?>
+    <?php endforeach; ?><!-- END loop for DANE -->
+    <div id="confirm-delete-user" title="<?php echo ATXT_USER_DELETE_CONFIRM; ?>">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><?php echo ATXT_USER_AND_DATA_WILL_BE_DELETED. ATXT_CONTINUE_ASK; ?>? </p>
+    </div>
+<?php else: ?>
+    <?php \Core\Session::setFlash('Lista użytkowników jest pusta','error'); $msg = \Core\Session::getFlash(); echo $msg; \Core\Session::unsetFlash(); ?>
+<?php endif; ?>

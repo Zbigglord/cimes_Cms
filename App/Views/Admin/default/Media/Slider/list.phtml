@@ -1,0 +1,45 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2017-11-29
+ * Time: 11:05
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?=AMENU_SLIDER_LIST; ?></div>
+<?php if(isset($sliders)): ?>
+
+<?php foreach($sliders as $slider): ?>
+
+        <table class="table table-hover">
+            <thead style="background-color: #F5F5F5;">
+            <tr>
+                <th><?=$slider['slider_name'] ?></th>
+                <th colspan="2"><?php if($slider['slider_active'] == 1): ?> Aktywny <?php else:  ?><span class="span-red"> Nieaktywny </span><?php endif; ?></th>
+                <th><button type="button" class="btn btn-default btn-cat-delete button-delete" id="btnd_<?=$slider['slider_id'] ?>" style="float: right;"><?= TEXT_DELETE; ?></button>
+                    <button type="button" class="btn btn-default btn-cat-edit button-edit" id="btne_<?=$slider['slider_id'] ?>" style="float: right;"><?= TEXT_EDIT; ?></button>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php if(count($slider['images']) > 0):?>
+            <?php foreach($slider['images'] as $image): ?>
+            <tr>
+                <th scope="row" width="150" style="text-align: center;"><img class="img-responsive thums-list" src="<?= $image['image_path']; ?>" /></th>
+                <td width="40%" style="padding-top: 40px;"><strong>Link:</strong> <?= $image['image_link']; ?></td>
+                <td width="40%" style="padding-top: 40px;"><strong>Alt:</strong> <?= $image['image_alt']; ?></td>
+                <td width="100" style="padding-top: 40px;">
+                    <button type="button" class="btn btn-default btn-cat-delete button-delete" id="btnimgd_<?=$image['slider_id'] ?>_<?=$image['image_id'] ?>" style="float: right;"><?= TEXT_DELETE; ?></button>
+                    <button type="button" class="btn btn-default btn-cat-edit button-edit" id="btnimge_<?=$image['slider_id'] ?>_<?=$image['image_id'] ?>" style="float: right;"><?= TEXT_EDIT; ?></button>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+            <?php endif; ?>
+            </tbody>
+        </table>
+
+
+<?php endforeach; ?>
+<?php endif; ?>
+

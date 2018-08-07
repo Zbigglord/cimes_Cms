@@ -1,0 +1,47 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo AMENU_ADD_NEW; ?></div>
+<?php if(isset($send_menu)): ?>
+
+<?php var_dump($send_menu); ?>
+<?php endif; ?>
+<form class="admin-form form-big" id="admin_add_menu" name="admin_add_menu" role="form" method="post" action="../menus/add">
+    <div class="row margin-bottom">
+        <div class="col-lg-6">
+            <div class="form-group no-margin">
+                <label for="add_menu_name" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>"> * <?php echo AMENU_MENU_NAME; ?>  </label>
+                <input type="text" id="add_menu_name" name="add_menu_name" class="form-control" />
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group no-margin">
+                <label for="add_menu_title" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>"> * <?php echo AMENU_MENU_TITLE; ?>  </label>
+                <input type="text" id="add_menu_title" name="add_menu_title" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom">
+        <div class="col-lg-3">
+         <div class="checkbox-group-border">
+             <div class="row">
+                 <div class="col-xs-2" style="max-width: 20px;">
+                     <input type="checkbox" name="menu_is_vertical" id="menu_is_vertical" value="yes" />
+                 </div>
+                 <div class="col-xs-10 no-padding align-left">
+                     <label for="menu_is_vertical" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo AMENU_TOOLTIP_MENU_VERTICAL; ?>"> <?php echo AMENU_MENU_VERTICAL; ?>  </label>
+                 </div>
+             </div>
+             <div class="row">
+                 <div class="col-xs-2" style="max-width: 20px;">
+                     <input type="checkbox" name="menu_show_title" id="menu_show_title" value="yes" />
+                 </div>
+                 <div class="col-xs-10 no-padding align-left">
+                     <label for="menu_show_title"> <?php echo AMENU_MENU_SHOW_TITLE; ?>  </label>
+                 </div>
+             </div>
+         </div>
+        </div>
+        <div class="col-lg-9">
+            <button type="submit" class="btn btn-default" id="add_menu""><?php echo AMENU_SAVE_MENU; ?>
+        </div>
+    </div>
+</form>

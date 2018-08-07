@@ -1,0 +1,100 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= ARC_LIST_ADD; ?></div>
+<?php $newsletters = \App\Models\Admin\Mail::getNewsletterList();?>
+<pre>
+ <?php //print_r($data);?>
+ </pre>
+<form class="admin-form form-big" id="admin_add_recipient" name="admin_add_recipient" role="form" method="post" action="">
+ <div class="row margin-bottom">
+  <div class="col-lg-4">
+   <div class="form-group no-margin">
+    <label for="pick-newsletter" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>">  * <?= MAIL_NEWSLETTER_SELECT; ?>    </label>
+    <select class="selectpicker" id="pick-newsletter" name="pick-newsletter"  data-live-search="true"  data-show-tick="true" required="required">
+     <option data-subtext="" value="none" data-tokens=""><?php echo AMENU_SELECT; ?></option>
+     <?php foreach($newsletters as $newsletter): ?>
+      <option data-subtext="" value="<?= $newsletter['newsletter_id']; ?>" data-tokens="<?= $newsletter['newsletter_title']; ?>"><?= $newsletter['newsletter_title']; ?></option>
+     <?php endforeach; ?>
+    </select>
+   </div>
+  </div>
+  <div class="col-lg-4">
+   <div class="form-group no-margin">
+    <label for="pick-user-new" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>">  * <?= ARC_RECIPIENT_SELECT; ?>    </label>
+    <select class="selectpicker" id="pick-user-new" name="pick-user-new"  data-live-search="false"  data-show-tick="true" required="required">
+     <option data-subtext="" value="none" data-tokens=""><?php echo AMENU_SELECT; ?></option>
+     <option data-subtext="" value="recipient-new" data-tokens=""><?php echo ARC_RECIPIENT_SELECT_NEW; ?></option>
+     <option data-subtext="" value="recipient-list" data-tokens=""><?php echo ARC_RECIPIENT_SELECT_LIST; ?></option>
+    </select>
+   </div>
+  </div>
+  <div class="col-lg-4">
+   <div class="form-group no-margin">
+    <div id="add-recipient-list-select"></div>
+   </div>
+  </div>
+ </div>
+ <div class="row margin-bottom"><!-- not visible until user pics new recipient -->
+  <div class="col-lg-12 no-padding">
+    <div id="new-recipient-no-show">
+     <div class="row margin-bottom">
+      <div class="col-lg-4">
+       <div class="form-group no-margin">
+        <input type="text" class="form-control " id="recipient-title" name="recipient-title"  placeholder="<?= FORM_TITLE; ?>"/>
+       </div>
+      </div>
+      <div class="col-lg-4">
+       <div class="form-group no-margin">
+        <input type="text" class="form-control " id="recipient-name" name="recipient-name"  placeholder=" * <?= FORM_NAME; ?>"/>
+       </div>
+      </div>
+      <div class="col-lg-4">
+       <div class="form-group no-margin">
+        <input type="text" class="form-control " id="recipient-surname" name="recipient-surname"  placeholder=" * <?= FORM_SURNAME; ?>"/>
+       </div>
+      </div>
+     </div>
+     <div class="row margin-bottom">
+      <div class="col-lg-4">
+       <div class="form-group no-margin">
+        <input type="text" class="form-control " id="recipient-street" name="recipient-street"  placeholder="<?= FORM_STREET; ?>"/>
+       </div>
+      </div>
+      <div class="col-lg-4">
+       <div class="form-group no-margin">
+        <input type="text" class="form-control " id="recipient-postcode" name="recipient-postcode"  placeholder="<?= FORM_POSTCODE; ?>"/>
+       </div>
+      </div>
+      <div class="col-lg-4">
+       <div class="form-group no-margin">
+        <input type="text" class="form-control " id="recipient-city" name="recipient-city"  placeholder="<?= FORM_CITY; ?>"/>
+       </div>
+      </div>
+     </div>
+     <div class="row margin-bottom">
+      <div class="col-lg-4">
+       <div class="form-group no-margin">
+        <input type="text" class="form-control " id="recipient-region" name="recipient-region"  placeholder="<?= FORM_REGION; ?>"/>
+       </div>
+      </div>
+      <div class="col-lg-4">
+       <div class="form-group no-margin">
+        <input type="text" class="form-control " id="recipient-country" name="recipient-country"  placeholder="<?= FORM_COUNTRY; ?>"/>
+       </div>
+      </div>
+      <div class="col-lg-4">
+       <div class="form-group no-margin">
+        <input type="email" class="form-control " id="recipient-email" name="recipient-email"  placeholder=" * <?= FORM_EMAIL; ?>" />
+       </div>
+      </div>
+     </div>
+    </div>
+  </div>
+ </div><!-- END not visible until user pics new recipient -->
+ <div class="row">
+  <div class="col-lg-12">
+    <div id="recipient-button-no-show">
+    <button type="submit" class="btn btn-default" id="admin-add-recipient-button"><?php echo AMENU_SAVE; ?>
+    </div>
+  </div>
+ </div>
+</form>

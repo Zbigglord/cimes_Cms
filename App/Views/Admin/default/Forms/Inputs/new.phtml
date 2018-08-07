@@ -1,0 +1,52 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2018-01-14
+ * Time: 11:59
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= ATXT_FORMS_INPUTS_CREATE; ?></div>
+    <div class="row no-margin">
+        <div class="col-lg-6 no-padding">
+
+        </div>
+        <div class="col-lg-6 no-padding">
+            <div id="pick-form-input" class="pull-right">
+                <label for="select-form-input-type">
+                    <select class="selectpicker" id="select-form-input-type" name="select-form-input-type" data-live-search="true" data-live-search-placeholder="<?= AMENU_SEARCH; ?>" data-show-tick="true">
+                        <option data-subtext="" value="0" data-tokens=""><?= ATXT_FORMS_INPUT_TYPE_PICK; ?></option>
+                        <?php $options = \App\Models\Admin\Form::getInputTypes(); ?>
+                        <?php foreach($options as $option): ?>
+                            <option data-subtext="<?= constant($option['type_trans_variable']); ?>" value="<?= $option['type_id']; ?>" data-tokens="<?= $option['type_name']; ?>"><?= $option['type_name']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </label>
+            </div>
+        </div>
+    </div>
+<?php if(isset($form) && !empty($form)): ?>
+
+    <input type="hidden" id="input-number" value="1" />
+    <input type="hidden" id="select-number" value="0" />
+ <form id="<?= $form['form_id_char']; ?>" class="new-form-created"  method="POST" action="/admin/forms/formInputsSave">
+     <input type="hidden" id="new-form-created-id" name="new-form-created-id" value="<?= $form['form_id']; ?>" />
+     <input type="hidden" id="new-form-input-type" name="new-form-input-type" value="" />
+
+     <div id="new-form-created-html"><!-- empty space for dynamic ajax calls --></div>
+     <div class="row no-margin">
+         <div class="col-lg-12 no-padding">
+          <?php if($form['form_has_inputs'] == 0): ?>
+          <button type="button" id="send-new-form-cancel" class="btn btn-default pull-right" style="margin: 20px 0 20px 10px;" onclick="cancel('/admin/forms/formsList');"><?= BTN_BACK; ?></button>
+          <?php else: ?>
+              <button type="button" id="send-new-form-cancel" class="btn btn-default pull-right" style="margin: 20px 0 20px 10px;" onclick="cancel('/admin/forms/addFormInputs?data=<?= $form['form_id']; ?>');"><?= BTN_BACK; ?></button>
+        <?php endif; ?>
+          <button type="submit" id="send-new-form-created" class="btn btn-default pull-right" style="margin: 20px 0;" disabled><?= ATXT_FORMS_INPUT_SAVE; ?></button>
+         </div>
+     </div>
+ </form>
+<!-- <pre>
+    <?php //print_r($form);?>
+</pre>-->
+<?php endif; ?>

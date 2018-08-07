@@ -1,0 +1,19 @@
+<?php
+/**
+ * Creator: BabooJaga
+ * Date: 2016-04-17
+ * Time: 10:01
+ */
+?>
+<div class="content-page-holder">
+    <div class="content-wrapper">
+        <div class="message-frontend"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+        <?php if(isset($courses) && !empty($courses)): ?>
+           <?php foreach($courses as $course): ?>
+                <pre>
+                 <?php print_r($course); ?>
+                </pre>
+           <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</div>

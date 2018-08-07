@@ -1,0 +1,89 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo ATXT_OWNER_CONFIG; ?></div>
+
+<form class="admin-form form-big" id="admin_owner_config" name="admin_owner_config" role="form" method="post" action="#">
+ <input type="hidden" name="param" value="save"/>
+ <div class="row margin-bottom">
+  <div class="col-lg-3">
+   <div class="form-group no-margin">
+    <label class="tooltip-labels" for="owner_name" data-toggle="tooltip" data-placement="top" title=""> <?= FORM_NAME; ?>  </label>
+    <input type="text" class="form-control " id="owner_name" name="owner_name" />
+   </div>
+  </div>
+  <div class="col-lg-3">
+   <div class="form-group no-margin">
+    <label class="tooltip-labels" for="owner_surname" data-toggle="tooltip" data-placement="top" title=""> <?= FORM_SURNAME; ?>  </label>
+    <input type="text" class="form-control " id="owner_surname" name="owner_surname" />
+   </div>
+  </div>
+  <div class="col-lg-3">
+   <div class="form-group no-margin">
+    <label class="tooltip-labels" for="owner_firm" data-toggle="tooltip" data-placement="top" title=""> <?= FORM_FIRM; ?>  </label>
+    <input type="text" class="form-control " id="owner_firm" name="owner_firm" />
+   </div>
+  </div>
+  <div class="col-lg-3">
+   <div class="form-group no-margin">
+    <label class="tooltip-labels" for="owner_title" data-toggle="tooltip" data-placement="top" title="<?= FORM_TIPS_TITLE; ?>"> <?= FORM_TITLE; ?>  </label>
+    <input type="text" class="form-control " id="owner_title" name="owner_title" />
+   </div>
+  </div>
+ </div>
+
+ <div class="row margin-bottom">
+  <div class="col-lg-3">
+   <div class="form-group no-margin">
+    <label class="tooltip-labels" for="owner_street" data-toggle="tooltip" data-placement="top" title=""> <?= FORM_STREET; ?>  </label>
+    <input type="text" class="form-control " id="owner_street" name="owner_street" />
+   </div>
+  </div>
+  <div class="col-lg-3">
+   <div class="form-group no-margin">
+    <label class="tooltip-labels" for="owner_postcode" data-toggle="tooltip" data-placement="top" title=""> <?= FORM_POSTCODE; ?>  </label>
+    <input type="text" class="form-control " id="owner_postcode" name="owner_postcode" />
+   </div>
+  </div>
+  <div class="col-lg-3">
+   <div class="form-group no-margin">
+    <label class="tooltip-labels" for="owner_city" data-toggle="tooltip" data-placement="top" title=""> <?= FORM_CITY; ?>  </label>
+    <input type="text" class="form-control " id="owner_city" name="owner_city" />
+   </div>
+  </div>
+  <div class="col-lg-3">
+   <div class="form-group no-margin">
+    <label class="tooltip-labels" for="owner_country" data-toggle="tooltip" data-placement="top" title=""> <?= FORM_COUNTRY; ?>  </label>
+    <input type="text" class="form-control " id="owner_country" name="owner_country" />
+   </div>
+  </div>
+ </div>
+
+ <div class="row margin-bottom">
+  <div class="col-lg-3">
+   <div class="form-group no-margin">
+    <label class="tooltip-labels" for="owner_nip" data-toggle="tooltip" data-placement="top" title=""> <?= FORM_NIP; ?>  </label>
+    <input type="text" class="form-control " id="owner_nip" name="owner_nip" />
+   </div>
+  </div>
+  <div class="col-lg-3">
+   <div class="form-group no-margin">
+    <label class="tooltip-labels" for="owner_regon" data-toggle="tooltip" data-placement="top" title=""> <?= FORM_REGON; ?>  </label>
+    <input type="text" class="form-control " id="owner_regon" name="owner_regon" />
+   </div>
+  </div>
+  <div class="col-lg-3">
+   <div class="form-group no-margin">
+    <label class="tooltip-labels" for="owner_phone" data-toggle="tooltip" data-placement="top" title=""> <?= FORM_PHONE; ?>  </label>
+    <input type="text" class="form-control " id="owner_phone" name="owner_phone" />
+   </div>
+  </div>
+  <div class="col-lg-3">
+   <div class="form-group no-margin">
+    <label class="tooltip-labels" for="owner_email" data-toggle="tooltip" data-placement="top" title=""> <?= FORM_EMAIL; ?>  </label>
+    <input type="email" class="form-control " id="owner_email" name="owner_email" />
+   </div>
+  </div>
+ </div>
+ <div class="row">
+  <div class="col-lg-12"><button type="submit" class="btn btn-default" id="send-addCategory-admin"><?php echo AMENU_SAVE; ?></div>
+ </div>
+</form>

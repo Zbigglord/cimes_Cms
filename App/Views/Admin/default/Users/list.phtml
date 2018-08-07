@@ -1,0 +1,348 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo AMENU_USERS_LIST; ?></div>
+<?php if(!empty($ulist)): ?>
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#dane" aria-controls="dane" role="tab" data-toggle="tab"><?php echo AMENU_DATA; ?></a></li>
+    <li role="presentation"><a href="#adresy" aria-controls="adresy" role="tab" data-toggle="tab"><?php echo AMENU_ADDRESSES; ?></a></li>
+    <li role="presentation"><a href="#uprawnienia" aria-controls="uprawnienia" role="tab" data-toggle="tab"><?php echo AMENU_RIGHTS; ?></a></li>
+</ul>
+<div class="tab-content"><!-- whole tab content -->
+    <div role="tabpanel" class="tab-pane active" id="dane"><!-- whole tab panel DANE -->
+        <div class="row second-row"><!-- DANE header -->
+            <div class="col-lg-1 table-cell table-header">
+                <?php echo AMENU_LOGIN; ?>
+            </div>
+            <div class="col-lg-3 table-cell table-header">
+                <?php echo AMENU_EMAIL; ?>
+            </div>
+            <div class="col-lg-2 table-cell table-header">
+                <?php echo AMENU_USER_GROUP; ?>
+            </div>
+            <div class="col-lg-2 table-cell table-header">
+                <?php echo AMENU_REGISTER_DATE; ?>
+            </div>
+            <div class="col-lg-3 table-cell table-header">
+                <?php echo AMENU_LAST_LOGGED; ?>
+            </div>
+            <div class="col-lg-1 table-cell table-header">
+                <?php echo AMENU_ACTIVE; ?>
+            </div>
+        </div><!-- END DANE header -->
+
+<?php $i=1; foreach($ulist as $position => $user_data): ?> <!-- loop for DANE -->
+
+       <?php if($i % 2 == 0): ?><!-- just to determine every second row for css -->
+       <div class="row second-row">
+       <?php else: ?>
+       <div class="row">
+       <?php endif; ?>
+       <div class="col-lg-1 table-cell">
+        <?php echo $user_data['user_nick'];?>
+       </div>
+         <div class="col-lg-3 table-cell">
+             <?php echo $user_data['user_email'];?>
+         </div>
+         <div class="col-lg-2 table-cell">
+             <?php  \App\Models\Admin\User::getUsergroupName($user_data['group_name']); ?>
+         </div>
+         <div class="col-lg-2 table-cell">
+             <?php echo $user_data['user_regdate'];?>
+         </div>
+         <div class="col-lg-3 table-cell">
+             <?php echo $user_data['user_lastactive'];?>
+         </div>
+         <div class="col-lg-1 table-cell">
+             <?php if($user_data['user_active'] == 1): ?>
+                 <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+             <?php else: ?>
+                 <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+             <?php endif;?>
+         </div>
+       </div>
+
+ <?php $i++;?>
+<?php endforeach; ?><!-- END loop for DANE -->
+</div><!-- END whole tab panel DANE -->
+
+           <div role="tabpanel" class="tab-pane" id="uprawnienia"><!-- whole tab panel UPRAWNIENIA -->
+               <div class="row second-row">
+                   <div class="col-lg-1 table-cell table-header">
+                       <?php echo AMENU_LOGIN; ?>
+                   </div>
+                   <div class="col-lg-2 table-cell table-header">
+                       <?php echo AMENU_SETTINGS; ?>
+                       <div class="row">
+                           <div class="col-xs-12 table-subheader no-border">
+                               <?php echo AMENU_CHANGE; ?>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-lg-2 table-cell table-header">
+                       <?php echo AMENU_USERS; ?>
+                       <div class="row">
+                           <div class="col-xs-4 table-subheader">
+                               <?php echo AMENU_ADD; ?>
+                           </div>
+                           <div class="col-xs-4 table-subheader">
+                               <?php echo AMENU_EDIT; ?>
+                           </div>
+                           <div class="col-xs-4 table-subheader no-border">
+                               <?php echo AMENU_DELETE; ?>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-lg-2 table-cell table-header">
+                       <?php echo AMENU_MENU; ?>
+                       <div class="row">
+                           <div class="col-xs-4 table-subheader">
+                               <?php echo AMENU_ADD; ?>
+                           </div>
+                           <div class="col-xs-4 table-subheader">
+                               <?php echo AMENU_EDIT; ?>
+                           </div>
+                           <div class="col-xs-4 table-subheader no-border">
+                               <?php echo AMENU_DELETE; ?>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-lg-2 table-cell table-header">
+                       <?php echo AMENU_CATEGORIES; ?>
+                       <div class="row">
+                           <div class="col-xs-4 table-subheader">
+                               <?php echo AMENU_ADD; ?>
+                           </div>
+                           <div class="col-xs-4 table-subheader">
+                               <?php echo AMENU_EDIT; ?>
+                           </div>
+                           <div class="col-xs-4 table-subheader no-border">
+                               <?php echo AMENU_DELETE; ?>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-lg-2 table-cell table-header">
+                       <?php echo AMENU_ARTICLES; ?>
+                       <div class="row">
+                           <div class="col-xs-4 table-subheader">
+                               <?php echo AMENU_ADD; ?>
+                           </div>
+                           <div class="col-xs-4 table-subheader">
+                               <?php echo AMENU_EDIT; ?>
+                           </div>
+                           <div class="col-xs-4 table-subheader no-border">
+                               <?php echo AMENU_DELETE; ?>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-lg-1 table-cell table-header">
+                       <?php echo AMENU_BACKEND; ?>
+                       <div class="row">
+                           <div class="col-xs-12 table-subheader no-border">
+                               <?php echo AMENU_VIEW; ?>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+
+<?php $i=1; foreach($ulist as $position => $user_data): ?> <!-- loop for UPRAWNIENIA -->
+
+               <?php if($i % 2 == 0): ?><!-- just to determine every second row for css -->
+               <div class="row second-row">
+               <?php else: ?>
+               <div class="row">
+               <?php endif; ?>
+                       <div class="col-lg-1 table-cell">
+                           <?php echo $user_data['user_nick'];?>
+                       </div>
+                       <div class="col-lg-2 table-cell">
+                           <?php if($user_data['change_config'] == 1): ?>
+                                  <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+                           <?php else: ?>
+                               <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+                           <?php endif;?>
+                       </div>
+                       <div class="col-lg-2 table-cell">
+                           <div class="row">
+                               <div class="col-xs-4 sub-table">
+                                   <?php if($user_data['add_user'] == 1): ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+                                   <?php else: ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+                                   <?php endif;?>
+                               </div>
+                               <div class="col-xs-4 sub-table">
+                                   <?php if($user_data['edit_user'] == 1): ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+                                   <?php else: ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+                                   <?php endif;?>
+                               </div>
+                               <div class="col-xs-4 sub-table">
+                                   <?php if($user_data['delete_user'] == 1): ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+                                   <?php else: ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+                                   <?php endif;?>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-lg-2 table-cell">
+                           <div class="row">
+                               <div class="col-xs-4 sub-table">
+                                   <?php if($user_data['add_menu'] == 1): ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+                                   <?php else: ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+                                   <?php endif;?>
+                               </div>
+                               <div class="col-xs-4 sub-table">
+                                   <?php if($user_data['edit_menu'] == 1): ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+                                   <?php else: ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+                                   <?php endif;?>
+                               </div>
+                               <div class="col-xs-4 sub-table">
+                                   <?php if($user_data['delete_menu'] == 1): ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+                                   <?php else: ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+                                   <?php endif;?>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-lg-2 table-cell">
+                           <div class="row">
+                               <div class="col-xs-4 sub-table">
+                                   <?php if($user_data['add_category'] == 1): ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+                                   <?php else: ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+                                   <?php endif;?>
+                               </div>
+                               <div class="col-xs-4 sub-table">
+                                   <?php if($user_data['edit_category'] == 1): ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+                                   <?php else: ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+                                   <?php endif;?>
+                               </div>
+                               <div class="col-xs-4 sub-table">
+                                   <?php if($user_data['delete_category'] == 1): ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+                                   <?php else: ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+                                   <?php endif;?>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-lg-2 table-cell">
+                           <div class="row">
+                               <div class="col-xs-4 sub-table">
+                                   <?php if($user_data['add_post'] == 1): ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+                                   <?php else: ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+                                   <?php endif;?>
+                               </div>
+                               <div class="col-xs-4 sub-table">
+                                   <?php if($user_data['edit_post'] == 1): ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+                                   <?php else: ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+                                   <?php endif;?>
+                               </div>
+                               <div class="col-xs-4 sub-table">
+                                   <?php if($user_data['delete_post'] == 1): ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+                                   <?php else: ?>
+                                       <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+                                   <?php endif;?>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-lg-1 table-cell">
+                           <?php if($user_data['show_admin'] == 1): ?>
+                               <img class="table-ico" src="/adminfiles/images/css/yes.png"/>
+                           <?php else: ?>
+                               <img class="table-ico" src="/adminfiles/images/css/no.png"/>
+                           <?php endif;?>
+                       </div>
+                </div>
+
+<?php $i++;?>
+<?php endforeach; ?><!-- END loop for UPRAWNIENIA -->
+
+           </div><!-- END whole tab panel UPRAWNIENIA -->
+
+<div role="tabpanel" class="tab-pane" id="adresy"><!-- whole tab panel ADRESY -->
+    <div class="row second-row"><!-- ADRESY header -->
+        <div class="col-lg-1 table-cell table-header">
+            <?php echo AMENU_LOGIN; ?>
+        </div>
+        <div class="col-lg-2 table-cell table-header">
+            <?php echo AMENU_NAME; ?>
+        </div>
+        <div class="col-lg-2 table-cell table-header">
+            <?php echo AMENU_SURNAME; ?>
+        </div>
+        <div class="col-lg-3 table-cell table-header">
+            <?php echo AMENU_STREET; ?>
+        </div>
+        <div class="col-lg-2 table-cell table-header">
+            <?php echo AMENU_POST_CODE; ?>
+        </div>
+        <div class="col-lg-2 table-cell table-header">
+            <?php echo AMENU_TOWN; ?>
+        </div>
+    </div><!-- END ADRESY header -->
+    <?php $i=1; foreach($ulist as $position => $user_data): ?> <!-- loop for ADRESY -->
+
+    <?php if($i % 2 == 0): ?><!-- just to determine every second row for css -->
+    <div class="row second-row">
+        <?php else: ?>
+        <div class="row">
+            <?php endif; ?>
+            <div class="col-lg-1 table-cell">
+                <?php echo $user_data['user_nick'];?>
+            </div>
+            <div class="col-lg-2 table-cell">
+                <?php echo $user_data['user_name'];?>
+            </div>
+            <div class="col-lg-2 table-cell">
+                <?php echo $user_data['user_surname'];?>
+            </div>
+            <div class="col-lg-3 table-cell">
+                <?php echo $user_data['user_street'];?>
+            </div>
+            <div class="col-lg-2 table-cell">
+                <?php echo $user_data['user_kod'];?>
+            </div>
+            <div class="col-lg-2 table-cell">
+                <?php echo $user_data['user_city'];?>
+            </div>
+        </div>
+
+        <?php $i++;?>
+        <?php endforeach; ?><!-- END loop for ADRESY -->
+
+</div><!-- whole tab panel ADRESY -->
+
+</div><!-- END whole tab content -->
+<?php else: ?>
+ <div class="empty-items-holder"><?php echo ATXT_NO_AVAIABLE_DATA;?></div>
+<?php endif; ?>
+<!--  DOES NOT WORK DUE TO FOLDER PRIVILAGES(or whatever this word will be)
+<div class="row">
+    <div class="col-lg-12">
+     <div class="buttons-container">
+      <form class="button-list-export-dummy-form" action="" name="buttons-export" method="POST">
+      <ul class="button-list-export">
+          <li><button type="submit" class="btn btn-default" name="btn_xml" id="btn_xml" value="xml_export"><?php //echo ATXT_EXPORT_TO; ?> XML</button></li>
+          <li><button type="submit" class="btn btn-default" name="btn_excell" id="btn_excell" value="excell_export"><?php// echo ATXT_EXPORT_TO; ?> EXCELL</button></li>
+          <li><button type="submit" class="btn btn-default" name="btn_csv" id="btn_csv" value="csv_export"><?php //echo ATXT_EXPORT_TO; ?> CSV</button></li>
+      </ul>
+      </form>
+     </div>
+    </div>
+</div>
+-->

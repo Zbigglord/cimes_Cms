@@ -1,0 +1,165 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo AMENU_CLASS_LIST; ?></div>
+<?php if(isset($delete_id)){echo $delete_id;}?>
+<?php if(isset($clist)): ?>
+
+<?php foreach($clist as $course): ?>
+        <?php $cat_name = \App\Models\Admin\Course::getCategoryName($course['course_category_id']); ?>
+
+        <div class="course-container"><!-- START ONE COURSE CONTAINER -->
+         <div class="row second-row padded">
+             <div class="col-lg-3 no-padding">
+                 <span class="class-heading"><?php echo AMENU_CLASS_CATEGORY; ?>: </span><span class="class-heading-regular"> <?php if($cat_name != false){echo $cat_name;}else{echo FALSE;} ?></span>
+             </div>
+             <div class="col-lg-3 no-padding">
+                 <span class="class-heading"><?php echo AMENU_CLASS_NAME; ?>: </span><span class="class-heading-regular"><?php echo $course['course_name']; ?> </span>
+             </div>
+             <div class="col-lg-3 no-padding">
+                 <span class="class-heading"><?php echo AMENU_CLASS_DATE_START; ?>: </span><span class="class-heading-regular"><?php echo $course['course_date_start']; ?> </span>
+             </div>
+             <div class="col-lg-3 no-padding">
+                 <span class="class-heading"><?php echo AMENU_CLASS_DATE_END; ?>: </span><span class="class-heading-regular"><?php echo $course['course_date_end']; ?> </span>
+                 <span class="glyphicon glyphicon-menu-down gliphicon-rozwin-kurs" id="rozwin_<?php echo $course['courses_display_data_id']; ?>"></span>
+             </div>
+         </div>
+         <div class="course-container-second-part" id="course-container_<?php echo $course['courses_display_data_id']; ?>"><!-- START CONTAINER SECOND PART-->
+             <div class="row margin-bottom">
+                 <div class="col-lg-10"><!-- LEFT COLUMN -->
+                  <div class="row margin-bottom-small">
+                      <div class="col-lg-3 align-right"><!-- name -->
+                          <span class="class-heading"><?php echo AMENU_CLASS_TITLE; ?>: </span>
+                      </div>
+                      <div class="col-lg-9 align-left coloured">
+                          <span class="class-heading-regular"><?php echo $course['courses_display_data_title']; ?> </span>
+                      </div>
+                  </div>
+                     <div class="row margin-bottom-small"><!-- link seo -->
+                         <div class="col-lg-3 align-right">
+                             <span class="class-heading"><?php echo AMENU_CLASS_SEO; ?>: </span>
+                         </div>
+                         <div class="col-lg-9 align-left coloured">
+                             <span class="class-heading-regular"><?php echo $course['courses_display_data_seo']; ?> </span>
+                         </div>
+                     </div>
+                     <div class="row margin-bottom-small"><!-- metakeys -->
+                         <div class="col-lg-3 align-right">
+                             <span class="class-heading"><?php echo AMENU_CLASS_METAKEYS; ?>: </span>
+                         </div>
+                         <div class="col-lg-9 align-left coloured">
+                             <span class="class-heading-regular"><?php echo $course['courses_display_data_metakey']; ?> </span>
+                         </div>
+                     </div>
+                     <div class="row margin-bottom-small"><!-- metadescription -->
+                         <div class="col-lg-3 align-right">
+                             <span class="class-heading"><?php echo AMENU_CLASS_METADATA; ?>: </span>
+                         </div>
+                         <div class="col-lg-9 align-left coloured">
+                             <span class="class-heading-regular"><?php echo $course['courses_display_data_metadata']; ?> </span>
+                         </div>
+                     </div>
+                     <div class="row margin-bottom-small"><!-- date added -->
+                         <div class="col-lg-3 align-right">
+                             <span class="class-heading"><?php echo AMENU_CLASS_DATE_ADDED; ?>: </span>
+                         </div>
+                         <div class="col-lg-9 align-left coloured">
+                             <span class="class-heading-regular"><?php echo $course['course_date_added']; ?> </span>
+                         </div>
+                     </div>
+                     <div class="row margin-bottom-small"><!-- date edited -->
+                         <div class="col-lg-3 align-right">
+                             <span class="class-heading"><?php echo AMENU_CLASS_DATE_EDITED; ?>: </span>
+                         </div>
+                         <div class="col-lg-9 align-left coloured">
+                             <span class="class-heading-regular"><?php echo $course['course_date_updated']; ?> </span>
+                         </div>
+                     </div>
+                     <div class="row margin-bottom-small"><!-- students -->
+                         <div class="col-lg-3 align-right">
+                             <span class="class-heading"><?php echo AMENU_CLASS_STUDENTS; ?>: </span>
+                         </div>
+                         <div class="col-lg-9 align-left coloured">
+                            <span class="class-heading-regular">
+                                <?php
+                                if($course['course_student_group_id'] == 0){
+                                    echo TEXT_NO;
+                                }else{
+                                    echo TEXT_YES;
+                                }
+                                ?>
+                            </span>
+                         </div>
+                     </div>
+                     <div class="row margin-bottom-small"><!-- students group name-->
+                         <div class="col-lg-3 align-right">
+                             <span class="class-heading"><?php echo AMENU_CLASS_STUDENTS_GROUP_NAME; ?>: </span>
+                         </div>
+                         <div class="col-lg-9 align-left coloured">
+                            <span class="class-heading-regular">
+                                <?php
+                                if($course['course_student_group_id'] == 0){
+                                    echo TEXT_NONE;
+                                }else{
+                                    echo '<span class="class-heading-regular">'.$course['courses_groups_name'].'</span>';
+                                }
+                                ?>
+                            </span>
+                         </div>
+                     </div>
+                     <div class="row margin-bottom-small"><!-- students group folder-->
+                         <div class="col-lg-3 align-right">
+                             <span class="class-heading"><?php echo AMENU_CLASS_STUDENTS_GROUP_FOLDER; ?>: </span>
+                         </div>
+                         <div class="col-lg-9 align-left coloured">
+                            <span class="class-heading-regular">
+                                <?php
+                                if($course['course_student_group_id'] == 0){
+                                    echo TEXT_NONE;
+                                }else{
+                                 $folder = \App\Models\Admin\Course::courseLoadData($course['course_student_group_id']);
+                                 $folder = \Core\Filesystem::getFolderFromPath($folder['courses_groups_folder']);
+                                    echo '<span class="class-heading-regular"><a href="folder?data='.$folder.'"> folder </a></span>';
+                                }
+                                ?>
+                            </span>
+                         </div>
+                     </div>
+                 </div><!-- END LEFT COLUMN -->
+                 <div class="col-lg-2"><!-- RIGHT COLUMN -->
+                     <form class="hidden-form" id="form-edit-class_<?php echo $course['courses_display_data_id']; ?>" name="form-edit-class" role="form" method="post" action="/admin/courses/edit">
+                           <input type="hidden" name="course_edit_id" class="course-edit" id="course-edit_<?php echo $course['courses_display_data_id']; ?>" value="<?php echo $course['courses_display_data_id']; ?>"/>
+                           <button type="submit" class="btn btn-default btn-couse-edit" id="course-edit-button_<?php echo $course['courses_display_data_id']; ?>"> <?php echo AMENU_EDIT; ?></button>
+                     </form>
+                     <form class="hidden-form" id="form-delete-class_<?php echo $course['courses_display_data_id']; ?>" name="form-delete-class" role="form" method="post" action="/admin/courses/delete">
+                           <input type="hidden" class="course-delete" id="course-delete_<?php echo $course['courses_display_data_id']; ?>" name="course-delete" value="<?php echo $course['courses_display_data_id']; ?>"/>
+                           <button type="submit" class="btn btn-default btn-couse-delete" id="course-delete-button_<?php echo $course['courses_display_data_id']; ?>"> <?php echo AMENU_DELETE; ?></button>
+                     </form>
+
+                 </div><!-- END RIGHT COLUMN -->
+             </div>
+             <div class="squizer">
+             <div class="row margin-bottom">
+               <div class="col-lg-2 align-right">
+                   <div class="thumbnail-placeholder-bigger">
+                       <img class="img-responsive thumbnail" src="<?php echo $course['courses_display_data_image']; ?>">
+                   </div>
+               </div>
+                 <div class="col-lg-10">
+                     <div class="class-description-holder">
+                         <p class="class-heading"><?php echo AMENU_CLASS_DESCRIPTION; ?>:</p>
+                         <p><?php echo html_entity_decode(substr($course['courses_display_data_description'], 0, 300)); ?></p>
+                     </div>
+                 </div>
+             </div>
+             </div>
+         </div><!-- END CONTAINER SECOND PART-->
+        </div><!-- END COURSE CONTAINER -->
+<?php endforeach; ?>
+<?php else: ?>
+    <div class="empty-items-holder"><?php echo ATXT_NO_AVAIABLE_DATA;?></div>
+<?php endif; ?>
+<div id="confirm-delete-course" title="">
+ <input type = "hidden" id="delete-course-confirmation" value="<?= ATXT_CLASS_DELETE_CONFIRM; ?>" />
+ <input type = "hidden" id="btn-continue" value="<?= ABTN_CONTINUE; ?>" />
+ <input type = "hidden" id="btn-cancel" value="<?= ABTN_CANCEL; ?>" />
+ <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><?php echo ATXT_CATEGORY_AND_DATA_WILL_BE_DELETED. ATXT_CONTINUE_ASK; ?>? </p>
+</div>

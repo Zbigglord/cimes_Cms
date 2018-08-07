@@ -1,0 +1,69 @@
+<?php
+/**
+ * Created by Zbigglord
+ * Company: HELLUX
+ * Date: 2018-01-08
+ * Time: 13:09
+ */
+?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= AMENU_IMAGE_GALLERIES_IMAGES_LIST; ?></div>
+
+<?php if(isset($images)): ?>
+    <div class="row no-margin">
+        <div class="col-lg-6 no-padding">
+
+        </div>
+        <div class="col-lg-6 no-padding">
+            <div id="pick-gallery-action" class="pull-right">
+                <label for="select-gallery-image-action">
+                    <select class="selectpicker" id="select-gallery-image-action" name="select-gallery-image-action" data-live-search="false" data-show-tick="true">
+                        <option data-subtext="" value="0" data-tokens=""><?= AMENU_ACTION; ?></option>
+                            <option data-subtext="" value="delete" data-tokens=""><?= TEXT_DELETE; ?></option>
+                            <option data-subtext="" value="edit" data-tokens=""><?= TEXT_EDIT; ?></option>
+                            <option data-subtext="" value="add" data-tokens=""><?= MED_ADD_IMAGES; ?></option>
+                    </select>
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+<table class="table table-responsive table-hover table-galleries">
+    <thead style="background-color: #F5F5F5;">
+    <tr>
+        <th width="1%" class="cell-bordered-right"><span class="check-all">#</span></th>
+        <th width="5%" class="cell-bordered-right"><?= AMENU_IMAGE_THUMBNAIL; ?></th>
+        <th class="cell-bordered-right"><?= AMENU_IMAGE_TITLE; ?></th>
+        <th class="cell-bordered-right"><?= AMENU_IMAGE_GALLERY; ?></th>
+        <th width="30%" class="cell-bordered-right"><?= AMENU_IMAGE_DESCRIPTION;?></th>
+        <th width="30%"class="cell-bordered-right"><?= AMENU_IMAGE_ALT; ?></th>
+    </tr>
+    </thead>
+    <tbody class="gallery-table-body">
+    <form id="form-gallery-image-action" name="form-gallery-image-action" action="" method="POST">
+        <?php $category_name = \App\Models\Admin\Category::categoryGetName($images[0]['gallery_category_id']); ?>
+
+        <input type="hidden" id="gallery-id" name="gallery-id" value="<?= $images[0]['gallery_id'];?>"/>
+        <?php foreach($images['images'] as $image): ?>
+        <tr>
+            <td scope="row" class="cell-bordered-right"><input type="checkbox" class="checkbox-gallery" id="image_<?= $image['image_id']; ?>" name="image_<?= $image['image_id']; ?>" value="<?= $image['image_id']; ?>"/></td>
+            <td class="cell-bordered-right"><img class="img-list" src="<?= $image['image_path'];?>" /></td>
+            <td class="cell-bordered-right"><strong><?= $image['image_title'];?></strong></td>
+            <td class="cell-bordered-right"> <?= $images[0]['gallery_name'] ?></td>
+            <td class="cell-bordered-right"><?= substr($image['image_description'],0,70);?>...</td>
+            <td class="cell-bordered-right"><?= substr($image['image_alt'],0,70);?>...</td>
+        </tr>
+        <?php endforeach; ?>
+
+<?php endif; ?>
+        </form>
+            </tbody>
+        </table>
+
+<div id="confirm-delete-images">
+    <input type = "hidden" id="delete-images-confirmation" value="<?= AMENU_IMAGES_DELETE_CONFIRM; ?>" />
+    <input type = "hidden" id="btn-continue" value="<?= ABTN_CONTINUE; ?>" />
+    <input type = "hidden" id="btn-cancel" value="<?= ABTN_CANCEL; ?>" />
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span><?= ATXT_IMAGES_DELETE_CONFIRM; ?>? </p>
+</div>

@@ -1,0 +1,49 @@
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?php echo AMENU_EDIT_MENU; ?></div>
+<?php //if(isset($data)){var_dump($data);} ?>
+<?php if(isset($menu_data) && !empty($menu_data)): ?>
+<form class="admin-form form-big" id="admin_edit_menu" name="admin_edit_menu" role="form" method="post" action="../menus/edit">
+    <input type="hidden" id="edit_menu_id" name="edit_menu_id" value="<?php echo $menu_data['id']; ?>"/>
+    <div class="row margin-bottom">
+        <div class="col-lg-6">
+            <div class="form-group no-margin">
+                <label for="edit_menu_name" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>"> * <?php echo AMENU_MENU_NAME; ?>  </label>
+                <input type="text" id="edit_menu_name" name="edit_menu_name" class="form-control" value="<?php echo $menu_data['menu_name']; ?>"/>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group no-margin">
+                <label for="edit_menu_title" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo TEXT_REQUIRED; ?>"> * <?php echo AMENU_MENU_TITLE; ?>  </label>
+                <input type="text" id="edit_menu_title" name="edit_menu_title" class="form-control" value="<?php echo $menu_data['menu_title']; ?>"/>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom">
+        <div class="col-lg-3">
+            <div class="checkbox-group-border">
+                <div class="row">
+                    <div class="col-xs-2" style="max-width: 20px;">
+                        <input type="checkbox" name="menu_is_vertical" id="menu_is_vertical" value="yes" <?php if($menu_data['menu_is_vertical'] == 1): ?> checked="checked" <?php endif; ?>/>
+                    </div>
+                    <div class="col-xs-10 no-padding align-left">
+                        <label for="menu_is_vertical" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?php echo AMENU_TOOLTIP_MENU_VERTICAL; ?>"> <?php echo AMENU_MENU_VERTICAL; ?>  </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2" style="max-width: 20px;">
+                        <input type="checkbox" name="menu_show_title" id="menu_show_title" value="yes" <?php if($menu_data['menu_show_title'] == 1): ?> checked="checked" <?php endif; ?>/>
+                    </div>
+                    <div class="col-xs-10 no-padding align-left">
+                        <label for="menu_show_title"> <?php echo AMENU_MENU_SHOW_TITLE; ?>  </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <button type="submit" class="btn btn-default" id="edit_menu"><?php echo AMENU_SAVE_MENU; ?></button>
+        </div>
+    </div>
+</form>
+<?php else: ?>
+<!-- error message will be displayed in message div -->
+<?php endif; ?>

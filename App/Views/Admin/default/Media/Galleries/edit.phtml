@@ -1,0 +1,79 @@
+<?php
+/**
+ * Creator: BabooJaga
+ * Date: 2016-04-17
+ * Time: 10:01
+ */
+var_dump($gallery_ids);
+?>
+<?php $categories = \App\Models\Admin\Category::categoryGetList(0, 2);?>
+<div class="message-login"><?php if(isset($message)){ echo $message; unset($message);} ?></div>
+<div class="page-header"><?= AMENU_IMAGE_GALLERIES_EDIT; ?></div>
+
+<?php if(isset($gallery) && !empty($gallery)): ?>
+<?php foreach($gallery as $gall):  ?>
+    <div class="row no-margin"><!-- START MAIN ROW -->
+        <div class="col-lg-12 no-padding"> <!-- START MAIN COL -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <h1 class="panel-title"><?= AMENU_IMAGE_GALLERY; ?><span class="input-error" id="errorSpicture"></h1>
+                        </div>
+                        <div class="col-lg-3">
+                            <div id="pick-salon-holder">
+                                <label for="select-gallery-category">
+                                    <select class="selectpicker" id="select-gallery-category" name="select-gallery-category" data-live-search="true" data-live-search-placeholder="<?= AMENU_SEARCH; ?>" data-show-tick="true" aria-required="true" required="required">
+                                        <option data-subtext="" value="0" data-tokens=""><?= AMENU_IMAGE_GALLERY_PICK_CATEGORY_NOT_CHANGE; ?>?</option>
+                                        <?php if(isset($categories)): ?>
+                                            <?php \App\Models\Admin\Category::recursivePrint($categories); ?>
+                                        <?php endif; ?>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form class="form-big" id="add_media_form" name="add_media_form" role="form" method="post" action="/admin/media/editgallery" enctype="multipart/form-data">
+                    <input type="hidden" id="gallery-category-id" name="gallery-category-id" value="<?=$gall['gallery_category_id'] ?>" />
+                    <input type="hidden" id="gallery-id" name="gallery-id" value="<?=$gall['gallery_id'] ?>" />
+                    <div class="panel-body" id="panel-body-add-media-salon">
+                        <div class="row no-margin">
+                            <div class="col-lg-6 no-padding-right">
+                                <div class="row no-margin">
+                                    <div class="col-lg-12 no-padding">
+                                        <div class="form-group">
+                                            <label for="gallery-name" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= TEXT_REQUIRED; ?>">* <?= AMENU_IMAGE_GALLERY_NAME; ?></label>
+                                            <input type="text" class="form-control input-sm" id="gallery-name" name="gallery-name" value="<?=$gall['gallery_name'] ?>" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="gallery-metawords" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= AMENU_IMAGE_GALLERY_META; ?>"><?= AMENU_IMAGE_GALLERY_META; ?></label>
+                                            <input type="text" class="form-control input-sm" id="gallery-metawords" name="gallery-metawords" value="<?=$gall['gallery_metadata'] ?>"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row no-margin">
+                                    <div class="col-lg-12 no-padding">
+                                        <div class="form-group">
+                                            <label for="gallery-description" class="tooltip-labels" data-toggle="tooltip" data-placement="top" title="<?= AMENU_IMAGE_GALLERY_DESCRIPTION; ?>"><?= AMENU_IMAGE_GALLERY_DESCRIPTION; ?></label>
+                                            <textarea class="form-control" placeholder="" rows="4" id="gallery-description" name="gallery-description" maxlength="255"><?=$gall['gallery_description'] ?></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- END BODY -->
+                    <div class="panel-footer clearfix">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-default" id="edit_gallery_save"><?= AMENU_SAVE; ?></button> <button type="button" class="btn btn-default" id="btn_cancel" onclick="cancel('/admin/media/imgalerieslist')"><?= BTN_CANCEL; ?></button>
+                        </div>
+                    </div>
+                </form>
+            </div><!-- END PANEL -->
+        </div> <!-- END PAGE CONTENT -->
+    </div> <!-- END MAIN COL -->
+ <?php endforeach; ?>
+<?php endif; ?>
